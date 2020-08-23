@@ -1,0 +1,113 @@
+/** @format */
+
+.content {
+  > div {
+    padding: 40px 150px;
+  }
+
+  > :last-child {
+    padding-bottom: 80px;
+  }
+
+  .landing-page {
+    font-size: 2.5rem;
+    font-weight: 700;
+
+    .img-landing {
+      height: 400px;
+    }
+
+    .img-slider {
+      height: 100px;
+    }
+
+    .btn-info {
+      font-size: 1.2rem;
+      height: 50px;
+      border-radius: 25px;
+      padding: 0 25px;
+    }
+  }
+
+  .title {
+    font-size: 28px;
+    font-weight: 700;
+
+    margin: 30px 0 50px 0;
+  }
+
+  .teamer-ranking {
+    height: 300px;
+    background-color: #fcfcfc;
+
+    .full-rank {
+      width: 90px;
+      font-size: 1.15rem;
+      text-align: center;
+    }
+  }
+
+  .fly {
+    height: 285px;
+    padding: 0 80px 0 30px;
+    margin-top: 40px;
+
+    .note {
+      margin: 0 10px;
+      font-size: 52px;
+      font-weight: 700;
+      line-height: normal;
+    }
+  }
+
+  .teamer-active {
+    h2 {
+      margin-top: 10px;
+    }
+
+    .mat-divider {
+      height: 552px;
+    }
+
+    .mat-form-field {
+      width: 120px;
+    }
+
+    .content-filter {
+      overflow: auto;
+      height: 552px;
+    }
+
+    .person {
+      margin: 8px;
+    }
+
+    ::ng-deep .mat-checkbox .mat-checkbox-label {
+      width: 100px;
+    }
+
+    ::ng-deep .mat-form-field .mat-form-field-wrapper {
+      padding-bottom: unset;
+    }
+
+    ::ng-deep .mat-radio-group .mat-radio-label-content {
+      width: 100px;
+    }
+  }
+
+  .teamer-busy {
+    background-color: #fcfcfc;
+  }
+
+  .status {
+    .mat-icon {
+      font-size: 180px;
+      width: 180px;
+      height: 180px;
+    }
+  }
+
+  p {
+    font-style: italic;
+  }
+}
