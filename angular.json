@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "mule"
+    }
+  },
+  "defaultProject": "mule",
+  "cli": {
+    "analytics": false
+  }
 }

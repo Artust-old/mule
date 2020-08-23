@@ -1,0 +1,38 @@
+/** @format */
+
+.header {
+  padding: 26px 150px;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+
+  img {
+    height: 48px;
+  }
+
+  .nav-bar {
+    min-width: 300px;
+    max-width: 360px;
+  }
+
+  .search {
+    color: #848f99;
+    background-color: #edf1f2;
+    border-radius: 24px;
+    padding-left: 12px;
+  }
+
+  .mat-linear {
+    background-image: linear-gradient(to right, #0366ff, #ca66cd);
+    font-size: 1rem;
+    color: #ffffff;
+    border-radius: 24px;
+    size: 32px 105px;
+  }
+
+  ::ng-deep .mat-form-field-wrapper {
+    padding: unset;
+  }
+
+  ::ng-deep .mat-form-field-infix {
+    border: unset !important;
+  }
+}
