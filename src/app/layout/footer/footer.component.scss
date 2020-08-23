@@ -1,0 +1,25 @@
+/** @format */
+
+.footer {
+  padding: 26px 217px;
+  background-color: #fcfcfc;
+  bottom: 0;
+  position: absolute;
+
+  .title {
+    margin-bottom: 8px;
+
+    .title-content {
+      padding-top: 4px;
+      font-size: 1.1rem;
+    }
+  }
+
+  .info-route {
+    color: #999999;
+  }
+
+  img {
+    height: 40px;
+  }
+}
