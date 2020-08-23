@@ -3,6 +3,11 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
+    "paths": {
+      "@common/*": [
+        "src/app/common/*"
+      ],
+    },
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
@@ -18,6 +23,7 @@
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
+    "strictInjectionParameters": true,
+    "enableIvy": false,
   }
 }
