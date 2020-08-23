@@ -10,7 +10,6 @@ import { MatButtonModule } from '@angular/material/button';
   declarations: [FooterComponent],
   imports: [
     CommonModule,
-
     FlexLayoutModule,
 
     MatButtonModule,

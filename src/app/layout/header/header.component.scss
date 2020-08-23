@@ -20,12 +20,9 @@
     padding-left: 12px;
   }
 
-  .mat-linear {
-    background-image: linear-gradient(to right, #0366ff, #ca66cd);
+  .btn-login {
+    border-radius: 18px;
     font-size: 1rem;
-    color: #ffffff;
-    border-radius: 24px;
-    size: 32px 105px;
   }
 
   ::ng-deep .mat-form-field-wrapper {

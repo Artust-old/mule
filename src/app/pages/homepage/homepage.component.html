@@ -1,0 +1,246 @@
+<div class="content">
+    <div class="landing-page" fxLayout="row" fxLayoutAlign="space-evenly">
+        <img class="img-landing" src="assets/imgs/landing-page.jpg" alt="mule-landing">
+        <div fxLayout="column" fxLayoutAlign="space-evenly center">
+            <div fxLayout="column" fxLayoutAlign="space-evenly center" fxFlex>
+                <img class="img-slider" src="assets/imgs/teame-logo.png" alt="teame-logo">
+                <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
+                    <div>Tri thức ở đâu</div>
+                    <div>vươn cao tới đó</div>
+                </div>
+            </div>
+            <div fxFlex="20">
+                <button class="btn-info" mat-raised-button color="linear">Tìm hiểu thêm</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="teamer-ranking" fxLayout="column" fxLayoutAlign="center center">
+        <div class="title linear">TOP TEAMERS</div>
+        <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="80px">
+            <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
+                <div class="person">
+                    <span class="ranking mat-linear">#1</span>
+                    <img class="ava" src="assets/avatar/Leonardo DiCaprio.jpg" alt="teamer Leonardo">
+                </div>
+                <div class="person">
+                    <span class="ranking mat-linear">#2</span>
+                    <img class="ava" src="assets/avatar/Mark Zuckerberg.jpg" alt="teamer Zuckerberg">
+                </div>
+                <div class="person">
+                    <span class="ranking mat-linear">#3</span>
+                    <img class="ava" src="assets/avatar/Morgan Freeman.jpg" alt="teamer Freeman">
+                </div>
+                <div class="person">
+                    <span class="ranking mat-linear">#4</span>
+                    <img class="ava" src="assets/avatar/Robert Downey Jr.jpg" alt="teamer Downey Jr">
+                </div>
+                <div class="person">
+                    <span class="ranking mat-linear">#5</span>
+                    <img class="ava" src="assets/avatar/Donald Trump.jpg" alt="teamer Trump">
+                </div>
+            </div>
+            <div class="show-more linear" fxLayout="row" fxLayoutAlign=" center">
+                <div class="full-rank">
+                    FULL RANKING
+                </div>
+                <mat-icon>double_arrow</mat-icon>
+            </div>
+        </div>
+    </div>
+
+    <div class="fly" fxLayout="row" fxLayoutAlign="center">
+        <img src="assets/imgs/path-before.png" style="height: 125px; width: 320px; margin-top: 150px;">
+        <div class="note linear" fxLayout="column" fxLayoutAlign="center" fxFlex>
+            <div>Lạc đường? Bắt đầu từ đây.</div>
+        </div>
+        <img src="assets/imgs/path-after.png" style="height: 100px; width: 510px; margin-top: 50px;">
+        <img src="assets/imgs/path-fly.png" style="height: 50px; width: 120px;">
+    </div>
+
+    <div class="teamer-active" fxLayout="column" fxLayoutAlign="center center">
+        <div class="title linear">TEAMERS ACTIVE</div>
+        <div class="content-teamer-active" fxLayout="row" fxLayoutAlign=" center" fxLayoutGap="24px" fxFill>
+            <div fxLayout="column" class="filer-bar">
+                <h2 class="linear">Ngôn ngữ</h2>
+                <section fxLayout="column">
+                    <mat-checkbox labelPosition="before">Tiếng Anh</mat-checkbox>
+                    <mat-checkbox labelPosition="before">Tiếng Nhật</mat-checkbox>
+                    <mat-checkbox labelPosition="before">Tiếng Đức</mat-checkbox>
+                    <mat-checkbox labelPosition="before">Tiếng Hàn</mat-checkbox>
+                    <mat-checkbox labelPosition="before" [(ngModel)]="diffLang">Khác</mat-checkbox>
+                    <mat-form-field appearance="legacy" floatLabel="never">
+                        <input matInput [disabled]="!diffLang">
+                    </mat-form-field>
+                </section>
+
+
+                <h2 class="linear">Giới tính</h2>
+                <mat-radio-group aria-label="Select an option" fxLayout="column" fxLayoutGap="4px"
+                    labelPosition="before" color="primary">
+                    <mat-radio-button value="1">Nam</mat-radio-button>
+                    <mat-radio-button value="2">Nữ</mat-radio-button>
+                    <mat-radio-button value="0">Khác</mat-radio-button>
+                </mat-radio-group>
+
+                <h2 class="linear">Giá tiền</h2>
+                <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Giá thấp nhất</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                    <div>~</div>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Giá cao nhất</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <mat-divider vertical="true"></mat-divider>
+
+            <div class="content-filter" fxLayout="row wrap" fxLayoutAlign="space-around" fxFlex>
+                <div class="person" fxFlex="44">
+                    <div fxLayout="column wrap" fxLayoutAlign="center space-between" fxLayoutGap="8px">
+                        <div fxLayout="row" fxLayoutGap="8px">
+                            <img class="ava" src="assets/avatar/Morgan Freeman.jpg">
+                            <div fxLayout="column" fxFlexAlign="center" fxLayoutAlign="space-between">
+                                <strong>Morgan Freeman</strong>
+                                <ul>
+                                    <li>Tiếng Anh</li>
+                                    <li>Tiếng Đức</li>
+                                    <li>IELTS 8.0</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p>“Hello! Mình là Tuệ. Năm nay 23 tuổi, đang là sinh viên năm 4 đại học tại Nhật.”</p>
+                    </div>
+                </div>
+
+                <div class="person" fxFlex="44">
+                    <div fxLayout="column wrap" fxLayoutAlign="center space-between" fxLayoutGap="8px">
+                        <div fxLayout="row" fxLayoutGap="8px">
+                            <img class="ava" src="assets/avatar/Morgan Freeman.jpg">
+                            <div fxLayout="column" fxFlexAlign="center" fxLayoutAlign="space-between">
+                                <strong>Morgan Freeman</strong>
+                                <ul>
+                                    <li>Tiếng Anh</li>
+                                    <li>Tiếng Đức</li>
+                                    <li>IELTS 8.0</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p>“Hello! Mình là Tuệ. Năm nay 23 tuổi, đang là sinh viên năm 4 đại học tại Nhật.”</p>
+                    </div>
+                </div>
+
+                <div class="person" fxFlex="44">
+                    <div fxLayout="column wrap" fxLayoutAlign="center space-between" fxLayoutGap="8px">
+                        <div fxLayout="row" fxLayoutGap="8px">
+                            <img class="ava" src="assets/avatar/Morgan Freeman.jpg">
+                            <div fxLayout="column" fxFlexAlign="center" fxLayoutAlign="space-between">
+                                <strong>Morgan Freeman</strong>
+                                <ul>
+                                    <li>Tiếng Anh</li>
+                                    <li>Tiếng Đức</li>
+                                    <li>IELTS 8.0</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p>“Hello! Mình là Tuệ. Năm nay 23 tuổi, đang là sinh viên năm 4 đại học tại Nhật.”</p>
+                    </div>
+                </div>
+
+                <div class="person" fxFlex="44">
+                    <div fxLayout="column wrap" fxLayoutAlign="center space-between" fxLayoutGap="8px">
+                        <div fxLayout="row" fxLayoutGap="8px">
+                            <img class="ava" src="assets/avatar/Morgan Freeman.jpg">
+                            <div fxLayout="column" fxFlexAlign="center" fxLayoutAlign="space-between">
+                                <strong>Morgan Freeman</strong>
+                                <ul>
+                                    <li>Tiếng Anh</li>
+                                    <li>Tiếng Đức</li>
+                                    <li>IELTS 8.0</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p>“Hello! Mình là Tuệ. Năm nay 23 tuổi, đang là sinh viên năm 4 đại học tại Nhật.”</p>
+                    </div>
+                </div>
+
+                <div class="person" fxFlex="44">
+                    <div fxLayout="column wrap" fxLayoutAlign="center space-between" fxLayoutGap="8px">
+                        <div fxLayout="row" fxLayoutGap="8px">
+                            <img class="ava" src="assets/avatar/Morgan Freeman.jpg">
+                            <div fxLayout="column" fxFlexAlign="center" fxLayoutAlign="space-between">
+                                <strong>Morgan Freeman</strong>
+                                <ul>
+                                    <li>Tiếng Anh</li>
+                                    <li>Tiếng Đức</li>
+                                    <li>IELTS 8.0</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p>“Hello! Mình là Tuệ. Năm nay 23 tuổi, đang là sinh viên năm 4 đại học tại Nhật.”</p>
+                    </div>
+                </div>
+
+                <div class="person" fxFlex="44">
+                    <div fxLayout="column wrap" fxLayoutAlign="center space-between" fxLayoutGap="8px">
+                        <div fxLayout="row" fxLayoutGap="8px">
+                            <img class="ava" src="assets/avatar/Morgan Freeman.jpg">
+                            <div fxLayout="column" fxFlexAlign="center" fxLayoutAlign="space-between">
+                                <strong>Morgan Freeman</strong>
+                                <ul>
+                                    <li>Tiếng Anh</li>
+                                    <li>Tiếng Đức</li>
+                                    <li>IELTS 8.0</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p>“Hello! Mình là Tuệ. Năm nay 23 tuổi, đang là sinh viên năm 4 đại học tại Nhật.”</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="teamer-busy" fxLayout="column" fxLayoutAlign="center center">
+        <div class="title linear">TEAMERS BUSY</div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign=" center" fxLayoutGap="80px">
+            <div class="person">
+                <img class="ava tiny" src="assets/avatar/Leonardo DiCaprio.jpg" alt="teamer Leonardo">
+            </div>
+            <div class="person">
+                <img class="ava small" src="assets/avatar/Mark Zuckerberg.jpg" alt="teamer Zuckerberg">
+            </div>
+            <div class="person">
+                <img class="ava" src="assets/avatar/Morgan Freeman.jpg" alt="teamer Freeman">
+            </div>
+            <div class="person">
+                <img class="ava small" src="assets/avatar/Robert Downey Jr.jpg" alt="teamer Downey Jr">
+            </div>
+            <div class="person">
+                <img class="ava tiny" src="assets/avatar/Donald Trump.jpg" alt="teamer Trump">
+            </div>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="center center">
+            <h2><strong>Morgan Freeman</strong></h2>
+            <div>Tiếng Anh - Tiếng Đức - IELTS 8.0</div>
+            <p>“Mới 19 tuổi nhưng đã làm fan K-Pop 11 năm, ôm điện thoại 24/7 chỉ vì Youtube”</p>
+        </div>
+    </div>
+
+    <div class="status" fxLayout="row" fxLayoutAlign="space-evenly center">
+        <div fxLayout="column" fxLayoutAlign="center center">
+            <mat-icon class="linear">groups</mat-icon>
+            <h1><strong>2500 ++</strong></h1>
+            <h3>Người sử dụng</h3>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="center center">
+            <mat-icon class="linear">school</mat-icon>
+            <h1><strong>250 ++</strong></h1>
+            <h3>Teamer</h3>
+        </div>
+    </div>
+</div>
