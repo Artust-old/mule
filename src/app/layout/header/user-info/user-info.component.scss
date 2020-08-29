@@ -13,17 +13,18 @@
 
   select {
     height: 40px;
-    border-radius: 20px;
-    width: 68px;
-    padding-left: 12px;
-    font-size: 1.1rem;
+    border: unset;
     margin-left: 12px;
-    background-color: #f6f6f6;
+    padding: 0 4px;
+  }
+
+  select:focus {
+    outline: none;
   }
 }
 
 .mat-menu-panel {
-  max-height: 300px !important;
+  max-height: 352px !important;
   max-width: 500px !important;
 
   .notify.mat-focus-indicator.mat-menu-item {
@@ -48,5 +49,11 @@
         font-size: 14px;
       }
     }
+  }
+}
+
+.select-linear-vertical {
+  button.mat-menu-item {
+    width: 212px !important;
   }
 }
