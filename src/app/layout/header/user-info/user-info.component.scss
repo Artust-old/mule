@@ -1,0 +1,59 @@
+/** @format */
+
+.user-info {
+  margin-left: 24px;
+
+  img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-left: 8px;
+  }
+
+  select {
+    height: 40px;
+    border: unset;
+    margin-left: 12px;
+    padding: 0 4px;
+  }
+
+  select:focus {
+    outline: none;
+  }
+}
+
+.mat-menu-panel {
+  max-height: 352px !important;
+  max-width: 500px !important;
+
+  .notify.mat-focus-indicator.mat-menu-item {
+    height: unset;
+    line-height: 1.5;
+    font-family: Lato;
+    white-space: unset;
+
+    .mat-raised-button {
+      width: 100px;
+    }
+
+    .message {
+      padding-top: 8px;
+    }
+
+    .actions {
+      line-height: 2.5;
+
+      .show-detail {
+        color: #0265ff;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.select-linear-vertical {
+  button.mat-menu-item {
+    width: 212px !important;
+  }
+}

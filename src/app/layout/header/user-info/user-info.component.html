@@ -1,0 +1,58 @@
+<div fxLayout="row" class="user-info" fxLayoutGap="4px" fxLayoutAlign=" center">
+    <button mat-icon-button [matMenuTriggerFor]="menuMail" color="primary">
+        <mat-icon matBadge="1" matBadgeSize="small" matBadgeColor="warn">mail</mat-icon>
+    </button>
+    <mat-menu #menuMail="matMenu">
+        <button mat-menu-item>Item 1</button>
+        <button mat-menu-item>Item 2</button>
+    </mat-menu>
+
+    <button mat-icon-button [matMenuTriggerFor]="menuNoti" color="primary">
+        <mat-icon matBadge="1" matBadgeSize="small" matBadgeColor="warn">notifications</mat-icon>
+    </button>
+    <mat-menu #menuNoti="matMenu">
+        <div *ngFor="let message of messages; let index = index; trackBy: trackByFn">
+            <div mat-menu-item class="notify" fxLayout="row">
+                <div class="message" fxFlex="50">Stormie Hansford vừa đặt lịch học từ 9h - 11h ngày 1/11/2019</div>
+                <div class="actions" fxLayout="column" fxLayoutAlign=" end" fxFlex>
+                    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+                        <button mat-raised-button color="linear">Chấp nhận</button>
+                        <button mat-raised-button>Từ chối</button>
+                    </div>
+                    <div class="show-detail" fxLayout="row">Xem chi tiết</div>
+                </div>
+            </div>
+        </div>
+    </mat-menu>
+
+    <button mat-icon-button [matMenuTriggerFor]="menuInfo" color="primary">
+        <img src="assets/avatar/Morgan Freeman.jpg">
+    </button>
+    <mat-menu class="select-linear-vertical" #menuInfo="matMenu">
+        <button mat-menu-item>
+            <mat-icon>date_range</mat-icon>Lịch học của tôi
+        </button>
+        <button mat-menu-item>
+            <mat-icon>date_range</mat-icon>Lịch dạy của tôi
+        </button>
+        <button mat-menu-item>
+            <mat-icon>person_outline</mat-icon>Trang cá nhân
+        </button>
+        <button mat-menu-item>
+            <mat-icon>credit_card</mat-icon>Tài khoản (200.000 đ)
+        </button>
+        <button mat-menu-item>
+            <mat-icon>lock</mat-icon>Đổi mật khẩu
+        </button>
+        <button mat-menu-item>
+            <mat-icon>settings</mat-icon>Cài đặt profile
+        </button>
+        <button mat-menu-item (click)="handleLogOut()">
+            <mat-icon>login</mat-icon>Đăng xuất
+        </button>
+    </mat-menu>
+
+    <select class="language" [(ngModel)]="selectedLang">
+        <option *ngFor="let lang of languages" [ngValue]="lang">{{lang}}</option>
+    </select>
+</div>

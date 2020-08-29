@@ -7,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  login = true;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  handleLogIn(): void {
+    this.login = false;
+  }
+
+  handleLogOut(e): void {
+    this.login = e;
   }
 
 }

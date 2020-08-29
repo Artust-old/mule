@@ -38,6 +38,10 @@ body {
   font-family: Lato, "Helvetica Neue", sans-serif;
 }
 
+.full-width {
+  width: 100%;
+}
+
 .mat-linear {
   background-image: linear-gradient(to right, #0366ff, #ca66cd);
   color: #ffffff;
@@ -47,6 +51,16 @@ body {
   background: linear-gradient(to right, #0366ff, #ca66cd);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.select-linear-vertical {
+  .mat-menu-item:hover {
+    border-image: linear-gradient(to bottom, #0366ff, #ca66cd) 1 100%;
+    border-style: solid;
+    border-right: unset;
+    border-left-width: 2px;
+    line-height: unset;
+  }
 }
 
 .person {
