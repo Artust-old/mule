@@ -6,7 +6,7 @@
         <button mat-button>About us</button>
         <button mat-button>Termer & User</button>
     </div>
-    
+
     <div fxLayout="row" fxLayoutAlign="end center" fxFlex fxLayoutGap="8px">
         <mat-form-field appearance="none" class="search">
             <div fxLayout="row" fxLayoutGap="6px">
@@ -15,7 +15,9 @@
             </div>
         </mat-form-field>
 
-        <!-- <button class="btn-login" mat-raised-button color="linear">Login</button> -->
-        <app-user-info></app-user-info>
+        <button *ngIf="login; else logOut" class="btn-login" mat-raised-button color="linear" (click)="handleLogIn()">Login</button>
+        <ng-template #logOut>
+            <app-user-info [statusLogging]="login" (logOut)="handleLogOut($event)"></app-user-info>
+        </ng-template>
     </div>
 </div>

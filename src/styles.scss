@@ -53,6 +53,16 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
+.select-linear-vertical {
+  .mat-menu-item:hover {
+    border-image: linear-gradient(to bottom, #0366ff, #ca66cd) 1 100%;
+    border-style: solid;
+    border-right: unset;
+    border-left-width: 2px;
+    line-height: unset;
+  }
+}
+
 .person {
   position: relative;
 
