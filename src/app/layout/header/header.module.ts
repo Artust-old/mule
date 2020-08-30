@@ -11,6 +11,7 @@ import { UserInfoComponent } from './user-info/user-info.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -21,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    RouterModule,
 
     MatButtonModule,
     MatInputModule,

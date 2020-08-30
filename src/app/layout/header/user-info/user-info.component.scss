@@ -55,5 +55,11 @@
 .select-linear-vertical {
   button.mat-menu-item {
     width: 212px !important;
+    border-left: 3px solid transparent;
+  }
+
+  .mat-menu-item:hover {
+    border-image: linear-gradient(to bottom, #0366ff, #ca66cd) 1 100%;
+    border-left: 3px solid;
   }
 }

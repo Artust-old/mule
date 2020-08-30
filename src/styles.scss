@@ -42,6 +42,10 @@ body {
   width: 100%;
 }
 
+.full-height {
+  height: 100%;
+}
+
 .mat-linear {
   background-image: linear-gradient(to right, #0366ff, #ca66cd);
   color: #ffffff;
@@ -51,16 +55,6 @@ body {
   background: linear-gradient(to right, #0366ff, #ca66cd);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-.select-linear-vertical {
-  .mat-menu-item:hover {
-    border-image: linear-gradient(to bottom, #0366ff, #ca66cd) 1 100%;
-    border-style: solid;
-    border-right: unset;
-    border-left-width: 2px;
-    line-height: unset;
-  }
 }
 
 .person {
@@ -77,23 +71,29 @@ body {
     display: flex;
     align-items: center;
   }
+}
 
-  .ava {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 50px;
-  }
+.ava {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50px;
+}
 
-  .ava.small {
-    width: 80px;
-    height: 80px;
-  }
+.ava.small {
+  width: 80px;
+  height: 80px;
+}
 
-  .ava.tiny {
-    width: 60px;
-    height: 60px;
-  }
+.ava.tiny {
+  width: 60px;
+  height: 60px;
+}
+
+.ava.chat {
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
 }
 
 .show-more {
