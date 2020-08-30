@@ -2,7 +2,7 @@
     <img src="assets/imgs/teame-logo.png" alt="mule-logo">
 
     <div class="nav-bar" fxLayout="row" fxLayoutAlign="space-between center" fxFlex="30">
-        <button mat-button>Home</button>
+        <button mat-button routerLink="">Home</button>
         <button mat-button>About us</button>
         <button mat-button>Termer & User</button>
     </div>
@@ -15,7 +15,8 @@
             </div>
         </mat-form-field>
 
-        <button *ngIf="login; else logOut" class="btn-login" mat-raised-button color="linear" (click)="handleLogIn()">Login</button>
+        <button *ngIf="login; else logOut" class="btn-login" mat-raised-button color="linear"
+            (click)="handleLogIn()">Login</button>
         <ng-template #logOut>
             <app-user-info [statusLogging]="login" (logOut)="handleLogOut($event)"></app-user-info>
         </ng-template>
