@@ -1,0 +1,92 @@
+/** @format */
+
+.trial {
+  .tabs {
+    position: relative;
+
+    .search {
+      color: #848f99;
+      background-color: #edf1f2;
+      border-radius: 24px;
+      padding-left: 12px;
+
+      ::ng-deep .mat-form-field-wrapper {
+        padding: unset;
+      }
+
+      ::ng-deep .mat-form-field-infix {
+        border: unset !important;
+      }
+    }
+
+    ::ng-deep .mat-tab-header {
+      border-bottom: none;
+    }
+
+    .mat-stroked-button {
+      border-color: #3f51b5;
+    }
+
+    .mat-raised-button {
+      box-shadow: unset;
+    }
+
+    .actions {
+      position: absolute;
+      right: 0px;
+      z-index: 1;
+      top: 5px;
+
+      button {
+        .mat-icon {
+          font-size: 16px;
+          font-weight: 700;
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+
+    .tab-content {
+      ::ng-deep .mat-tab-label-content {
+        font-weight: 700;
+      }
+
+      mat-cell:first-of-type,
+      mat-header-cell:first-of-type,
+      mat-footer-cell:first-of-type,
+      mat-cell:last-of-type,
+      mat-header-cell:last-of-type,
+      mat-footer-cell:last-of-type {
+        padding: 4px 8px;
+      }
+
+      mat-header-cell {
+        font-size: 1.1rem;
+        font-weight: 700;
+      }
+
+      .mat-column-id, .mat-column-more {
+        flex: 0 0 60px;
+      }
+
+      .mat-column-user {
+        flex: 0 0 20%;
+      }
+
+      .mat-column-level,
+      .mat-column-time,
+      .mat-column-recommend {
+        flex: 0 0 10%;
+      }
+
+      .mat-column-copy {
+        min-width: 80px;
+      }
+    }
+
+    .custom-color {
+      border: 1px solid #3f51b5;
+    }
+  }
+}

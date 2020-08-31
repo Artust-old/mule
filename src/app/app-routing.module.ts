@@ -11,7 +11,11 @@ const routes: Routes = [
   {
     path: 'messages',
     loadChildren: () => import('./pages/chat-box/chat-box.module').then(m => m.ChatBoxModule),
-  }
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule),
+  },
 ];
 
 @NgModule({

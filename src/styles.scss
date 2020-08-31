@@ -99,3 +99,16 @@ body {
 .show-more {
   color: #0265ff;
 }
+
+::-webkit-scrollbar {
+  width: 4px;
+  border: 1px solid #d5d5d5;
+}
+::-webkit-scrollbar-track {
+  border-radius: 1px;
+  background: #ffffff;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 1px;
+  background: #b0b0b0;
+}
