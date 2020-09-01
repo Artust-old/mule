@@ -96,6 +96,7 @@
     .mat-column-detail,
     .mat-column-type {
       flex: 0 0 90px;
+      place-content: center;
     }
   }
 }

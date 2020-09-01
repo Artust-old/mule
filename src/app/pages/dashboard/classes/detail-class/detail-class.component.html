@@ -12,8 +12,8 @@
 
     <div fxLayout="row" fxLayoutAlign="space-between center">
         <div>
-            <div class="header">Các lớp học thử</div>
-            <div class="teacher">Giáo viên: Nguyễn Kim Phượng - Phụ trách: Phan Hồng Ánh</div>
+            <div class="header">Danh sách học viên lớp {{paramRoute}}</div>
+            <div class="lecturer">Giáo viên: Nguyễn Kim Phượng - Phụ trách: Phan Hồng Ánh</div>
         </div>
         <button mat-raised-button color="primary">Xác nhận lớp học</button>
     </div>
@@ -42,25 +42,35 @@
                 <mat-cell *matCellDef="let element">{{element?.sale}}</mat-cell>
             </ng-container>
 
-            <!-- Attendance Column -->
+            <!-- Image payment Column -->
             <ng-container matColumnDef="attendance">
-                <mat-header-cell *matHeaderCellDef> Giờ học </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef> Ảnh chuyển khoản </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <mat-checkbox color="primary" [(ngModel)]="element.attendance"></mat-checkbox>
+                    <a href="">{{element?.imgPayment}}</a>
                 </mat-cell>
             </ng-container>
 
-            <!-- Adder class Column -->
-            <ng-container matColumnDef="adder">
-                <mat-header-cell *matHeaderCellDef> Được thêm bởi </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element?.adder}} </mat-cell>
+            <!-- Status Column -->
+            <ng-container matColumnDef="status">
+                <mat-header-cell *matHeaderCellDef> Trạng thái </mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element?.status}}</mat-cell>
+            </ng-container>
+
+            <!-- Note Column -->
+            <ng-container matColumnDef="note">
+                <mat-header-cell *matHeaderCellDef> Ghi chú </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button mat-icon-button *ngIf="element.note" color="primary">
+                        <mat-icon>description</mat-icon>
+                    </button>
+                </mat-cell>
             </ng-container>
 
             <!-- Actions Column -->
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef> </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <button class="custom-color" mat-stroked-button color="primary">Đổi trạng thái</button>
+                    <button class="custom-color" mat-stroked-button color="primary" (click)="openDialogUpdateAlumnus()">Đổi trạng thái</button>
                     <button class="custom-color" mat-stroked-button color="primary">Chuyển lớp</button>
                     <button class="custom-color" mat-stroked-button color="primary">
                         <mat-icon>delete_outline</mat-icon>

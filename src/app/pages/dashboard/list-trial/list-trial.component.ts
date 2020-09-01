@@ -24,7 +24,7 @@ export const MY_FORMATS = {
 
 const FAKE_DATA = [
   {
-    code: 'DEA1032',
+    code: 'DEA1034',
     lecturer: {
       name: 'Harmen Porter',
       linkFb: 'www.facebook.com/amoniac',

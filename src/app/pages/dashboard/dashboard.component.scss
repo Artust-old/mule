@@ -4,8 +4,38 @@
   .nav {
     box-shadow: 2px 0px 5px -5px rgba(0, 0, 0, 0.5);
     min-width: 200px;
-    max-width: 300px; 
+    max-width: 300px;
     min-height: calc(100vh - 365px);
+
+    .nav-item {
+      width: calc(100% - 43px);
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 20px;
+      border-left: 3px solid transparent;
+    }
+
+    .nav-item:hover {
+      border-image: linear-gradient(to bottom, #0366ff, #ca66cd) 1 100%;
+      border-left: 3px solid;
+    }
+
+    .nav-item:focus {
+      outline: none;
+    }
+
+    .nav-item.checked {
+      background: linear-gradient(to bottom, #0366ff, #ca66cd);
+      color: white;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      border-image: linear-gradient(to bottom, #0366ff, #ca66cd) 1 100%;
+      border-left: 3px solid;
+    }
+
+    .nav-item:after{
+      opacity: 0.2;
+    }
   }
 
   .content-dashboard {

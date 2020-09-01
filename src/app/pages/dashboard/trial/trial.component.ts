@@ -222,6 +222,8 @@ export class TrialComponent implements OnInit {
   openDialogRegisTrial(): void {
     const dialogRef = this.dialog.open(DialogRegisTrialComponent, {
       maxWidth: '1000px',
+      autoFocus: false,
+      restoreFocus: false,
       data: {}
     });
 

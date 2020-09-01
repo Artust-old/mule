@@ -11,8 +11,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { TrialModule } from './trial/trial.module';
 import { ListTrialModule } from './list-trial/list-trial.module';
 import { ListTrialComponent } from './list-trial/list-trial.component';
-import { DetailClassModule } from './list-trial/detail-class/detail-class.module';
-import { DetailClassComponent } from './list-trial/detail-class/detail-class.component';
+import { DetailClassTrialModule } from './list-trial/detail-class-trial/detail-class-trial.module';
+import { DetailClassTrialComponent } from './list-trial/detail-class-trial/detail-class-trial.component';
+import { DetailClassComponent } from './classes/detail-class/detail-class.component';
+import { ClassesModule } from './classes/classes.module';
+import { DetailClassModule } from './classes/detail-class/detail-class.module';
+import { MatRippleModule } from '@angular/material/core';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 const routes: Routes = [
   {
@@ -24,6 +29,7 @@ const routes: Routes = [
         redirectTo: 'trial',
         pathMatch: 'full',
       },
+      // Trial class
       {
         path: 'trial',
         component: TrialComponent,
@@ -33,12 +39,17 @@ const routes: Routes = [
         component: ListTrialComponent,
       },
       {
-        path: 'list-trial/:id',
-        component: DetailClassComponent,
+        path: 'list-trial/:code',
+        component: DetailClassTrialComponent,
       },
+      // Class
       {
         path: 'classes',
         component: ClassesComponent,
+      },
+      {
+        path: 'classes/:code',
+        component: DetailClassComponent,
       },
       {
         path: 'alumnus',
@@ -53,16 +64,20 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [DashboardComponent, ClassesComponent, AlumnusComponent, LecturersComponent],
+  declarations: [DashboardComponent, AlumnusComponent, LecturersComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
 
     FlexLayoutModule,
-    MatButtonModule,
+    MatButtonToggleModule,
+    MatRippleModule,
+
 
     TrialModule,
     ListTrialModule,
+    DetailClassTrialModule,
+    ClassesModule,
     DetailClassModule,
   ],
   exports: [DashboardComponent],

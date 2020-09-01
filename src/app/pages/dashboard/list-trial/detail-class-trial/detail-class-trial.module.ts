@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DetailClassComponent } from './detail-class.component';
+import { DetailClassTrialComponent } from './detail-class-trial.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatTableModule } from '@angular/material/table';
@@ -13,13 +13,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { RouterModule } from '@angular/router';
 import { MatRippleModule } from '@angular/material/core';
+import { DialogUpdateUserTrialModule } from '../dialog-update-user-trial/dialog-update-user-trial.module';
+import { DialogChangeClassTrialComponent } from '../dialog-change-class-trial/dialog-change-class-trial.component';
+import { DialogChangeClassTrialModule } from '../dialog-change-class-trial/dialog-change-class-trial.module';
 
 
 
 @NgModule({
-  declarations: [DetailClassComponent],
+  declarations: [DetailClassTrialComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -37,7 +39,10 @@ import { MatRippleModule } from '@angular/material/core';
     MatPaginatorModule,
     MatCheckboxModule,
     MatRippleModule,
+
+    DialogUpdateUserTrialModule,
+    DialogChangeClassTrialModule,
   ],
-  exports: [DetailClassComponent],
+  exports: [DetailClassTrialComponent],
 })
-export class DetailClassModule { }
+export class DetailClassTrialModule { }
