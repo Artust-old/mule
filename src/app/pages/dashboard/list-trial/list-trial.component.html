@@ -1,1 +1,111 @@
-<p>list-trial works!</p>
+<div class="trial" fxLayout="column">
+    <div class="user" fxLayout="row" fxLayoutAlign="end center">
+        natbestboy@gmail.com
+        <img src="assets/avatar/Morgan Freeman.jpg" class="ava chat">
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="header">Các lớp học thử</div>
+        <div fxLayout="row" fxLayoutGap="12px" fxLayoutAlign=" center">
+            <mat-form-field appearance="none" class="search">
+                <div fxLayout="row" fxLayoutGap="6px">
+                    <mat-icon>search</mat-icon>
+                    <input matInput type="text" placeholder="Search">
+                </div>
+            </mat-form-field>
+
+            <mat-form-field appearance="none" class="search filter">
+                <select matNativeControl required>
+                    <option value="volvo">Volvo</option>
+                    <option value="saab">Saab</option>
+                    <option value="mercedes">Mercedes</option>
+                    <option value="audi">Audi</option>
+                </select>
+            </mat-form-field>
+
+            <mat-form-field appearance="none" class="search date">
+                <input matInput [matDatepicker]="dp" [formControl]="date">
+                <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                <mat-datepicker #dp startView="multi-year" (yearSelected)="chosenYearHandler($event)"
+                    (monthSelected)="chosenMonthHandler($event, dp)" panelClass="example-month-picker">
+                </mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="data-table">
+        <mat-table [dataSource]="dataSource">
+
+            <!-- Code class Column -->
+            <ng-container matColumnDef="code">
+                <mat-header-cell *matHeaderCellDef> Mã lớp </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.code}} </mat-cell>
+            </ng-container>
+
+            <!-- Lecturer Column -->
+            <ng-container matColumnDef="lecturer">
+                <mat-header-cell *matHeaderCellDef> Giáo viên </mat-header-cell>
+                <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                    <div>{{element?.lecturer?.name}}</div>
+                    <div class="link-facebook">{{element?.lecturer?.linkFb}}</div>
+                </mat-cell>
+            </ng-container>
+
+            <!-- Level Column -->
+            <ng-container matColumnDef="level">
+                <mat-header-cell *matHeaderCellDef> Trình độ </mat-header-cell>
+                <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                    <div>{{element?.level?.language}}</div>
+                    <div>{{element?.level?.cetificate}}</div>
+                </mat-cell>
+            </ng-container>
+
+            <!-- Time Column -->
+            <ng-container matColumnDef="time">
+                <mat-header-cell *matHeaderCellDef> Giờ học </mat-header-cell>
+                <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                    <div>{{element?.time?.clock}}</div>
+                    <div>{{element?.time?.day}}</div>
+                </mat-cell>
+            </ng-container>
+
+            <!-- Type class Column -->
+            <ng-container matColumnDef="type">
+                <mat-header-cell *matHeaderCellDef> Loại lớp </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element?.type}} </mat-cell>
+            </ng-container>
+
+            <!-- Status Column -->
+            <ng-container matColumnDef="status">
+                <mat-header-cell *matHeaderCellDef> Trạng thái </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element?.status}} </mat-cell>
+            </ng-container>
+
+            <!-- Date start Column -->
+            <ng-container matColumnDef="startDate">
+                <mat-header-cell *matHeaderCellDef> Ngày học thử </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element?.startDate}} </mat-cell>
+            </ng-container>
+
+            <!-- Supervisor Column -->
+            <ng-container matColumnDef="supervisor">
+                <mat-header-cell *matHeaderCellDef> Phụ trách </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element?.supervisor}} </mat-cell>
+            </ng-container>
+
+            <!-- Detail Column -->
+            <ng-container matColumnDef="detail">
+                <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button class="custom-color" mat-stroked-button color="primary" (click)="redirectDetail(element)">Chi tiết</button>
+                </mat-cell>
+            </ng-container>
+
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>

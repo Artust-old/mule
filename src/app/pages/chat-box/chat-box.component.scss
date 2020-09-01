@@ -110,5 +110,9 @@
       padding: unset;
       border-radius: unset;
     }
+
+    .attach-file-icon {
+      transform: rotateY(0deg) rotate(45deg);
+    }
   }
 }
