@@ -93,6 +93,10 @@ export class DetailClassTrialComponent implements OnInit {
     this.router.navigate([`dashboard/list-trial`]);
   }
 
+  trackByFn(index: number, item: any): any {
+    return item;
+  }
+
   openDialogUpdateUser(): void {
     const dialogUpdateUserTrialRef = this.dialog.open(DialogUpdateUserTrialComponent, {
       maxWidth: '1000px',

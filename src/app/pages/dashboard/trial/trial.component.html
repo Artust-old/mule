@@ -11,7 +11,7 @@
 
             <!-- TAB FIRST -->
             <mat-tab label=" Tất cả học viên ">
-                <mat-table *ngIf="selectedTab === 0" [dataSource]="dataSource" class="table-form">
+                <mat-table *ngIf="selectedTab === 0" [dataSource]="dataSource" [trackBy]="trackByFn" class="table-form">
 
                     <!-- ID Column -->
                     <ng-container matColumnDef="id">
@@ -83,7 +83,7 @@
 
             <!-- TAB LAST -->
             <mat-tab label=" Học viên của tôi ">
-                <mat-table *ngIf="selectedTab === 1" [dataSource]="dataSource" class="table-form">
+                <mat-table *ngIf="selectedTab === 1" [dataSource]="dataSource" [trackBy]="trackByFn" class="table-form">
 
                     <!-- ID Column -->
                     <ng-container matColumnDef="id">

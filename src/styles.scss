@@ -46,6 +46,13 @@ body {
   height: 100%;
 }
 
+.long-text {
+  text-overflow: ellipsis;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .mat-linear {
   background-image: linear-gradient(to right, #0366ff, #ca66cd);
   color: #ffffff;

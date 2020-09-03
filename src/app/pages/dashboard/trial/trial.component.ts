@@ -203,6 +203,10 @@ export class TrialComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
+  trackByFn(index: number, item: any): any {
+    return item;
+  }
+
   displayedColumn(e): void {
     // 'id', 'user', 'level', 'time', 'recommend', 'sale', 'note', 'copy', 'facebook', 'more'
     this.selectedTab = e.index;

@@ -19,7 +19,7 @@
     </div>
 
     <div class="data-table">
-        <mat-table [dataSource]="dataSource">
+        <mat-table [dataSource]="dataSource" [trackBy]="trackByFn">
 
             <!-- Numberic Column -->
             <ng-container matColumnDef="numberic">

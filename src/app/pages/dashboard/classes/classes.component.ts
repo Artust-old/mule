@@ -10,6 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { DialogUpdateClassComponent } from './dialog-update-class/dialog-update-class.component';
 
 export const MY_FORMATS = {
   parse: {
@@ -205,6 +206,10 @@ export class ClassesComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
+  trackByFn(index: number, item: any): any {
+    return item;
+  }
+
   chosenYearHandler(normalizedYear: Moment) {
     const ctrlValue = this.date.value;
     ctrlValue.year(normalizedYear.year());
@@ -220,5 +225,18 @@ export class ClassesComponent implements OnInit {
 
   redirectDetail(e): void {
     this.router.navigate([`${e.code}`], { relativeTo: this.route });
+  }
+
+  openDialogUpdateClass(item): void {
+    const dialogUpdateClassRef = this.dialog.open(DialogUpdateClassComponent, {
+      maxWidth: '1000px',
+      autoFocus: false,
+      restoreFocus: false,
+      data: item,
+    });
+
+    dialogUpdateClassRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 }

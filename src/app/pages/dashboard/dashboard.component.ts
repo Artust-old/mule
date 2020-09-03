@@ -1,4 +1,5 @@
 import { Component, OnInit, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,10 +16,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     { route: 'lecturers', name: 'Giáo viên', checked: false },
   ];
   selectedItem: any;
+  currentRoute: string;
 
-  constructor() {
-    this.menuItem[0].checked = true;
-    this.selectedItem = this.menuItem[0];
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {
+    this.currentRoute = this.router.url.split('/').pop();
+    this.selectedItem = this.menuItem.find(item => item.route === this.currentRoute);
+    this.selectedItem.checked = true;
   }
 
   ngOnInit(): void {

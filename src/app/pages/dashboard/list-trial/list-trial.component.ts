@@ -170,6 +170,10 @@ export class ListTrialComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
+  trackByFn(index: number, item: any): any {
+    return item;
+  }
+
   chosenYearHandler(normalizedYear: Moment) {
     const ctrlValue = this.date.value;
     ctrlValue.year(normalizedYear.year());

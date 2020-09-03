@@ -97,6 +97,10 @@ export class DetailClassComponent implements OnInit {
     this.router.navigate([`dashboard/classes`]);
   }
 
+  trackByFn(index: number, item: any): any {
+    return item;
+  }
+
   openDialogUpdateAlumnus(): void {
     const dialogRef = this.dialog.open(DialogUpdateAlumnusComponent, {
       maxWidth: '1000px',
