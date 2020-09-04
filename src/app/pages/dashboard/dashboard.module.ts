@@ -19,6 +19,7 @@ import { DetailClassModule } from './classes/detail-class/detail-class.module';
 import { MatRippleModule } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AlumnusModule } from './alumnus/alumnus.module';
+import { LecturersModule } from './lecturers/lecturers.module';
 
 const routes: Routes = [
   {
@@ -65,7 +66,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [DashboardComponent, LecturersComponent],
+  declarations: [DashboardComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -81,6 +82,7 @@ const routes: Routes = [
     ClassesModule,
     DetailClassModule,
     AlumnusModule,
+    LecturersModule,
   ],
   exports: [DashboardComponent],
 })

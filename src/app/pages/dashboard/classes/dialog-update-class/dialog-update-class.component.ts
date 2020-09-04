@@ -22,7 +22,6 @@ export class DialogUpdateClassComponent implements OnInit {
     public dialogRef: MatDialogRef<DialogUpdateClassComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     ) {
-      console.log(data);
     }
 
   ngOnInit(): void {
@@ -30,7 +29,6 @@ export class DialogUpdateClassComponent implements OnInit {
 
   chooseTimeTable(e): void {
     e.checked = !e.checked;
-    console.log(this.week);
   }
 
 }
