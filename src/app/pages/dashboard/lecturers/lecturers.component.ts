@@ -116,7 +116,7 @@ export class LecturersComponent implements OnInit {
         break;
     }
     const dialogUpdateInfoLecturerRef = this.dialog.open(DialogUpdateInfoLecturerComponent, {
-      maxWidth: '1000px',
+      // maxWidth: '1000px',
       autoFocus: false,
       restoreFocus: false,
       data,

@@ -223,12 +223,23 @@ export class TrialComponent implements OnInit {
     }
   }
 
-  openDialogRegisTrial(): void {
+  openDialogRegisTrial(key): void {
+    let data = {};
+    switch (key) {
+      case 'regis':
+        data = { title: 'ĐĂNG KÍ HỌC VIÊN HỌC THỬ' };
+        break;
+      case 'update':
+        data = { title: 'CHỈNH SỬA THÔNG TIN HỌC VIÊN' };
+        break;
+      default:
+        break;
+    }
     const dialogRef = this.dialog.open(DialogRegisTrialComponent, {
       maxWidth: '1000px',
       autoFocus: false,
       restoreFocus: false,
-      data: {}
+      data,
     });
 
     dialogRef.afterClosed().subscribe(result => {

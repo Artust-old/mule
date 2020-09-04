@@ -20,6 +20,8 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AlumnusModule } from './alumnus/alumnus.module';
 import { LecturersModule } from './lecturers/lecturers.module';
+import { SalesComponent } from './sales/sales.component';
+import { SalesModule } from './sales/sales.module';
 
 const routes: Routes = [
   {
@@ -53,14 +55,21 @@ const routes: Routes = [
         path: 'classes/:code',
         component: DetailClassComponent,
       },
+      // Alumnus
       {
         path: 'alumnus',
         component: AlumnusComponent,
       },
+      // Lecturer
       {
         path: 'lecturers',
         component: LecturersComponent,
       },
+      // Sales
+      {
+        path: 'sales',
+        component: SalesComponent,
+      }
     ]
   }
 ];
@@ -83,6 +92,7 @@ const routes: Routes = [
     DetailClassModule,
     AlumnusModule,
     LecturersModule,
+    SalesModule,
   ],
   exports: [DashboardComponent],
 })

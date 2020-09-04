@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     { route: 'classes', name: 'Lớp học', checked: false },
     { route: 'alumnus', name: 'Học viên', checked: false },
     { route: 'lecturers', name: 'Giáo viên', checked: false },
+    { route: 'sales', name: 'Sale', checked: false },
   ];
   selectedItem: any;
   currentRoute: string;

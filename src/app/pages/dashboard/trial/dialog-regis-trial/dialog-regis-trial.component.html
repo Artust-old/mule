@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>ĐĂNG KÝ HỌC VIÊN HỌC THỬ</h1>
+<h1 mat-dialog-title>{{data.title}}</h1>
 <div mat-dialog-content>
     <div class="user-info">
         <h2>Thông Tin Học Viên</h2>
@@ -76,13 +76,20 @@
             <div fxLayout="row" fxFlexOffset="10" fxFlex="80" fxLayoutAlign=" center">
                 <div class="text-field">Ngày học</div>
                 <div class="choose-date" fxFlex fxLayout="row" fxLayoutAlign=" center">
-                    <div matRipple>Thứ 2</div>
+                    <!-- <div matRipple>Thứ 2</div>
                     <div matRipple>Thứ 3</div>
                     <div matRipple>Thứ 4</div>
                     <div matRipple>Thứ 5</div>
                     <div matRipple>Thứ 6</div>
                     <div matRipple>Thứ 7</div>
-                    <div class="last-child" matRipple>CN</div>
+                    <div class="last-child" matRipple>CN</div> -->
+
+
+                    <div *ngFor="let day of week; let first = first; let last = last;"
+                        [ngClass]="{'first-child': first, 'last-child': last, 'checked': day.checked}"
+                        (click)="chooseTimeTable(day)">
+                        {{day.value}}
+                    </div>
                 </div>
             </div>
 

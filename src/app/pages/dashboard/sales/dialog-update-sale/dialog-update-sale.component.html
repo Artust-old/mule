@@ -1,0 +1,42 @@
+<h1 mat-dialog-title>{{dataReceive.title}}</h1>
+<div mat-dialog-content>
+    <div fxLayout="row wrap">
+        <div class="text-field" fxLayout="row" fxLayoutAlign=" center">Họ và tên</div>
+        <mat-form-field>
+            <input matInput>
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign=" center">
+        <div class="text-field">Email</div>
+        <mat-form-field>
+            <input matInput>
+        </mat-form-field>
+    </div>
+
+    <div class="note" fxLayout="row" fxLayoutAlign=" center">
+        <div class="text-field">Số điện thoại</div>
+        <mat-form-field appearance="none" class="search text-input">
+            <input matInput type="text" [ngModel]="'+84'">
+        </mat-form-field>
+        <mat-form-field appearance="none" class="search currency">
+            <input matInput type="text" placeholder="Number">
+        </mat-form-field>
+    </div>
+
+    <div class="note last-field" fxLayout="row" fxLayoutAlign=" center">
+        <div class="text-field">Link facebook</div>
+        <mat-form-field appearance="none" class="search text-input" fxFlex>
+            <input matInput>
+        </mat-form-field>
+    </div>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="12px">
+    <button mat-stroked-button color="primary" mat-dialog-close>Huỷ</button>
+    <div *ngIf="dataReceive.feature === 'update'">
+        <button mat-raised-button color="primary" mat-dialog-close>Lưu thay đổi</button>
+    </div>
+    <div *ngIf="dataReceive.feature === 'add'">
+        <button mat-raised-button color="primary" mat-dialog-close>Thêm sale</button>
+    </div>
+</div>

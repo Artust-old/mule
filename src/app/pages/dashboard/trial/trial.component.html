@@ -145,7 +145,7 @@
                                 <mat-icon>more_horiz</mat-icon>
                             </button>
                             <mat-menu #menu="matMenu">
-                                <button mat-menu-item>Chỉnh sửa</button>
+                                <button mat-menu-item (click)="openDialogRegisTrial('update')">Chỉnh sửa</button>
                                 <button mat-menu-item>Xoá</button>
                             </mat-menu>
                         </mat-cell>
@@ -169,7 +169,7 @@
                 </div>
             </mat-form-field>
 
-            <button mat-raised-button color="primary" (click)="openDialogRegisTrial()">
+            <button mat-raised-button color="primary" (click)="openDialogRegisTrial('regis')">
                 <mat-icon>add</mat-icon>
                 Thêm học viên
             </button>

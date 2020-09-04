@@ -24,8 +24,7 @@
   }
 
   .list-chat {
-    overflow: hidden;
-    padding-right: 15px;
+    overflow: auto;
 
     .chatting:hover {
       border-image: linear-gradient(to bottom, #0366ff, #ca66cd) 1 100%;
@@ -53,11 +52,6 @@
         color: #979797;
       }
     }
-  }
-
-  .list-chat:hover {
-    overflow: auto;
-    padding-right: unset;
   }
 
   .header.box {
