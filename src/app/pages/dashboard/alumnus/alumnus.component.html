@@ -1,0 +1,202 @@
+<div class="trial" fxLayout="column">
+    <div class="user" fxLayout="row" fxLayoutAlign="end center">
+        natbestboy@gmail.com
+        <img src="assets/avatar/Morgan Freeman.jpg" class="ava chat">
+    </div>
+
+    <div class="header">Học Viên</div>
+
+    <div class="tabs" fxLayout="row">
+        <mat-tab-group class="tab-content" fxFlex (focusChange)="displayedColumn($event)">
+
+            <!-- TAB FIRST -->
+            <mat-tab label=" Tất cả học viên ">
+                <mat-table *ngIf="selectedTab === 0" [dataSource]="dataSource" [trackBy]="trackByFn" class="table-form">
+
+                    <!-- ID Column -->
+                    <ng-container matColumnDef="id">
+                        <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+                    </ng-container>
+
+                    <!-- User Column -->
+                    <ng-container matColumnDef="user">
+                        <mat-header-cell *matHeaderCellDef> Học viên </mat-header-cell>
+                        <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                            <div>{{element?.user?.name}}</div>
+                        </mat-cell>
+                    </ng-container>
+
+                    <!-- Level Column -->
+                    <ng-container matColumnDef="level">
+                        <mat-header-cell *matHeaderCellDef> Trình độ </mat-header-cell>
+                        <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                            <div>{{element?.level?.language}} - {{element?.level?.cetificate}}</div>
+                        </mat-cell>
+                    </ng-container>
+
+                    <!-- Class Column -->
+                    <ng-container matColumnDef="class">
+                        <mat-header-cell *matHeaderCellDef> Lớp hiện tại </mat-header-cell>
+                        <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                            {{element?.class}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <!-- Email Column -->
+                    <ng-container matColumnDef="email">
+                        <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            <div class="long-text">{{element?.email}}</div>
+                        </mat-cell>
+                    </ng-container>
+
+                    <!-- Status Column -->
+                    <ng-container matColumnDef="status">
+                        <mat-header-cell *matHeaderCellDef> Trạng thái </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element?.status}} </mat-cell>
+                    </ng-container>
+
+                    <!-- Supervisor Column -->
+                    <ng-container matColumnDef="supervisor">
+                        <mat-header-cell *matHeaderCellDef> Phụ trách </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element?.supervisor}} </mat-cell>
+                    </ng-container>
+
+                    <!-- Date join Column -->
+                    <ng-container matColumnDef="dateJoin">
+                        <mat-header-cell *matHeaderCellDef> Ngày tham gia </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element?.dateJoin}} </mat-cell>
+                    </ng-container>
+
+                    <!-- Manage Column -->
+                    <ng-container matColumnDef="manage">
+                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                        <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center center">
+                            <button mat-icon-button [matMenuTriggerFor]="menu">
+                                <mat-icon>more_horiz</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item>Chỉnh sửa</button>
+                                <button mat-menu-item>Copy link FB</button>
+                                <button mat-menu-item>Activity log</button>
+                            </mat-menu>
+                        </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </mat-tab>
+            <!-- END TAB FIRST -->
+
+            <!-- TAB LAST -->
+            <mat-tab label=" Học viên của tôi ">
+                <mat-table *ngIf="selectedTab === 1" [dataSource]="dataSource" [trackBy]="trackByFn" class="table-form">
+
+                    <!-- ID Column -->
+                    <ng-container matColumnDef="id">
+                        <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+                    </ng-container>
+
+                    <!-- User Column -->
+                    <ng-container matColumnDef="user">
+                        <mat-header-cell *matHeaderCellDef> Học viên </mat-header-cell>
+                        <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                            <div>{{element?.user?.name}}</div>
+                        </mat-cell>
+                    </ng-container>
+
+                    <!-- Level Column -->
+                    <ng-container matColumnDef="level">
+                        <mat-header-cell *matHeaderCellDef> Trình độ </mat-header-cell>
+                        <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                            <div>{{element?.level?.language}} - {{element?.level?.cetificate}}</div>
+                        </mat-cell>
+                    </ng-container>
+
+                    <!-- Class Column -->
+                    <ng-container matColumnDef="class">
+                        <mat-header-cell *matHeaderCellDef> Lớp hiện tại </mat-header-cell>
+                        <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                            {{element?.class}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <!-- Email Column -->
+                    <ng-container matColumnDef="email">
+                        <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            <div class="long-text">{{element?.email}}</div>
+                        </mat-cell>
+                    </ng-container>
+
+                    <!-- Status Column -->
+                    <ng-container matColumnDef="status">
+                        <mat-header-cell *matHeaderCellDef> Trạng thái </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element?.status}} </mat-cell>
+                    </ng-container>
+
+                    <!-- Date join Column -->
+                    <ng-container matColumnDef="dateJoin">
+                        <mat-header-cell *matHeaderCellDef> Ngày tham gia </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element?.dateJoin}} </mat-cell>
+                    </ng-container>
+
+                    <!-- Manage Column -->
+                    <ng-container matColumnDef="manage">
+                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                        <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center center">
+                            <button mat-icon-button [matMenuTriggerFor]="menu">
+                                <mat-icon>more_horiz</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item>Chỉnh sửa</button>
+                                <button mat-menu-item>Copy link FB</button>
+                            </mat-menu>
+                        </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </mat-tab>
+            <!-- END TAB LAST -->
+
+        </mat-tab-group>
+
+        <div class="actions" fxLayout="row" fxLayoutAlign=" center" fxLayoutGap="12px">
+            <mat-form-field appearance="none" class="search">
+                <div fxLayout="row" fxLayoutGap="6px">
+                    <mat-icon>search</mat-icon>
+                    <input matInput type="text" placeholder="Search">
+                </div>
+            </mat-form-field>
+
+            <mat-form-field appearance="none" class="search filter">
+                <select matNativeControl>
+                    <option value="all">Tất cả ngôn ngữ</option>
+                    <option value="volvo">Volvo</option>
+                    <option value="saab">Saab</option>
+                    <option value="mercedes">Mercedes</option>
+                    <option value="audi">Audi</option>
+                </select>
+            </mat-form-field>
+
+            <mat-form-field appearance="none" class="search filter">
+                <select matNativeControl>
+                    <option value="all">Tất cả trạng thái</option>
+                    <option value="volvo">Đã học xong</option>
+                    <option value="saab">Không học</option>
+                    <option value="mercedes">Học chính thức</option>
+                </select>
+            </mat-form-field>
+            <!-- END TAB -->
+        </div>
+    </div>
+</div>

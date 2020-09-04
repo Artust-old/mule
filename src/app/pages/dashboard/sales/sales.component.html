@@ -1,0 +1,91 @@
+<div class="sale" fxLayout="column">
+    <div class="user" fxLayout="row" fxLayoutAlign="end center">
+        natbestboy@gmail.com
+        <img src="assets/avatar/Morgan Freeman.jpg" class="ava chat">
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="header">Các lớp học thử</div>
+        <div fxLayout="row" fxLayoutGap="12px" fxLayoutAlign=" center">
+            <mat-form-field appearance="none" class="search">
+                <div fxLayout="row" fxLayoutGap="6px">
+                    <mat-icon>search</mat-icon>
+                    <input matInput type="text" placeholder="Search">
+                </div>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" (click)="openDialogUpdateInfoSale(null, 'add')">
+                <mat-icon>add</mat-icon>
+                Thêm mới
+            </button>
+        </div>
+    </div>
+
+    <div class="data-table">
+        <mat-table [dataSource]="dataSource" [trackBy]="trackByFn">
+
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+            </ng-container>
+
+            <!-- Sale Column -->
+            <ng-container matColumnDef="sale">
+                <mat-header-cell *matHeaderCellDef> Họ và tên </mat-header-cell>
+                <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                    <div>{{element?.sale?.name}}</div>
+                </mat-cell>
+            </ng-container>
+
+            <!-- Email Column -->
+            <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+                <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                    <div class="long-text">{{element?.email}}</div>
+                </mat-cell>
+            </ng-container>
+
+            <!-- Phone number Column -->
+            <ng-container matColumnDef="phone">
+                <mat-header-cell *matHeaderCellDef> Số điện thoại </mat-header-cell>
+                <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                    <div>{{element?.phone}}</div>
+                </mat-cell>
+            </ng-container>
+
+            <!-- Status Column -->
+            <ng-container matColumnDef="status">
+                <mat-header-cell *matHeaderCellDef> Trạng thái </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element?.status}} </mat-cell>
+            </ng-container>
+
+            <!-- Date join Column -->
+            <ng-container matColumnDef="joinDate">
+                <mat-header-cell *matHeaderCellDef> Ngày tham gia </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element?.joinedDate}} </mat-cell>
+            </ng-container>
+
+            <!-- Manage Column -->
+            <ng-container matColumnDef="manage">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center center">
+                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                        <mat-icon>more_horiz</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="openDialogUpdateInfoSale(element, 'update')">Chỉnh sửa</button>
+                        <button mat-menu-item>Copy link FB</button>
+                        <button mat-menu-item>Dừng hoạt động</button>
+                    </mat-menu>
+                </mat-cell>
+            </ng-container>
+
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>

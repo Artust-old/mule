@@ -1,0 +1,39 @@
+<h1 mat-dialog-title>CHUYỂN LỚP CHO HỌC VIÊN</h1>
+<div mat-dialog-content>
+    <div class="user-info">
+        <div fxLayout="row wrap">
+            <div fxFlex="60" fxLayout="row" fxFlexOffset="10" fxLayoutAlign=" center">
+                <div class="text-field">Học viên</div>
+                <div>Xuan Jingyi</div>
+            </div>
+            <div class="status-current" fxFlex="60" fxLayout="row" fxFlexOffset="10" fxLayoutAlign=" center">
+                <div class="text-field">Lớp hiện tại</div>
+                <div><strong>DEA1032</strong></div>
+            </div>
+
+            <div class="note" fxFlex="60" fxLayout="row" fxFlexOffset="10" fxLayoutAlign=" center">
+                <div class="text-field">Cập nhật lớp mới :</div>
+                <mat-form-field appearance="none" class="search filter">
+                    <select matNativeControl>
+                        <option value="all">DEA1031</option>
+                        <option value="all">DEA1032</option>
+                        <option value="volvo">DEA1033</option>
+                    </select>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <div class="class-info">
+        <div class="note" fxLayout="row" fxFlexOffset="10" fxFlex="80" fxLayoutAlign=" center">
+            <div class="text-field">Lí do chuyển lớp : </div>
+            <mat-form-field fxFlex appearance="outline">
+                <textarea matInput></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="12px">
+    <button mat-stroked-button color="primary" mat-dialog-close>Huỷ</button>
+    <button mat-raised-button color="primary" mat-dialog-close>Cập nhật</button>
+</div>

@@ -1,0 +1,181 @@
+<div class="trial" fxLayout="column">
+    <div class="user" fxLayout="row" fxLayoutAlign="end center">
+        natbestboy@gmail.com
+        <img src="assets/avatar/Morgan Freeman.jpg" class="ava chat">
+    </div>
+
+    <div class="header">Đăng ký học thử</div>
+
+    <div class="tabs" fxLayout="row">
+        <mat-tab-group class="tab-content" fxFlex (focusChange)="displayedColumn($event)">
+
+            <!-- TAB FIRST -->
+            <mat-tab label=" Tất cả học viên ">
+                <mat-table *ngIf="selectedTab === 0" [dataSource]="dataSource" [trackBy]="trackByFn" class="table-form">
+
+                    <!-- ID Column -->
+                    <ng-container matColumnDef="id">
+                        <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+                    </ng-container>
+
+                    <!-- User Column -->
+                    <ng-container matColumnDef="user">
+                        <mat-header-cell *matHeaderCellDef> Học viên </mat-header-cell>
+                        <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                            <div>{{element?.user?.name}}</div>
+                            <div>{{element?.user?.mail}}</div>
+                        </mat-cell>
+                    </ng-container>
+
+                    <!-- Level Column -->
+                    <ng-container matColumnDef="level">
+                        <mat-header-cell *matHeaderCellDef> Trình độ </mat-header-cell>
+                        <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                            <div>{{element?.level?.language}}</div>
+                            <div>{{element?.level?.cetificate}}</div>
+                        </mat-cell>
+                    </ng-container>
+
+                    <!-- Time Column -->
+                    <ng-container matColumnDef="time">
+                        <mat-header-cell *matHeaderCellDef> Giờ học </mat-header-cell>
+                        <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                            <div>{{element?.time?.clock}}</div>
+                            <div>{{element?.time?.day}}</div>
+                            <div></div>
+                        </mat-cell>
+                    </ng-container>
+
+                    <!-- Recommend Column -->
+                    <ng-container matColumnDef="recommend">
+                        <mat-header-cell *matHeaderCellDef> Đề xuất </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element?.recommend}} </mat-cell>
+                    </ng-container>
+
+                    <!-- Sale Column -->
+                    <ng-container matColumnDef="sale">
+                        <mat-header-cell *matHeaderCellDef> Sale </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.sale}} </mat-cell>
+                    </ng-container>
+
+                    <!-- Note Column -->
+                    <ng-container matColumnDef="note">
+                        <mat-header-cell *matHeaderCellDef> Ghi chú </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.note}} </mat-cell>
+                    </ng-container>
+
+                    <!-- Copy link Column -->
+                    <ng-container matColumnDef="copy">
+                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                        <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center center">
+                            <button mat-stroked-button color="primary">Copy link fb</button>
+                        </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </mat-tab>
+            <!-- END TAB FIRST -->
+
+            <!-- TAB LAST -->
+            <mat-tab label=" Học viên của tôi ">
+                <mat-table *ngIf="selectedTab === 1" [dataSource]="dataSource" [trackBy]="trackByFn" class="table-form">
+
+                    <!-- ID Column -->
+                    <ng-container matColumnDef="id">
+                        <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+                    </ng-container>
+
+                    <!-- User Column -->
+                    <ng-container matColumnDef="user">
+                        <mat-header-cell *matHeaderCellDef> Học viên </mat-header-cell>
+                        <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                            <div>{{element?.user?.name}}</div>
+                            <div>{{element?.user?.mail}}</div>
+                        </mat-cell>
+                    </ng-container>
+
+                    <!-- Level Column -->
+                    <ng-container matColumnDef="level">
+                        <mat-header-cell *matHeaderCellDef> Trình độ </mat-header-cell>
+                        <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                            <div>{{element?.level?.language}}</div>
+                            <div>{{element?.level?.cetificate}}</div>
+                        </mat-cell>
+                    </ng-container>
+
+                    <!-- Time Column -->
+                    <ng-container matColumnDef="time">
+                        <mat-header-cell *matHeaderCellDef> Giờ học </mat-header-cell>
+                        <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                            <div>{{element?.time?.clock}}</div>
+                            <div>{{element?.time?.day}}</div>
+                            <div></div>
+                        </mat-cell>
+                    </ng-container>
+
+                    <!-- Recommend Column -->
+                    <ng-container matColumnDef="recommend">
+                        <mat-header-cell *matHeaderCellDef> Đề xuất </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element?.recommend}} </mat-cell>
+                    </ng-container>
+
+                    <!-- Note Column -->
+                    <ng-container matColumnDef="note">
+                        <mat-header-cell *matHeaderCellDef> Ghi chú </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element?.note}} </mat-cell>
+                    </ng-container>
+
+                    <!-- Facebook Column -->
+                    <ng-container matColumnDef="facebook">
+                        <mat-header-cell *matHeaderCellDef> Facebook </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element?.linkFb}} </mat-cell>
+                    </ng-container>
+
+                    <!-- More Column -->
+                    <ng-container matColumnDef="more">
+                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                        <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center center">
+                            <button mat-icon-button [matMenuTriggerFor]="menu">
+                                <mat-icon>more_horiz</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="openDialogRegisTrial('update')">Chỉnh sửa</button>
+                                <button mat-menu-item>Xoá</button>
+                            </mat-menu>
+                        </mat-cell>
+                    </ng-container>
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </mat-tab>
+            <!-- END TAB LAST -->
+
+        </mat-tab-group>
+
+        <div class="actions" fxLayout="row" fxLayoutAlign=" center" fxLayoutGap="12px">
+            <mat-form-field appearance="none" class="search">
+                <div fxLayout="row" fxLayoutGap="6px">
+                    <mat-icon>search</mat-icon>
+                    <input matInput type="text" placeholder="Search">
+                </div>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" (click)="openDialogRegisTrial('regis')">
+                <mat-icon>add</mat-icon>
+                Thêm học viên
+            </button>
+
+            <button mat-stroked-button color="primary">Thêm hàng loạt</button>
+            <!-- END TAB -->
+        </div>
+    </div>
+</div>

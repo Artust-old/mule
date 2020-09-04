@@ -1,0 +1,12 @@
+<div class="dashboard" fxLayout="row">
+    <div class="nav" fxLayout="column" fxLayoutAlign=" start" fxFlex="20">
+        <div *ngFor="let item of menuItem; let index = index; trackBy: trackByFn" class="nav-item"
+            [ngClass]="{'checked': item.checked}" matRipple [routerLink]="item.route" (click)="handleClick(item)">
+            {{item.name}}
+        </div>
+    </div>
+
+    <div class="content-dashboard" fxFlex>
+        <router-outlet></router-outlet>
+    </div>
+</div>

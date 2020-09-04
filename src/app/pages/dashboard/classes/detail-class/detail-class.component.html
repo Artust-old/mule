@@ -1,0 +1,88 @@
+<div class="detail-trial" fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div matRipple fxLayout="row" class="back-btn" fxLayoutAlign=" center" (click)="handleBack()">
+            <mat-icon>arrow_back_ios</mat-icon>
+            <div>Quay lại</div>
+        </div>
+        <div class="user" fxLayout="row" fxLayoutAlign=" center">
+            natbestboy@gmail.com
+            <img src="assets/avatar/Morgan Freeman.jpg" class="ava chat">
+        </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div>
+            <div class="header">Danh sách học viên lớp {{paramRoute}}</div>
+            <div class="lecturer">Giáo viên: Nguyễn Kim Phượng - Phụ trách: Phan Hồng Ánh</div>
+        </div>
+        <button mat-raised-button color="primary">Xác nhận lớp học</button>
+    </div>
+
+    <div class="data-table">
+        <mat-table [dataSource]="dataSource" [trackBy]="trackByFn">
+
+            <!-- Numberic Column -->
+            <ng-container matColumnDef="numberic">
+                <mat-header-cell *matHeaderCellDef> STT </mat-header-cell>
+                <mat-cell *matCellDef="let element;index as index"> {{index}} </mat-cell>
+            </ng-container>
+
+            <!-- User Column -->
+            <ng-container matColumnDef="user">
+                <mat-header-cell *matHeaderCellDef> Học viên </mat-header-cell>
+                <mat-cell *matCellDef="let element" fxLayout="row">
+                    <div>{{element?.user?.name}}</div>
+                    <mat-icon>attach_file</mat-icon>
+                </mat-cell>
+            </ng-container>
+
+            <!-- Sale Column -->
+            <ng-container matColumnDef="sale">
+                <mat-header-cell *matHeaderCellDef> Sale </mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element?.sale}}</mat-cell>
+            </ng-container>
+
+            <!-- Image payment Column -->
+            <ng-container matColumnDef="attendance">
+                <mat-header-cell *matHeaderCellDef> Ảnh chuyển khoản </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <a href="">{{element?.imgPayment}}</a>
+                </mat-cell>
+            </ng-container>
+
+            <!-- Status Column -->
+            <ng-container matColumnDef="status">
+                <mat-header-cell *matHeaderCellDef> Trạng thái </mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element?.status}}</mat-cell>
+            </ng-container>
+
+            <!-- Note Column -->
+            <ng-container matColumnDef="note">
+                <mat-header-cell *matHeaderCellDef> Ghi chú </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button mat-icon-button *ngIf="element.note" color="primary">
+                        <mat-icon>description</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <button class="custom-color" mat-stroked-button color="primary" (click)="openDialogUpdateAlumnus()">Đổi trạng thái</button>
+                    <button class="custom-color" mat-stroked-button color="primary">Chuyển lớp</button>
+                    <button class="custom-color" mat-stroked-button color="primary">
+                        <mat-icon>delete_outline</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>
