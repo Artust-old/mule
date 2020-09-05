@@ -18,20 +18,24 @@
         <button mat-raised-button color="primary">Xác nhận lớp học</button>
     </div>
 
-    <div class="data-table">
+    <div *ngIf="loading" class="loading">
+        <mat-spinner [diameter]="70"></mat-spinner>
+    </div>
+
+    <div *ngIf="!loading" class="data-table">
         <mat-table [dataSource]="dataSource" [trackBy]="trackByFn">
 
             <!-- Numberic Column -->
             <ng-container matColumnDef="numberic">
                 <mat-header-cell *matHeaderCellDef> STT </mat-header-cell>
-                <mat-cell *matCellDef="let element;index as index"> {{index}} </mat-cell>
+                <mat-cell *matCellDef="let element;index as index"> {{index + 1}} </mat-cell>
             </ng-container>
 
             <!-- User Column -->
             <ng-container matColumnDef="user">
                 <mat-header-cell *matHeaderCellDef> Học viên </mat-header-cell>
                 <mat-cell *matCellDef="let element" fxLayout="row">
-                    <div>{{element?.user?.name}}</div>
+                    <div>{{element?.fullName}}</div>
                     <mat-icon>attach_file</mat-icon>
                 </mat-cell>
             </ng-container>
@@ -50,7 +54,7 @@
 
             <!-- Attendance Column -->
             <ng-container matColumnDef="attendance">
-                <mat-header-cell *matHeaderCellDef> Giờ học </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef> Điểm danh </mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <mat-checkbox color="primary" [(ngModel)]="element.attendance"></mat-checkbox>
                 </mat-cell>
@@ -66,8 +70,8 @@
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef> </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <button class="custom-color" mat-stroked-button color="primary" (click)="openDialogUpdateUser()">Đổi trạng thái</button>
-                    <button class="custom-color" mat-stroked-button color="primary" (click)="openDialogChangeClass()">Chuyển lớp</button>
+                    <button class="custom-color" mat-stroked-button color="primary" (click)="openDialogUpdateUser(element)">Đổi trạng thái</button>
+                    <button class="custom-color" mat-stroked-button color="primary" (click)="openDialogChangeClass(element)">Chuyển lớp</button>
                     <button class="custom-color" mat-stroked-button color="primary">
                         <mat-icon>delete_outline</mat-icon>
                     </button>
@@ -79,6 +83,6 @@
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
 
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
     </div>
 </div>

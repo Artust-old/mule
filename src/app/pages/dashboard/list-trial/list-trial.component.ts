@@ -9,6 +9,7 @@ import { MatDatepicker } from '@angular/material/datepicker';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ClassService } from '@common/services/class.service';
 
 export const MY_FORMATS = {
   parse: {
@@ -21,123 +22,6 @@ export const MY_FORMATS = {
     monthYearA11yLabel: 'MMMM YYYY',
   },
 };
-
-const FAKE_DATA = [
-  {
-    code: 'DEA1034',
-    lecturer: {
-      name: 'Harmen Porter',
-      linkFb: 'www.facebook.com/amoniac',
-    },
-    level: {
-      language: 'Tiếng Đức',
-      cetificate: 'A1',
-    },
-    time: {
-      clock: '21h - 23h (DE)',
-      day: 'Thứ 2,3,5',
-    },
-    type: 6,
-    status: 'Chờ đủ người',
-    startDate: new Date().toDateString(),
-    supervisor: 'Nguyễn Vũ Ngọc Diệp',
-  },
-  {
-    code: 'DEA1032',
-    lecturer: {
-      name: 'Harmen Porter',
-      linkFb: 'www.facebook.com/amoniac',
-    },
-    level: {
-      language: 'Tiếng Đức',
-      cetificate: 'A1',
-    },
-    time: {
-      clock: '21h - 23h (DE)',
-      day: 'Thứ 2,3,5',
-    },
-    type: 6,
-    status: 'Học thử',
-    startDate: new Date().toDateString(),
-    supervisor: 'Nguyễn Vũ Ngọc Diệp',
-  },
-  {
-    code: 'DEA1032',
-    lecturer: {
-      name: 'Harmen Porter',
-      linkFb: 'www.facebook.com/amoniac',
-    },
-    level: {
-      language: 'Tiếng Đức',
-      cetificate: 'A1',
-    },
-    time: {
-      clock: '21h - 23h (DE)',
-      day: 'Thứ 2,3,5',
-    },
-    type: 6,
-    status: 'Chờ đủ người',
-    startDate: new Date().toDateString(),
-    supervisor: 'Nguyễn Vũ Ngọc Diệp',
-  },
-  {
-    code: 'DEA1032',
-    lecturer: {
-      name: 'Harmen Porter',
-      linkFb: 'www.facebook.com/amoniac',
-    },
-    level: {
-      language: 'Tiếng Đức',
-      cetificate: 'A1',
-    },
-    time: {
-      clock: '21h - 23h (DE)',
-      day: 'Thứ 2,3,5',
-    },
-    type: 6,
-    status: 'Học thử',
-    startDate: new Date().toDateString(),
-    supervisor: 'Nguyễn Vũ Ngọc Diệp',
-  },
-  {
-    code: 'DEA1032',
-    lecturer: {
-      name: 'Harmen Porter',
-      linkFb: 'www.facebook.com/amoniac',
-    },
-    level: {
-      language: 'Tiếng Đức',
-      cetificate: 'A1',
-    },
-    time: {
-      clock: '21h - 23h (DE)',
-      day: 'Thứ 2,3,5',
-    },
-    type: 6,
-    status: 'Chờ đủ người',
-    startDate: new Date().toDateString(),
-    supervisor: 'Nguyễn Vũ Ngọc Diệp',
-  },
-  {
-    code: 'DEA1032',
-    lecturer: {
-      name: 'Harmen Porter',
-      linkFb: 'www.facebook.com/amoniac',
-    },
-    level: {
-      language: 'Tiếng Đức',
-      cetificate: 'A1',
-    },
-    time: {
-      clock: '21h - 23h (DE)',
-      day: 'Thứ 2,3,5',
-    },
-    type: 6,
-    status: 'Chờ đủ người',
-    startDate: new Date().toDateString(),
-    supervisor: 'Nguyễn Vũ Ngọc Diệp',
-  },
-];
 
 @Component({
   selector: 'app-list-trial',
@@ -157,17 +41,22 @@ export class ListTrialComponent implements OnInit {
   date = new FormControl(moment());
 
   displayedColumns: string[] = ['code', 'lecturer', 'level', 'time', 'type', 'status', 'startDate', 'supervisor', 'detail'];
-  dataSource = new MatTableDataSource<any>(FAKE_DATA);
+  dataSource = new MatTableDataSource<any>([]);
+  loading = false;
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: false })
+  set paginator(value: MatPaginator) {
+    this.dataSource.paginator = value;
+  }
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private classService: ClassService,
   ) { }
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
+    this.getListClassTrial();
   }
 
   trackByFn(index: number, item: any): any {
@@ -188,8 +77,16 @@ export class ListTrialComponent implements OnInit {
   }
 
   redirectDetail(e): void {
-    console.log(e);
-    this.router.navigate([`${e.code}`], { relativeTo: this.route });
+    this.router.navigate([`${e.classCode}`], { relativeTo: this.route });
+  }
+
+  // Call API
+  getListClassTrial(): void{
+    this.loading = true;
+    this.classService.getListClass().subscribe( rs => {
+      this.dataSource.data = rs.filter( item => item);
+      this.loading = false;
+    });
   }
 
 }

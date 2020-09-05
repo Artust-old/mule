@@ -12,14 +12,16 @@
         <mat-form-field appearance="none" class="search">
             <div fxLayout="row" fxLayoutGap="6px">
                 <mat-icon>search</mat-icon>
-                <input matInput type="text" placeholder="Search">
+                <input matInput placeholder="Search">
             </div>
         </mat-form-field>
 
-        <button *ngIf="login; else logOut" class="btn-login" mat-raised-button color="linear"
+        <button class="btn-login" mat-raised-button color="linear" routerLink="user">Login</button>
+
+        <!-- <button *ngIf="login; else logOut" class="btn-login" mat-raised-button color="linear"
             (click)="handleLogIn()">Login</button>
         <ng-template #logOut>
             <app-user-info [statusLogging]="login" (logOut)="handleLogOut($event)"></app-user-info>
-        </ng-template>
+        </ng-template> -->
     </div>
 </div>

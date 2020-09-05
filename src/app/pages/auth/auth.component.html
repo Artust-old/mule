@@ -1,0 +1,23 @@
+<div [formGroup]="form" class="content">
+    <div class="landing-page" fxLayout="row" fxLayoutAlign="space-evenly">
+        <img class="img-landing" src="assets/imgs/landing-page.jpg" alt="mule-landing">
+        <div fxLayout="column" fxLayoutAlign="space-evenly center">
+            <div fxLayout="column" fxLayoutAlign="space-evenly center" fxFlex>
+                <img class="img-slider" src="assets/imgs/teame-logo.png" alt="teame-logo">
+                <div fxLayout="column" fxLayoutAlign="center center">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Username</mat-label>
+                        <input matInput formControlName="user">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input matInput type="password" formControlName="pass">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxFlex="20">
+                <button class="btn-info" mat-raised-button color="linear" (click)="showForm();login()">Login</button>
+            </div>
+        </div>
+    </div>
+</div>

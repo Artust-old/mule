@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatMenuModule } from '@angular/material/menu';
 import { DialogUpdateClassModule } from './dialog-update-class/dialog-update-class.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -33,6 +34,7 @@ import { DialogUpdateClassModule } from './dialog-update-class/dialog-update-cla
     MatIconModule,
     MatPaginatorModule,
     MatMenuModule,
+    MatProgressSpinnerModule,
 
     DialogUpdateClassModule,
   ],

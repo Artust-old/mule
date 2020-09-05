@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogUpdateUserTrialComponent } from '../dialog-update-user-trial/dialog-update-user-trial.component';
 import { DialogChangeClassTrialComponent } from '../dialog-change-class-trial/dialog-change-class-trial.component';
+import { AlumnusService } from '@common/services/alumnus.service';
 
 const FAKE_DATA = [
   {
@@ -71,22 +72,35 @@ const FAKE_DATA = [
 export class DetailClassTrialComponent implements OnInit {
 
   displayedColumns: string[] = ['numberic', 'user', 'sale', 'status', 'attendance', 'adder', 'actions'];
-  dataSource = new MatTableDataSource<any>(FAKE_DATA);
+  dataSource = new MatTableDataSource<any>();
+  loading = false;
 
   paramRoute: string;
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  // @ViewChild(MatPaginator, { static: true })
+  // set paginator(value: MatPaginator) {
+  //   this.dataSource.paginator = value;
+  // }
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
+    private alumnusService: AlumnusService,
   ) {
     this.paramRoute = this.route.snapshot.paramMap.get('code');
   }
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
+    this.callAPI();
+  }
+
+  callAPI(): void {
+    this.loading = true;
+    this.alumnusService.getListAlumnus().subscribe( rs => {
+      this.dataSource.data = rs;
+      this.loading = false;
+    });
   }
 
   handleBack(): void {
@@ -97,29 +111,30 @@ export class DetailClassTrialComponent implements OnInit {
     return item;
   }
 
-  openDialogUpdateUser(): void {
+  openDialogUpdateUser(alumnus): void {
     const dialogUpdateUserTrialRef = this.dialog.open(DialogUpdateUserTrialComponent, {
       maxWidth: '1000px',
       autoFocus: false,
       restoreFocus: false,
-      data: {}
+      data: alumnus,
     });
 
     dialogUpdateUserTrialRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      this.callAPI();
+      // alumnus = result;
     });
   }
 
-  openDialogChangeClass(): void {
+  openDialogChangeClass(alumnus): void {
     const dialogChangeClassTrialRef = this.dialog.open(DialogChangeClassTrialComponent, {
       maxWidth: '1000px',
       autoFocus: false,
       restoreFocus: false,
-      data: {}
+      data: alumnus,
     });
 
     dialogChangeClassTrialRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      this.callAPI();
     });
   }
 

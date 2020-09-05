@@ -1,33 +1,33 @@
-<h1 mat-dialog-title>CHỈNH SỬA THÔNG TIN LỚP HỌC {{data.code}}</h1>
+<h1 mat-dialog-title>CHỈNH SỬA THÔNG TIN LỚP HỌC {{data?.classCode}}</h1>
 <div mat-dialog-content>
-    <div fxLayout="row wrap">
+    <div fxLayout="row wrap" [formGroup]="form">
         <div class="status-current" fxLayout="row wrap" fxFlex="100">
             <div fxFlex="25" fxLayout="row" fxFlexOffset="10" fxLayoutAlign=" center">
-                Ngôn ngữ : {{data.level.language}}
+                Ngôn ngữ : {{data?.language}}
             </div>
             <div fxFlex="25" fxLayout="row" fxLayoutAlign=" center">
-                Trình độ : {{data.level.certificate}}
+                Trình độ : {{data?.level}}
             </div>
             <div fxFlex="25" fxLayout="row" fxLayoutAlign=" center">
-                Thị trường : {{data.local}}
+                Thị trường : {{data?.local}}
             </div>
         </div>
 
         <div class="status-current" fxLayout="row wrap" fxFlex="100">
             <div fxFlex="25" fxLayout="row" fxFlexOffset="10" fxLayoutAlign=" center">
-                Số lượng học viên : {{data.popular}}
+                Số lượng học viên : {{data?.popular}}
             </div>
             <div fxFlex="25" fxLayout="row" fxLayoutAlign=" center">
-                Lộ trình : {{data.schedule}}
+                Lộ trình : {{data?.schedule}}
             </div>
         </div>
 
         <div class="note" fxFlex="60" fxLayout="row" fxFlexOffset="10" fxLayoutAlign=" center">
             <div class="text-field">Giáo viên</div>
             <mat-form-field appearance="none" class="search filter">
-                <select matNativeControl>
-                    <option value="all">{{data.lecturer.name}}</option>
-                    <option value="volvo">Chờ thanh toán</option>
+                <select matNativeControl formControlName="teacher">
+                    <option>-----</option>
+                    <option *ngFor="let lecturer of lecturers" [value]="lecturer.id">{{lecturer?.fullName}}</option>
                 </select>
             </mat-form-field>
         </div>
@@ -35,9 +35,9 @@
         <div class="note" fxFlex="60" fxLayout="row" fxFlexOffset="10" fxLayoutAlign=" center">
             <div class="text-field">Phụ trách</div>
             <mat-form-field appearance="none" class="search filter">
-                <select matNativeControl>
-                    <option value="all">{{data.supervisor}}</option>
-                    <option value="volvo">Chờ thanh toán</option>
+                <select matNativeControl formControlName="sale">
+                    <option>-----</option>
+                    <option *ngFor="let sale of sales" [value]="sale.id">{{sale?.fullName}}</option>
                 </select>
             </mat-form-field>
         </div>
@@ -46,7 +46,7 @@
             <div class="text-field">Giờ học (DE)</div>
             <div fxLayout="row" fxLayoutGap="12px" fxLayoutAlign=" center">
                 <mat-form-field>
-                    <input matInput>
+                    <input matInput formControlName="time">
                 </mat-form-field>
                 <div>-</div>
                 <mat-form-field>
@@ -59,13 +59,6 @@
         <div fxLayout="row" fxFlexOffset="10" fxFlex="80" fxLayoutAlign=" center">
             <div class="text-field">Ngày học</div>
             <div class="choose-date" fxFlex fxLayout="row" fxLayoutAlign=" center">
-                <!-- <div class="first-child" matRipple>Thứ 2</div>
-                <div matRipple>Thứ 3</div>
-                <div matRipple>Thứ 4</div>
-                <div matRipple>Thứ 5</div>
-                <div matRipple>Thứ 6</div>
-                <div matRipple>Thứ 7</div>
-                <div class="last-child" matRipple>CN</div> -->
                 <div *ngFor="let day of week; let first = first; let last = last;"
                     [ngClass]="{'first-child': first, 'last-child': last, 'checked': day.checked}"
                     (click)="chooseTimeTable(day)">
@@ -77,7 +70,7 @@
         <div class="note" fxLayout="row" fxFlexOffset="10" fxFlex="80" fxLayoutAlign=" center">
             <div class="text-field">Học phí thực tế</div>
             <mat-form-field appearance="none" class="search text-input">
-                <input matInput type="text" placeholder="Fee">
+                <input matInput type="text" placeholder="Fee" formControlName="pricing">
             </mat-form-field>
             <mat-form-field appearance="none" class="search currency">
                 <select matNativeControl>
@@ -100,7 +93,7 @@
         </div>
     </div>
 </div>
-<div mat-dialog-actions fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="12px">
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="12px" [formGroup]="form">
     <button mat-stroked-button color="primary" mat-dialog-close>Huỷ</button>
-    <button mat-raised-button color="primary" mat-dialog-close>Cập nhật</button>
+    <button mat-raised-button color="primary" (click)="submit()" [disabled]="!form.valid">Cập nhật</button>
 </div>

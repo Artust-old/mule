@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogUpdateAlumnusComponent } from '../dialog-update-alumnus/dialog-update-alumnus.component';
+import { AlumnusService } from '@common/services/alumnus.service';
 
 const FAKE_DATA = [
   {
@@ -78,35 +79,49 @@ export class DetailClassComponent implements OnInit {
   paramRoute: string;
 
   displayedColumns: string[] = ['numberic', 'user', 'sale', 'status', 'attendance', 'note', 'actions'];
-  dataSource = new MatTableDataSource<any>(FAKE_DATA);
+  dataSource = new MatTableDataSource<any>();
+  loading = false;
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true })
+  set paginator(value: MatPaginator) {
+    this.dataSource.paginator = value;
+  }
 
   constructor(
     private router: Router,
     private dialog: MatDialog,
     private route: ActivatedRoute,
+    private alumnusService: AlumnusService,
   ) { }
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
+    // this.dataSource.paginator = this.paginator;
     this.paramRoute = this.route.snapshot.paramMap.get('code');
+    this.getListAlumnus();
   }
 
   handleBack(): void {
     this.router.navigate([`dashboard/classes`]);
   }
 
+  getListAlumnus(): void {
+    this.loading = true;
+    this.alumnusService.getListAlumnus().subscribe(rs => {
+      this.dataSource.data = rs;
+      this.loading = false;
+    });
+  }
+
   trackByFn(index: number, item: any): any {
     return item;
   }
 
-  openDialogUpdateAlumnus(): void {
+  openDialogUpdateAlumnus(alumnus): void {
     const dialogRef = this.dialog.open(DialogUpdateAlumnusComponent, {
       maxWidth: '1000px',
       autoFocus: false,
       restoreFocus: false,
-      data: {}
+      data: alumnus,
     });
 
     dialogRef.afterClosed().subscribe(result => {

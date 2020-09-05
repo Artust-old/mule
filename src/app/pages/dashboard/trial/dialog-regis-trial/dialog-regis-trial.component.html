@@ -1,31 +1,31 @@
 <h1 mat-dialog-title>{{data.title}}</h1>
-<div mat-dialog-content>
+<div mat-dialog-content [formGroup]="form">
     <div class="user-info">
         <h2>Thông Tin Học Viên</h2>
         <div fxLayout="row wrap">
             <div fxFlex="40" fxLayout="row" fxFlexOffset="10" fxLayoutAlign=" center">
                 <div class="text-field">Họ và tên</div>
                 <mat-form-field>
-                    <input matInput>
+                    <input matInput formControlName="fullName" required>
                 </mat-form-field>
             </div>
             <div fxFlex="40" fxLayout="row" fxLayoutAlign=" center">
                 <div class="text-field">Link fb</div>
                 <mat-form-field>
-                    <input matInput>
+                    <input matInput formControlName="facebookLink">
                 </mat-form-field>
             </div>
 
             <div fxFlex="40" fxLayout="row" fxFlexOffset="10" fxLayoutAlign=" center">
                 <div class="text-field">Email</div>
                 <mat-form-field>
-                    <input matInput>
+                    <input matInput formControlName="email" required>
                 </mat-form-field>
             </div>
             <div fxFlex="40" fxLayout="row" fxLayoutAlign=" center">
                 <div class="text-field">Tuổi</div>
                 <mat-form-field>
-                    <input matInput>
+                    <input matInput formControlName="age" required>
                 </mat-form-field>
             </div>
         </div>
@@ -37,26 +37,26 @@
             <div fxFlex="40" fxLayout="row" fxFlexOffset="10" fxLayoutAlign=" center">
                 <div class="text-field">Ngôn ngữ</div>
                 <mat-form-field>
-                    <input matInput>
+                    <input matInput formControlName="language">
                 </mat-form-field>
             </div>
             <div fxFlex="40" fxLayout="row" fxLayoutAlign=" center">
                 <div class="text-field">Trình độ</div>
                 <mat-form-field>
-                    <input matInput>
+                    <input matInput formControlName="level">
                 </mat-form-field>
             </div>
 
             <div fxFlex="40" fxLayout="row" fxFlexOffset="10" fxLayoutAlign=" center">
                 <div class="text-field">Số lượng học viên</div>
                 <mat-form-field>
-                    <input matInput>
+                    <input matInput formControlName="maxSlot">
                 </mat-form-field>
             </div>
             <div fxFlex="40" fxLayout="row" fxLayoutAlign=" center">
                 <div class="text-field">Mã lớp đề xuất</div>
                 <mat-form-field>
-                    <input matInput>
+                    <input matInput formControlName="expectedClass">
                 </mat-form-field>
             </div>
 
@@ -64,7 +64,7 @@
                 <div class="text-field">Giờ học (DE)</div>
                 <div fxLayout="row" fxLayoutGap="12px" fxLayoutAlign=" center">
                     <mat-form-field>
-                        <input matInput>
+                        <input matInput formControlName="expectedTime">
                     </mat-form-field>
                     <div>-</div>
                     <mat-form-field>
@@ -76,15 +76,6 @@
             <div fxLayout="row" fxFlexOffset="10" fxFlex="80" fxLayoutAlign=" center">
                 <div class="text-field">Ngày học</div>
                 <div class="choose-date" fxFlex fxLayout="row" fxLayoutAlign=" center">
-                    <!-- <div matRipple>Thứ 2</div>
-                    <div matRipple>Thứ 3</div>
-                    <div matRipple>Thứ 4</div>
-                    <div matRipple>Thứ 5</div>
-                    <div matRipple>Thứ 6</div>
-                    <div matRipple>Thứ 7</div>
-                    <div class="last-child" matRipple>CN</div> -->
-
-
                     <div *ngFor="let day of week; let first = first; let last = last;"
                         [ngClass]="{'first-child': first, 'last-child': last, 'checked': day.checked}"
                         (click)="chooseTimeTable(day)">
@@ -96,14 +87,18 @@
             <div class="note" fxLayout="row" fxFlexOffset="10" fxFlex="80" fxLayoutAlign=" center">
                 <div class="text-field">Ghi chú</div>
                 <mat-form-field fxFlex appearance="outline">
-                    <textarea matInput></textarea>
+                    <textarea matInput formControlName="note"></textarea>
                 </mat-form-field>
             </div>
 
         </div>
     </div>
 </div>
-<div mat-dialog-actions fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="12px">
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="12px" [formGroup]="form">
     <button mat-stroked-button color="primary" mat-dialog-close>Huỷ</button>
-    <button mat-raised-button color="primary" mat-dialog-close>Đăng ký</button>
+    <button mat-raised-button color="primary" (click)="submit()" [disabled]="!form.valid">Đăng ký</button>
+</div>
+
+<div *ngIf="loading" class="loading-dialog">
+    <mat-spinner [diameter]="70"></mat-spinner>
 </div>

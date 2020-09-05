@@ -12,6 +12,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { HttpClientModule } from '@angular/common/http';
+import { DialogRegisTrialModule } from '../trial/dialog-regis-trial/dialog-regis-trial.module';
 
 
 
@@ -32,6 +35,10 @@ import { MatMenuModule } from '@angular/material/menu';
     MatIconModule,
     MatPaginatorModule,
     MatMenuModule,
+    MatProgressSpinnerModule,
+    HttpClientModule,
+
+    DialogRegisTrialModule,
   ],
   exports: [AlumnusComponent],
 })

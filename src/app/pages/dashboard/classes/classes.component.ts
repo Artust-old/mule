@@ -11,6 +11,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogUpdateClassComponent } from './dialog-update-class/dialog-update-class.component';
+import { ClassService } from '@common/services/class.service';
 
 export const MY_FORMATS = {
   parse: {
@@ -193,17 +194,33 @@ export class ClassesComponent implements OnInit {
   date = new FormControl(moment());
 
   displayedColumns = ['code', 'lecturer', 'level', 'time', 'attendance', 'local', 'schedule', 'status', 'supervisor', 'menu'];
-  dataSource = new MatTableDataSource<any>(FAKE_DATA);
+  dataSource = new MatTableDataSource<any>();
+  loading = false;
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true })
+  set paginator(value: MatPaginator) {
+    this.dataSource.paginator = value;
+  }
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
+    private classService: ClassService,
   ) { }
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
+    // this.dataSource.paginator = this.paginator;
+    this.getListClass();
+  }
+
+  // Call API
+  getListClass(): void{
+    this.loading = true;
+    this.classService.getListClass().subscribe( rs => {
+      this.dataSource.data = rs.filter( item => item);
+      this.loading = false;
+    });
   }
 
   trackByFn(index: number, item: any): any {
@@ -224,7 +241,7 @@ export class ClassesComponent implements OnInit {
   }
 
   redirectDetail(e): void {
-    this.router.navigate([`${e.code}`], { relativeTo: this.route });
+    this.router.navigate([`${e.classCode}`], { relativeTo: this.route });
   }
 
   openDialogUpdateClass(item): void {
@@ -236,7 +253,7 @@ export class ClassesComponent implements OnInit {
     });
 
     dialogUpdateClassRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      this.getListClass();
     });
   }
 }

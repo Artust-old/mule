@@ -1,0 +1,27 @@
+/** @format */
+
+.content {
+  > div {
+    padding: 40px 150px;
+  }
+  
+  .landing-page {
+    // font-size: 2.5rem;
+    font-weight: 700;
+
+    .img-landing {
+      height: 400px;
+    }
+
+    .img-slider {
+      height: 100px;
+    }
+
+    .btn-info {
+      font-size: 1.2rem;
+      height: 50px;
+      border-radius: 25px;
+      padding: 0 25px;
+    }
+  }
+}

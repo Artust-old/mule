@@ -33,21 +33,25 @@
         </div>
     </div>
 
-    <div class="data-table">
+    <div *ngIf="loading" class="loading">
+        <mat-spinner [diameter]="70"></mat-spinner>
+    </div>
+
+    <div *ngIf="!loading" class="data-table">
         <mat-table [dataSource]="dataSource" [trackBy]="trackByFn">
 
             <!-- Code class Column -->
             <ng-container matColumnDef="code">
                 <mat-header-cell *matHeaderCellDef> Mã lớp </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.code}} </mat-cell>
+                <mat-cell *matCellDef="let element"> {{element?.classCode}} </mat-cell>
             </ng-container>
 
             <!-- Lecturer Column -->
             <ng-container matColumnDef="lecturer">
                 <mat-header-cell *matHeaderCellDef> Giáo viên </mat-header-cell>
                 <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
-                    <div>{{element?.lecturer?.name}}</div>
-                    <div class="long-text">{{element?.lecturer?.linkFb}}</div>
+                    <div>{{element?.teacherName}}</div>
+                    <div class="long-text">{{element?.teacherLink}}</div>
                 </mat-cell>
             </ng-container>
 
@@ -55,8 +59,8 @@
             <ng-container matColumnDef="level">
                 <mat-header-cell *matHeaderCellDef> Trình độ </mat-header-cell>
                 <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
-                    <div>{{element?.level?.language}}</div>
-                    <div>{{element?.level?.cetificate}}</div>
+                    <div>{{element?.language}}</div>
+                    <div>{{element?.level}}</div>
                 </mat-cell>
             </ng-container>
 
@@ -64,8 +68,8 @@
             <ng-container matColumnDef="time">
                 <mat-header-cell *matHeaderCellDef> Giờ học </mat-header-cell>
                 <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
-                    <div>{{element?.time?.clock}}</div>
-                    <div>{{element?.time?.day}}</div>
+                    <div>{{element?.time}}</div>
+                    <div>{{element?.weekday}}</div>
                 </mat-cell>
             </ng-container>
 

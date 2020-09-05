@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogRegisTrialComponent } from './dialog-regis-trial/dialog-regis-trial.component';
+import { AlumnusService } from '@common/services/alumnus.service';
 
 const ELEMENT_DATA = [
   {
@@ -186,21 +187,41 @@ const ELEMENT_DATA = [
 export class TrialComponent implements OnInit {
 
   displayedColumns: string[];
-  dataSource = new MatTableDataSource<any>(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<any>([]);
+  loading = false;
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: false })
+  set paginator(value: MatPaginator) {
+    this.dataSource.paginator = value;
+  }
 
   selectedTab = 0;
 
   constructor(
     private dialog: MatDialog,
+    private alumnusService: AlumnusService,
   ) {
     this.displayedColumns = ['id', 'user', 'level', 'time', 'recommend', 'sale', 'note', 'copy'];
-
   }
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
+    this.getListAlumnusTrial();
+  }
+
+  getListAlumnusTrial(): void {
+    this.loading = true;
+    this.alumnusService.getListAlumnus().subscribe(rs => {
+      this.dataSource.data = rs.filter(item => item);
+      this.loading = false;
+    });
+  }
+
+  getMyListAlumnusTrial(saleId: number): void {
+    this.loading = true;
+    this.alumnusService.getAlumnusBySaleId(saleId).subscribe(rs => {
+      this.dataSource.data = rs.filter(item => item);
+      this.loading = false;
+    });
   }
 
   trackByFn(index: number, item: any): any {
@@ -210,12 +231,14 @@ export class TrialComponent implements OnInit {
   displayedColumn(e): void {
     // 'id', 'user', 'level', 'time', 'recommend', 'sale', 'note', 'copy', 'facebook', 'more'
     this.selectedTab = e.index;
-    switch (e.index) {
+    switch (this.selectedTab) {
       case 0:
         this.displayedColumns = ['id', 'user', 'level', 'time', 'recommend', 'sale', 'note', 'copy'];
+        this.getListAlumnusTrial();
         break;
       case 1:
         this.displayedColumns = ['id', 'user', 'level', 'time', 'recommend', 'note', 'facebook', 'more'];
+        this.getMyListAlumnusTrial(1);
         break;
       default:
         this.displayedColumns = [];
@@ -223,27 +246,37 @@ export class TrialComponent implements OnInit {
     }
   }
 
-  openDialogRegisTrial(key): void {
+  openDialogRegisTrial(alumnus, key): void {
     let data = {};
     switch (key) {
       case 'regis':
-        data = { title: 'ĐĂNG KÍ HỌC VIÊN HỌC THỬ' };
+        data = { title: 'ĐĂNG KÍ HỌC VIÊN HỌC THỬ', type: 'add' };
         break;
       case 'update':
-        data = { title: 'CHỈNH SỬA THÔNG TIN HỌC VIÊN' };
+        data = { title: 'CHỈNH SỬA THÔNG TIN HỌC VIÊN', type: 'update', data: alumnus };
         break;
       default:
         break;
     }
     const dialogRef = this.dialog.open(DialogRegisTrialComponent, {
-      maxWidth: '1000px',
+      width: '1000px',
       autoFocus: false,
       restoreFocus: false,
       data,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    dialogRef.afterClosed().subscribe(rs => {
+      console.log(rs);
+      if (rs) {
+        switch (this.selectedTab) {
+          case 0:
+            this.getListAlumnusTrial();
+            break;
+          case 1:
+            this.getMyListAlumnusTrial(1);
+            break;
+        }
+      }
     });
   }
 }

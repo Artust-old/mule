@@ -15,23 +15,27 @@
             <div class="header">Danh sách học viên lớp {{paramRoute}}</div>
             <div class="lecturer">Giáo viên: Nguyễn Kim Phượng - Phụ trách: Phan Hồng Ánh</div>
         </div>
-        <button mat-raised-button color="primary">Xác nhận lớp học</button>
+        <button mat-raised-button color="primary">Kết thúc lớp học</button>
     </div>
 
-    <div class="data-table">
+    <div *ngIf="loading" class="loading">
+        <mat-spinner [diameter]="70"></mat-spinner>
+    </div>
+
+    <div *ngIf="!loading" class="data-table">
         <mat-table [dataSource]="dataSource" [trackBy]="trackByFn">
 
             <!-- Numberic Column -->
             <ng-container matColumnDef="numberic">
                 <mat-header-cell *matHeaderCellDef> STT </mat-header-cell>
-                <mat-cell *matCellDef="let element;index as index"> {{index}} </mat-cell>
+                <mat-cell *matCellDef="let element;index as index"> {{index + 1}} </mat-cell>
             </ng-container>
 
             <!-- User Column -->
             <ng-container matColumnDef="user">
                 <mat-header-cell *matHeaderCellDef> Học viên </mat-header-cell>
                 <mat-cell *matCellDef="let element" fxLayout="row">
-                    <div>{{element?.user?.name}}</div>
+                    <div>{{element?.fullName}}</div>
                     <mat-icon>attach_file</mat-icon>
                 </mat-cell>
             </ng-container>
@@ -70,7 +74,7 @@
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef> </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <button class="custom-color" mat-stroked-button color="primary" (click)="openDialogUpdateAlumnus()">Đổi trạng thái</button>
+                    <button class="custom-color" mat-stroked-button color="primary" (click)="openDialogUpdateAlumnus(element)">Đổi trạng thái</button>
                     <button class="custom-color" mat-stroked-button color="primary">Chuyển lớp</button>
                     <button class="custom-color" mat-stroked-button color="primary">
                         <mat-icon>delete_outline</mat-icon>

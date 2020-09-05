@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogUpdateInfoLecturerComponent } from './dialog-update-info-lecturer/dialog-update-info-lecturer.component';
+import { LecturerService } from '@common/services/lecturer.service';
 
 const FAKE_DATA = [
   {
@@ -78,21 +79,36 @@ export class LecturersComponent implements OnInit {
   // date = new FormControl(moment());
 
   displayedColumns = ['code', 'lecturer', 'language', 'level', 'price', 'email', 'status', 'joinDate', 'menu'];
-  dataSource = new MatTableDataSource<any>(FAKE_DATA);
+  dataSource = new MatTableDataSource<any>();
+  loading = false;
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true })
+  set paginator(value: MatPaginator) {
+    this.dataSource.paginator = value;
+  }
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
+    private lecturerService: LecturerService,
   ) { }
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
+    // this.dataSource.paginator = this.paginator;
+    this.getListLecturer();
   }
 
   trackByFn(index: number, item: any): any {
     return item;
+  }
+
+  getListLecturer(): void {
+    this.loading = true;
+    this.lecturerService.getListLecturer().subscribe(rs => {
+      this.dataSource.data = rs;
+      this.loading = false;
+    });
   }
 
   // redirectDetail(e): void {
@@ -116,7 +132,7 @@ export class LecturersComponent implements OnInit {
         break;
     }
     const dialogUpdateInfoLecturerRef = this.dialog.open(DialogUpdateInfoLecturerComponent, {
-      // maxWidth: '1000px',
+      width: '1000px',
       autoFocus: false,
       restoreFocus: false,
       data,

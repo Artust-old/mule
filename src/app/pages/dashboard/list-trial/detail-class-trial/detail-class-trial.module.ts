@@ -17,6 +17,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { DialogUpdateUserTrialModule } from '../dialog-update-user-trial/dialog-update-user-trial.module';
 import { DialogChangeClassTrialComponent } from '../dialog-change-class-trial/dialog-change-class-trial.component';
 import { DialogChangeClassTrialModule } from '../dialog-change-class-trial/dialog-change-class-trial.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -39,6 +40,7 @@ import { DialogChangeClassTrialModule } from '../dialog-change-class-trial/dialo
     MatPaginatorModule,
     MatCheckboxModule,
     MatRippleModule,
+    MatProgressSpinnerModule,
 
     DialogUpdateUserTrialModule,
     DialogChangeClassTrialModule,
