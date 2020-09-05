@@ -10,7 +10,7 @@ const apiUrl = environment.apiUrl;
 
 const FAKE_DATA = [
   {
-    id: 35,
+    id: 1,
     fullName: 'teach',
     language: 'GERMAN',
     level: 'A1',
@@ -20,7 +20,7 @@ const FAKE_DATA = [
     joinedDate: '30/08/2020'
   },
   {
-    id: 35,
+    id: 2,
     fullName: 'teach',
     language: 'GERMAN',
     level: 'A1',
@@ -30,7 +30,7 @@ const FAKE_DATA = [
     joinedDate: '30/08/2020'
   },
   {
-    id: 35,
+    id: 3,
     fullName: 'teach',
     language: 'GERMAN',
     level: 'A1',
@@ -40,7 +40,7 @@ const FAKE_DATA = [
     joinedDate: '30/08/2020'
   },
   {
-    id: 35,
+    id: 4,
     fullName: 'teach',
     language: 'GERMAN',
     level: 'A1',
@@ -50,7 +50,7 @@ const FAKE_DATA = [
     joinedDate: '30/08/2020'
   },
   {
-    id: 35,
+    id: 5,
     fullName: 'teach',
     language: 'GERMAN',
     level: 'A1',
@@ -60,7 +60,7 @@ const FAKE_DATA = [
     joinedDate: '30/08/2020'
   },
   {
-    id: 35,
+    id: 6,
     fullName: 'teach',
     language: 'GERMAN',
     level: 'A1',
@@ -70,7 +70,7 @@ const FAKE_DATA = [
     joinedDate: '30/08/2020'
   },
   {
-    id: 35,
+    id: 7,
     fullName: 'teach',
     language: 'GERMAN',
     level: 'A1',
@@ -91,64 +91,25 @@ export class LecturerService {
     private logService: LogService,
   ) { }
 
-  getListLecturer(): Observable<LecturerList[]> {
-    // return this.http.get(`${apiUrl}/admin/teachers`).pipe(
-    //   tap(_ => console.log('Call API get list lecturer!')),
-    //   catchError(this.handleError<any>('Error!'))
-    // );
-
-    return of(FAKE_DATA).pipe(
-      map(rs => rs.map(
-        item =>
-          LecturerList.fromResponse(item)
-      ))
-    );
+  getListLecturer(): Observable<any> {
+    return this.http.get(`${apiUrl}/admin/teachers`);
+    // return of(FAKE_DATA);
   }
 
-  getLecturerByLang(langId: number): Observable<LecturerList[]> {
-    return this.http.get(`${apiUrl}/admin/teachers?language=${langId}`).pipe(
-      tap(_ => console.log('Call API get lecturer by language ID!')),
-      catchError(this.handleError<any>('Error!'))
-    );
+  getLecturerByLang(langId: number): Observable<any> {
+    return this.http.get(`${apiUrl}/admin/teachers?language=${langId}`);
   }
 
-  getLecturerById(id: number): Observable<Lecturer> {
-    return this.http.get(`${apiUrl}/admin/teachers/${id}`).pipe(
-      tap(_ => console.log('Call API get lecturer by ID!')),
-      catchError(this.handleError<any>('Error!'))
-    );
+  getLecturerById(id: number): Observable<any> {
+    return this.http.get(`${apiUrl}/admin/teachers/${id}`);
+    // return of(FAKE_DATA.find(e => e.id === id));
   }
 
-  addLecturerById(item: Lecturer): Observable<LecturerCRUDReponse> {
-    return this.http.post(`${apiUrl}/admin/teachers`, item).pipe(
-      tap(_ => console.log('Call API get lecturer by ID!')),
-      catchError(this.handleError<any>('Error!'))
-    );
+  addLecture(item): Observable<any> {
+    return this.http.post(`${apiUrl}/admin/teachers`, item);
   }
 
-  updateLecturerById(item: LecturerDetail): Observable<LecturerCRUDReponse> {
-    return this.http.put(`${apiUrl}/admin/teachers/${item.id}`, item).pipe(
-      tap(_ => console.log('Call API get lecturer by ID!')),
-      catchError(this.handleError<any>('Error!'))
-    );
+  updateLecturer(item): Observable<any> {
+    return this.http.put(`${apiUrl}/admin/teachers/${item.id}`, item);
   }
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
-
-  private log(message: string) {
-    this.logService.add(`LecturerService: ${message}`);
-  }
-
 }

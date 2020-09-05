@@ -16,11 +16,15 @@
             </div>
         </mat-form-field>
 
-        <button class="btn-login" mat-raised-button color="linear" routerLink="user">Login</button>
+        <!-- <button class="btn-login" mat-raised-button color="linear" routerLink="user">Login</button> -->
 
-        <!-- <button *ngIf="login; else logOut" class="btn-login" mat-raised-button color="linear"
-            (click)="handleLogIn()">Login</button>
+        <button *ngIf="login; else logOut" class="btn-login" mat-raised-button color="linear"
+            routerLink="user">Login</button>
+            
         <ng-template #logOut>
+            <button class="btn-login" mat-raised-button color="linear" (click)="handleLogout()" routerLink="user">Log out</button>
+        </ng-template>
+        <!-- <ng-template #logOut>
             <app-user-info [statusLogging]="login" (logOut)="handleLogOut($event)"></app-user-info>
         </ng-template> -->
     </div>

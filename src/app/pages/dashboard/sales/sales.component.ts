@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import * as moment from 'moment';
 import { MatTableDataSource } from '@angular/material/table';
@@ -6,6 +6,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogUpdateSaleComponent } from './dialog-update-sale/dialog-update-sale.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
+import { SaleService } from '@common/services/sale.service';
+import { takeUntil } from 'rxjs/operators';
 
 const FAKE_DATA = [
   {
@@ -25,32 +28,64 @@ const FAKE_DATA = [
   templateUrl: './sales.component.html',
   styleUrls: ['./sales.component.scss']
 })
-export class SalesComponent implements OnInit {
+export class SalesComponent implements OnInit, OnDestroy {
+  protected unsubscribe: Subject<void> = new Subject<void>();
 
   date = new FormControl(moment());
 
   displayedColumns: string[] = ['id', 'sale', 'email', 'phone', 'status', 'joinDate', 'manage'];
-  dataSource = new MatTableDataSource<any>(FAKE_DATA);
+  dataSource = new MatTableDataSource<any>();
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  loading = false;
+
+  @ViewChild(MatPaginator, { static: false })
+  set paginator(value: MatPaginator) {
+    this.dataSource.paginator = value;
+  }
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
+    private saleService: SaleService,
   ) { }
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
+    this.getSaleList();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   trackByFn(index: number, item: any): any {
     return item;
   }
 
+  getSaleList(): void {
+    this.loading = true;
+    this.saleService.getListSale().pipe(takeUntil(this.unsubscribe))
+      .subscribe(
+        rs => {
+          this.dataSource.data = rs;
+          this.loading = false;
+        },
+        err => {
+          console.log(err);
+          this.loading = false;
+        }
+      )
+  }
+
   openDialogUpdateInfoSale(item: any, feature: string): void {
     const data = {
-      lecturer: item,
+      sale: item,
       feature,
       title: '',
     };
@@ -72,7 +107,9 @@ export class SalesComponent implements OnInit {
     });
 
     dialogUpdateInfoSaleRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if (result) {
+        this.getSaleList();
+      }
     });
   }
 

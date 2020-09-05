@@ -12,8 +12,8 @@
 
     <div fxLayout="row" fxLayoutAlign="space-between center">
         <div>
-            <div class="header">Danh sách học viên lớp {{paramRoute}}</div>
-            <div class="lecturer">Giáo viên: Nguyễn Kim Phượng - Phụ trách: Phan Hồng Ánh</div>
+            <div class="header">Danh sách học viên lớp {{classInfo?.classCode}}</div>
+            <div class="lecturer">Giáo viên: {{classInfo?.teacherName}} - Phụ trách: {{classInfo?.sale}}</div>
         </div>
         <button mat-raised-button color="primary">Kết thúc lớp học</button>
     </div>
@@ -57,7 +57,14 @@
             <!-- Status Column -->
             <ng-container matColumnDef="status">
                 <mat-header-cell *matHeaderCellDef> Trạng thái </mat-header-cell>
-                <mat-cell *matCellDef="let element">{{element?.status}}</mat-cell>
+                <mat-cell *matCellDef="let element" [ngSwitch]="element.status">
+                    <div *ngSwitchCase="'WAITING'">Chờ học thử</div>
+                    <div *ngSwitchCase="'TRIAL'">Học thử</div>
+                    <div *ngSwitchCase="'ABORTED'">Không học</div>
+                    <div *ngSwitchCase="'PAYMENT_PENDING'">Chờ học phí</div>
+                    <div *ngSwitchCase="'OFFICIAL'">Học chính thức</div>
+                    <div *ngSwitchCase="'FINISHED'">Đã học xong</div>
+                </mat-cell>
             </ng-container>
 
             <!-- Note Column -->
@@ -74,8 +81,10 @@
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef> </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <button class="custom-color" mat-stroked-button color="primary" (click)="openDialogUpdateAlumnus(element)">Đổi trạng thái</button>
-                    <button class="custom-color" mat-stroked-button color="primary">Chuyển lớp</button>
+                    <button class="custom-color" mat-stroked-button color="primary"
+                        (click)="openDialogUpdateAlumnus(element)">Đổi trạng thái</button>
+                    <button class="custom-color" mat-stroked-button color="primary"
+                        (click)="openDialogChangeClass(element)">Chuyển lớp</button>
                     <button class="custom-color" mat-stroked-button color="primary">
                         <mat-icon>delete_outline</mat-icon>
                     </button>

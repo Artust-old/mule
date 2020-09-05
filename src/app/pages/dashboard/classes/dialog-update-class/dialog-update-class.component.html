@@ -15,7 +15,7 @@
 
         <div class="status-current" fxLayout="row wrap" fxFlex="100">
             <div fxFlex="25" fxLayout="row" fxFlexOffset="10" fxLayoutAlign=" center">
-                Số lượng học viên : {{data?.popular}}
+                Số lượng học viên : {{data?.quantity}}
             </div>
             <div fxFlex="25" fxLayout="row" fxLayoutAlign=" center">
                 Lộ trình : {{data?.schedule}}
@@ -32,7 +32,7 @@
             </mat-form-field>
         </div>
 
-        <div class="note" fxFlex="60" fxLayout="row" fxFlexOffset="10" fxLayoutAlign=" center">
+        <div class="note note-sale" fxFlex="60" fxLayout="row" fxFlexOffset="10" fxLayoutAlign=" center">
             <div class="text-field">Phụ trách</div>
             <mat-form-field appearance="none" class="search filter">
                 <select matNativeControl formControlName="sale">
@@ -45,12 +45,17 @@
         <div fxLayout="row" fxFlexOffset="10" fxLayoutAlign=" center">
             <div class="text-field">Giờ học (DE)</div>
             <div fxLayout="row" fxLayoutGap="12px" fxLayoutAlign=" center">
-                <mat-form-field>
-                    <input matInput formControlName="time">
+                <mat-form-field appearance="outline">
+                    <mat-label>Hour</mat-label>
+                    <mat-select [(value)]="hourSelected" (selectionChange)="changeTimeSelected()">
+                        <mat-option *ngFor="let hour of hours" [value]="hour">{{ hour }}</mat-option>
+                    </mat-select>
                 </mat-form-field>
-                <div>-</div>
-                <mat-form-field>
-                    <input matInput>
+                <mat-form-field appearance="outline">
+                    <mat-label>Minute</mat-label>
+                    <mat-select [(value)]="minuteSelected" (selectionChange)="changeTimeSelected()">
+                        <mat-option *ngFor="let minute of minutes" [value]="minute">{{ minute }}</mat-option>
+                    </mat-select>
                 </mat-form-field>
             </div>
         </div>
@@ -59,10 +64,10 @@
         <div fxLayout="row" fxFlexOffset="10" fxFlex="80" fxLayoutAlign=" center">
             <div class="text-field">Ngày học</div>
             <div class="choose-date" fxFlex fxLayout="row" fxLayoutAlign=" center">
-                <div *ngFor="let day of week; let first = first; let last = last;"
+                <div *ngFor="let day of weekDay; let first = first; let last = last;"
                     [ngClass]="{'first-child': first, 'last-child': last, 'checked': day.checked}"
                     (click)="chooseTimeTable(day)">
-                    {{day.value}}
+                    {{day.show}}
                 </div>
             </div>
         </div>
@@ -95,5 +100,5 @@
 </div>
 <div mat-dialog-actions fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="12px" [formGroup]="form">
     <button mat-stroked-button color="primary" mat-dialog-close>Huỷ</button>
-    <button mat-raised-button color="primary" (click)="submit()" [disabled]="!form.valid">Cập nhật</button>
+    <button mat-raised-button color="primary" (click)="submit()" [disabled]="false">Cập nhật</button>
 </div>

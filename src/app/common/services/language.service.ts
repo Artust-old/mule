@@ -8,6 +8,29 @@ import { Language } from '@common/models/language';
 
 const apiUrl = environment.apiUrl;
 
+const FAKE_DATA = [
+  {
+    id: 1,
+    name: 'GERMAN'
+  },
+  {
+    id: 2,
+    name: 'FRENCH'
+  },
+  {
+    id: 3,
+    name: 'JAPANESE'
+  },
+  {
+    id: 4,
+    name: 'ENGLISH'
+  },
+  {
+    id: 5,
+    name: 'CHINESE'
+  }
+];
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,31 +38,9 @@ export class LanguageService {
 
   constructor(
     private http: HttpClient,
-    private logService: LogService,
   ) { }
 
-  getLanguage(): Observable<Language[]> {
-    return this.http.get(`${apiUrl}/languages`).pipe(
-      tap(_ => console.log('Call API get list language!')),
-      catchError(this.handleError<any>('Error!'))
-    );
-  }
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
-
-  private log(message: string) {
-    this.logService.add(`LecturerService: ${message}`);
+  getLanguage(): Observable<any> {
+    return this.http.get(`${apiUrl}/languages`);
   }
 }

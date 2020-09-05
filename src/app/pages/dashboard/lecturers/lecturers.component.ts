@@ -1,10 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogUpdateInfoLecturerComponent } from './dialog-update-info-lecturer/dialog-update-info-lecturer.component';
 import { LecturerService } from '@common/services/lecturer.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { FormControl, FormGroup } from '@angular/forms';
 
 const FAKE_DATA = [
   {
@@ -74,13 +77,21 @@ const FAKE_DATA = [
   templateUrl: './lecturers.component.html',
   styleUrls: ['./lecturers.component.scss'],
 })
-export class LecturersComponent implements OnInit {
+export class LecturersComponent implements OnInit, OnDestroy {
+  protected unsubscribe: Subject<void> = new Subject<void>();
 
   // date = new FormControl(moment());
 
   displayedColumns = ['code', 'lecturer', 'language', 'level', 'price', 'email', 'status', 'joinDate', 'menu'];
   dataSource = new MatTableDataSource<any>();
   loading = false;
+
+  statusLecturer = [
+    'ACTIVE',
+    'DEACTIVE',
+  ]
+  languages = JSON.parse(localStorage.getItem('listLang'));
+  filterForm: FormGroup;
 
   @ViewChild(MatPaginator, { static: true })
   set paginator(value: MatPaginator) {
@@ -92,11 +103,46 @@ export class LecturersComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private lecturerService: LecturerService,
-  ) { }
+  ) {
+    this.filterForm = new FormGroup({
+      language: new FormControl(''),
+      status: new FormControl(''),
+      keyword: new FormControl(''),
+    })
+  }
 
   ngOnInit(): void {
-    // this.dataSource.paginator = this.paginator;
     this.getListLecturer();
+    console.log(!!this.filterForm.controls['keyword'].value)
+    this.filterForm.valueChanges.pipe(takeUntil(this.unsubscribe))
+      .subscribe(_ => {
+        this.dataSource.filter = JSON.stringify(this.filterForm.value);
+      })
+    this.dataSource.filterPredicate = this.customFilterPredicate();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
+
+  customFilterPredicate(): any {
+    const myFilterPredicate = (data: {}, filter: string): boolean => {
+      let searchTerm = JSON.parse(filter);
+      let globalMatch = Object.entries(data).find(e => e.toString().trim().toLowerCase().indexOf(searchTerm.keyword.toLowerCase().trim()) !== -1);
+      if (!globalMatch) {
+        return;
+      }
+      console.log(!!searchTerm.status, data['status'].toString().trim().toLowerCase(), searchTerm.status.toLowerCase().trim())
+      if (searchTerm.status) {
+        return data['status'].toString().trim().toLowerCase() === searchTerm.status.toLowerCase().trim()
+          && data['language'].toString().trim().toLowerCase().indexOf(searchTerm.language.toLowerCase().trim()) !== -1;
+      } else {
+        console.log(data['language'].toString().trim().toLowerCase().indexOf(searchTerm.language.toLowerCase().trim()) !== -1)
+        return data['language'].toString().trim().toLowerCase().indexOf(searchTerm.language.toLowerCase().trim()) !== -1;
+      }
+    }
+    return myFilterPredicate;
   }
 
   trackByFn(index: number, item: any): any {
@@ -105,10 +151,21 @@ export class LecturersComponent implements OnInit {
 
   getListLecturer(): void {
     this.loading = true;
-    this.lecturerService.getListLecturer().subscribe(rs => {
-      this.dataSource.data = rs;
-      this.loading = false;
-    });
+    this.lecturerService.getListLecturer().pipe(takeUntil(this.unsubscribe))
+      .subscribe(
+        rs => {
+          this.dataSource.data = rs.map(e => {
+            e.priceLevel = e.price_level;
+            delete e.price_level;
+            return e;
+          });
+          this.loading = false;
+        },
+        err => {
+          console.log(err);
+          this.loading = false;
+        }
+      );
   }
 
   // redirectDetail(e): void {
@@ -132,7 +189,7 @@ export class LecturersComponent implements OnInit {
         break;
     }
     const dialogUpdateInfoLecturerRef = this.dialog.open(DialogUpdateInfoLecturerComponent, {
-      width: '1000px',
+      maxWidth: '1000px',
       autoFocus: false,
       restoreFocus: false,
       data,
@@ -140,6 +197,9 @@ export class LecturersComponent implements OnInit {
 
     dialogUpdateInfoLecturerRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      if (result) {
+        this.getListLecturer();
+      }
     });
   }
 }
