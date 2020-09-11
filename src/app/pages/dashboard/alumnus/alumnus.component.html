@@ -11,160 +11,175 @@
 
             <!-- TAB FIRST -->
             <mat-tab label=" Tất cả học viên ">
-                <mat-table *ngIf="selectedTab === 0" [dataSource]="dataSource" [trackBy]="trackByFn" class="table-form">
 
-                    <!-- ID Column -->
-                    <ng-container matColumnDef="id">
-                        <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
-                    </ng-container>
+                <div *ngIf="loading; else tab1" class="loading-tab" fxLayout="row" fxLayoutAlign="center center">
+                    <mat-spinner [diameter]="70"></mat-spinner>
+                </div>
 
-                    <!-- User Column -->
-                    <ng-container matColumnDef="user">
-                        <mat-header-cell *matHeaderCellDef> Học viên </mat-header-cell>
-                        <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
-                            <div>{{element?.user?.name}}</div>
-                        </mat-cell>
-                    </ng-container>
+                <ng-template #tab1>
+                    <mat-table *ngIf="selectedTab === 0" [dataSource]="dataSource" [trackBy]="trackByFn"
+                        class="table-form">
 
-                    <!-- Level Column -->
-                    <ng-container matColumnDef="level">
-                        <mat-header-cell *matHeaderCellDef> Trình độ </mat-header-cell>
-                        <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
-                            <div>{{element?.level?.language}} - {{element?.level?.cetificate}}</div>
-                        </mat-cell>
-                    </ng-container>
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="id">
+                            <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+                        </ng-container>
 
-                    <!-- Class Column -->
-                    <ng-container matColumnDef="class">
-                        <mat-header-cell *matHeaderCellDef> Lớp hiện tại </mat-header-cell>
-                        <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
-                            {{element?.class}}
-                        </mat-cell>
-                    </ng-container>
+                        <!-- User Column -->
+                        <ng-container matColumnDef="user">
+                            <mat-header-cell *matHeaderCellDef> Học viên </mat-header-cell>
+                            <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                                <div>{{element?.fullName}}</div>
+                            </mat-cell>
+                        </ng-container>
 
-                    <!-- Email Column -->
-                    <ng-container matColumnDef="email">
-                        <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
-                        <mat-cell *matCellDef="let element">
-                            <div class="long-text">{{element?.email}}</div>
-                        </mat-cell>
-                    </ng-container>
+                        <!-- Level Column -->
+                        <ng-container matColumnDef="level">
+                            <mat-header-cell *matHeaderCellDef> Trình độ </mat-header-cell>
+                            <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                                <div>{{element?.level}} - {{element?.language}}</div>
+                            </mat-cell>
+                        </ng-container>
 
-                    <!-- Status Column -->
-                    <ng-container matColumnDef="status">
-                        <mat-header-cell *matHeaderCellDef> Trạng thái </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element?.status}} </mat-cell>
-                    </ng-container>
+                        <!-- Class Column -->
+                        <ng-container matColumnDef="class">
+                            <mat-header-cell *matHeaderCellDef> Lớp hiện tại </mat-header-cell>
+                            <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                                {{element?.classCode}}
+                            </mat-cell>
+                        </ng-container>
 
-                    <!-- Supervisor Column -->
-                    <ng-container matColumnDef="supervisor">
-                        <mat-header-cell *matHeaderCellDef> Phụ trách </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element?.supervisor}} </mat-cell>
-                    </ng-container>
+                        <!-- Email Column -->
+                        <ng-container matColumnDef="email">
+                            <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+                            <mat-cell *matCellDef="let element">
+                                <div class="long-text">{{element?.email}}</div>
+                            </mat-cell>
+                        </ng-container>
 
-                    <!-- Date join Column -->
-                    <ng-container matColumnDef="dateJoin">
-                        <mat-header-cell *matHeaderCellDef> Ngày tham gia </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element?.dateJoin}} </mat-cell>
-                    </ng-container>
+                        <!-- Status Column -->
+                        <ng-container matColumnDef="status">
+                            <mat-header-cell *matHeaderCellDef> Trạng thái </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element?.status}} </mat-cell>
+                        </ng-container>
 
-                    <!-- Manage Column -->
-                    <ng-container matColumnDef="manage">
-                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                        <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center center">
-                            <button mat-icon-button [matMenuTriggerFor]="menu">
-                                <mat-icon>more_horiz</mat-icon>
-                            </button>
-                            <mat-menu #menu="matMenu">
-                                <button mat-menu-item>Chỉnh sửa</button>
-                                <button mat-menu-item>Copy link FB</button>
-                                <button mat-menu-item>Activity log</button>
-                            </mat-menu>
-                        </mat-cell>
-                    </ng-container>
+                        <!-- Supervisor Column -->
+                        <ng-container matColumnDef="supervisor">
+                            <mat-header-cell *matHeaderCellDef> Phụ trách </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element?.supervisor}} </mat-cell>
+                        </ng-container>
 
-                    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                </mat-table>
+                        <!-- Date join Column -->
+                        <ng-container matColumnDef="dateJoin">
+                            <mat-header-cell *matHeaderCellDef> Ngày tham gia </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element?.joinedDate}} </mat-cell>
+                        </ng-container>
 
-                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                        <!-- Manage Column -->
+                        <ng-container matColumnDef="manage">
+                            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                            <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center center">
+                                <button mat-icon-button [matMenuTriggerFor]="menu">
+                                    <mat-icon>more_horiz</mat-icon>
+                                </button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item (click)="openDialogRegisTrial(element)">Chỉnh sửa</button>
+                                    <button mat-menu-item>Copy link FB</button>
+                                    <button mat-menu-item>Activity log</button>
+                                </mat-menu>
+                            </mat-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    </mat-table>
+                    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                </ng-template>
+
             </mat-tab>
             <!-- END TAB FIRST -->
 
             <!-- TAB LAST -->
             <mat-tab label=" Học viên của tôi ">
-                <mat-table *ngIf="selectedTab === 1" [dataSource]="dataSource" [trackBy]="trackByFn" class="table-form">
+                <div *ngIf="loading; else tab2" class="loading-tab" fxLayout="row" fxLayoutAlign="center center">
+                    <mat-spinner [diameter]="70"></mat-spinner>
+                </div>
+                <ng-template #tab2>
+                    <mat-table *ngIf="selectedTab === 1" [dataSource]="dataSource" [trackBy]="trackByFn"
+                        class="table-form">
 
-                    <!-- ID Column -->
-                    <ng-container matColumnDef="id">
-                        <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
-                    </ng-container>
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="id">
+                            <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element?.id}} </mat-cell>
+                        </ng-container>
 
-                    <!-- User Column -->
-                    <ng-container matColumnDef="user">
-                        <mat-header-cell *matHeaderCellDef> Học viên </mat-header-cell>
-                        <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
-                            <div>{{element?.user?.name}}</div>
-                        </mat-cell>
-                    </ng-container>
+                        <!-- User Column -->
+                        <ng-container matColumnDef="user">
+                            <mat-header-cell *matHeaderCellDef> Học viên </mat-header-cell>
+                            <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                                <div>{{element?.fullName}}</div>
+                            </mat-cell>
+                        </ng-container>
 
-                    <!-- Level Column -->
-                    <ng-container matColumnDef="level">
-                        <mat-header-cell *matHeaderCellDef> Trình độ </mat-header-cell>
-                        <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
-                            <div>{{element?.level?.language}} - {{element?.level?.cetificate}}</div>
-                        </mat-cell>
-                    </ng-container>
+                        <!-- Level Column -->
+                        <ng-container matColumnDef="level">
+                            <mat-header-cell *matHeaderCellDef> Trình độ </mat-header-cell>
+                            <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                                <div>{{element?.level}} - {{element?.language}}</div>
+                            </mat-cell>
+                        </ng-container>
 
-                    <!-- Class Column -->
-                    <ng-container matColumnDef="class">
-                        <mat-header-cell *matHeaderCellDef> Lớp hiện tại </mat-header-cell>
-                        <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
-                            {{element?.class}}
-                        </mat-cell>
-                    </ng-container>
+                        <!-- Class Column -->
+                        <ng-container matColumnDef="class">
+                            <mat-header-cell *matHeaderCellDef> Lớp hiện tại </mat-header-cell>
+                            <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                                {{element?.classCode}}
+                            </mat-cell>
+                        </ng-container>
 
-                    <!-- Email Column -->
-                    <ng-container matColumnDef="email">
-                        <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
-                        <mat-cell *matCellDef="let element">
-                            <div class="long-text">{{element?.email}}</div>
-                        </mat-cell>
-                    </ng-container>
+                        <!-- Email Column -->
+                        <ng-container matColumnDef="email">
+                            <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+                            <mat-cell *matCellDef="let element">
+                                <div class="long-text">{{element?.email}}</div>
+                            </mat-cell>
+                        </ng-container>
 
-                    <!-- Status Column -->
-                    <ng-container matColumnDef="status">
-                        <mat-header-cell *matHeaderCellDef> Trạng thái </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element?.status}} </mat-cell>
-                    </ng-container>
+                        <!-- Status Column -->
+                        <ng-container matColumnDef="status">
+                            <mat-header-cell *matHeaderCellDef> Trạng thái </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element?.status}} </mat-cell>
+                        </ng-container>
 
-                    <!-- Date join Column -->
-                    <ng-container matColumnDef="dateJoin">
-                        <mat-header-cell *matHeaderCellDef> Ngày tham gia </mat-header-cell>
-                        <mat-cell *matCellDef="let element"> {{element?.dateJoin}} </mat-cell>
-                    </ng-container>
+                        <!-- Date join Column -->
+                        <ng-container matColumnDef="dateJoin">
+                            <mat-header-cell *matHeaderCellDef> Ngày tham gia </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element?.joinedDate}} </mat-cell>
+                        </ng-container>
 
-                    <!-- Manage Column -->
-                    <ng-container matColumnDef="manage">
-                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                        <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center center">
-                            <button mat-icon-button [matMenuTriggerFor]="menu">
-                                <mat-icon>more_horiz</mat-icon>
-                            </button>
-                            <mat-menu #menu="matMenu">
-                                <button mat-menu-item>Chỉnh sửa</button>
-                                <button mat-menu-item>Copy link FB</button>
-                            </mat-menu>
-                        </mat-cell>
-                    </ng-container>
+                        <!-- Manage Column -->
+                        <ng-container matColumnDef="manage">
+                            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                            <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center center">
+                                <button mat-icon-button [matMenuTriggerFor]="menu">
+                                    <mat-icon>more_horiz</mat-icon>
+                                </button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item (click)="openDialogRegisTrial(element)">Chỉnh sửa</button>
+                                    <button mat-menu-item>Copy link FB</button>
+                                </mat-menu>
+                            </mat-cell>
+                        </ng-container>
 
-                    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                </mat-table>
+                        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    </mat-table>
 
-                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                    <mat-paginator #paginator [pageIndex]="0" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"
+                        showFirstLastButtons></mat-paginator>
+                </ng-template>
             </mat-tab>
             <!-- END TAB LAST -->
 

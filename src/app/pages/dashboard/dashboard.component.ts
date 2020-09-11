@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private router: Router,
   ) {
-    this.currentRoute = this.router.url.split('/').pop();
+    this.currentRoute = this.router.url.split('/')[2];
     this.selectedItem = this.menuItem.find(item => item.route === this.currentRoute);
     this.selectedItem.checked = true;
   }

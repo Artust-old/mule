@@ -17,6 +17,10 @@
   .tabs {
     position: relative;
 
+    .loading-tab {
+      height: calc(100vh - 142px);
+    }
+
     .search {
       // color: #848f99;
       padding-left: 12px;

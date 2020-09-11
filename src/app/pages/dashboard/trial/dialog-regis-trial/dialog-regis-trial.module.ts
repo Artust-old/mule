@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRippleModule } from '@angular/material/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -28,6 +29,7 @@ import { MatRippleModule } from '@angular/material/core';
     MatButtonModule,
     MatButtonToggleModule,
     MatRippleModule,
+    MatProgressSpinnerModule,
   ],
   entryComponents: [DialogRegisTrialComponent],
 })

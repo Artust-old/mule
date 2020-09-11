@@ -15,6 +15,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRippleModule } from '@angular/material/core';
 import { DialogUpdateAlumnusModule } from '../dialog-update-alumnus/dialog-update-alumnus.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -37,6 +38,7 @@ import { DialogUpdateAlumnusModule } from '../dialog-update-alumnus/dialog-updat
     MatPaginatorModule,
     MatCheckboxModule,
     MatRippleModule,
+    MatProgressSpinnerModule,
 
     DialogUpdateAlumnusModule,
   ]

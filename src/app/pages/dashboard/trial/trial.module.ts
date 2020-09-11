@@ -13,6 +13,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatMenuModule } from '@angular/material/menu';
 import { TrialComponent } from './trial.component';
 import { DialogRegisTrialModule } from './dialog-regis-trial/dialog-regis-trial.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -33,6 +34,7 @@ import { DialogRegisTrialModule } from './dialog-regis-trial/dialog-regis-trial.
     MatIconModule,
     MatPaginatorModule,
     MatMenuModule,
+    MatProgressSpinnerModule,
 
     DialogRegisTrialModule,
   ]
