@@ -68,7 +68,7 @@ export class AlumnusComponent implements OnInit, OnDestroy {
   ) {
     this.currentUser = this.authenticateService.currentUserValue;
     this.saleId = +JSON.parse(localStorage.getItem('listSale')).find(e => e.email === this.currentUser.email)?.id;
-    this.displayedColumns = ['id', 'user', 'level', 'class', 'email', 'status', 'supervisor', 'dateJoin', 'manage'];
+    this.displayedColumns = ['id', 'user', 'level', 'class', 'email', 'status', 'sale', 'dateJoin', 'manage'];
     this.filterForm = new FormGroup({
       status: new FormControl(''),
       language: new FormControl(''),
@@ -119,9 +119,9 @@ export class AlumnusComponent implements OnInit, OnDestroy {
       );
   }
 
-  getListAlumnusBySaleId(saleId = this.saleId) {
+  getListAlumnusBySaleId(userId = this.currentUser.id) {
     this.loading = true;
-    this.alumnusService.getAlumnusBySaleId(saleId).pipe(takeUntil(this.unsubscribe))
+    this.alumnusService.getAlumnusBySaleId(userId).pipe(takeUntil(this.unsubscribe))
       .subscribe(
         rs => {
           this.dataSource.data = rs;
@@ -144,7 +144,7 @@ export class AlumnusComponent implements OnInit, OnDestroy {
     this.selectedTab = e.index;
     switch (e.index) {
       case 0:
-        this.displayedColumns = ['id', 'user', 'level', 'class', 'email', 'status', 'supervisor', 'dateJoin', 'manage'];
+        this.displayedColumns = ['id', 'user', 'level', 'class', 'email', 'status', 'sale', 'dateJoin', 'manage'];
         this.getListAlumnus();
         break;
       case 1:
@@ -158,7 +158,7 @@ export class AlumnusComponent implements OnInit, OnDestroy {
   }
 
   openDialogRegisTrial(alumnus): void {
-    const data = { title: 'CHỈNH SỬA THÔNG TIN HỌC VIÊN', data: alumnus };
+    const data = { title: 'CHỈNH SỬA THÔNG TIN HỌC VIÊN', type:'update', data: alumnus };
     const dialogRef = this.dialog.open(DialogRegisTrialComponent, {
       width: '1000px',
       autoFocus: false,
@@ -174,7 +174,7 @@ export class AlumnusComponent implements OnInit, OnDestroy {
             this.getListAlumnus();
             break;
           case 1:
-            this.getListAlumnusBySaleId(1);
+            this.getListAlumnusBySaleId(this.currentUser.id);
             break;
         }
       }

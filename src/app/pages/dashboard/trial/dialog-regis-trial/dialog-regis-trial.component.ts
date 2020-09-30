@@ -174,7 +174,6 @@ export class DialogRegisTrialComponent implements OnInit {
       },
       err => {
         this.loading = false;
-        console.log('This info alumnus: ', this.form.value);
         console.log('This error: ', err);
       }
     );
