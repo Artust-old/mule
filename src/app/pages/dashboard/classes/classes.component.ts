@@ -170,12 +170,23 @@ export class ClassesComponent implements OnInit, OnDestroy {
     this.router.navigate([`${e.id}`], { relativeTo: this.route });
   }
 
-  openDialogUpdateClass(item): void {
+  openDialogUpdateClass(item, type): void {
+    let data = {};
+    switch (type) {
+      case 'add':
+        data = { title: 'TẠO MÃ LỚP MỚI', type: 'add' };
+        break;
+      case 'update':
+        data = { title: `CHỈNH SỬA THÔNG TIN LỚP HỌC ${item.classCode}`, type: 'update', classInfo: item };
+        break;
+      default:
+        break;
+    }
     const dialogUpdateClassRef = this.dialog.open(DialogUpdateClassComponent, {
       maxWidth: '1000px',
       autoFocus: false,
       restoreFocus: false,
-      data: item,
+      data,
     });
 
     dialogUpdateClassRef.afterClosed().subscribe(result => {

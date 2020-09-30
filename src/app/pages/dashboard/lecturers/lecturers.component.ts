@@ -9,69 +9,6 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FormControl, FormGroup } from '@angular/forms';
 
-const FAKE_DATA = [
-  {
-    id: 35,
-    fullName: 'Harmen Porter',
-    language: 'GERMAN',
-    level: 'A1',
-    price_level: 'Normal',
-    email: 'teacher1@gmail.com',
-    status: 'Active',
-    joinedDate: '30/08/2020'
-  },
-  {
-    id: 35,
-    fullName: 'Harmen Porter',
-    language: 'GERMAN',
-    level: 'A1',
-    price_level: 'Special',
-    email: 'teacher1@gmail.com',
-    status: 'Inactive',
-    joinedDate: '30/08/2020'
-  },
-  {
-    id: 35,
-    fullName: 'Harmen Porter',
-    language: 'GERMAN',
-    level: 'A1',
-    price_level: 'NORMAL',
-    email: 'teacher1@gmail.com',
-    status: 'DEACTIVE',
-    joinedDate: '30/08/2020'
-  },
-  {
-    id: 35,
-    fullName: 'Harmen Porter',
-    language: 'GERMAN',
-    level: 'A1',
-    price_level: 'NORMAL',
-    email: 'teacher1@gmail.com',
-    status: 'DEACTIVE',
-    joinedDate: '30/08/2020'
-  },
-  {
-    id: 35,
-    fullName: 'Harmen Porter',
-    language: 'GERMAN',
-    level: 'A1',
-    price_level: 'NORMAL',
-    email: 'teacher1@gmail.com',
-    status: 'DEACTIVE',
-    joinedDate: '30/08/2020'
-  },
-  {
-    id: 35,
-    fullName: 'Harmen Porter',
-    language: 'GERMAN',
-    level: 'A1',
-    price_level: 'NORMAL',
-    email: 'teacher1@gmail.com',
-    status: 'DEACTIVE',
-    joinedDate: '30/08/2020'
-  },
-];
-
 @Component({
   selector: 'app-lecturers',
   templateUrl: './lecturers.component.html',

@@ -89,6 +89,9 @@ export class DetailClassComponent implements OnInit, OnDestroy {
   dataSource = new MatTableDataSource<any>();
   loading = false;
 
+  teacher: any;
+  sale: any;
+
   @ViewChild(MatPaginator, { static: true })
   set paginator(value: MatPaginator) {
     this.dataSource.paginator = value;
@@ -118,12 +121,12 @@ export class DetailClassComponent implements OnInit, OnDestroy {
     this.router.navigate([`dashboard/classes`]);
   }
 
-  getListAlumnus(classCode = this.classInfo.classCode): void {
+  getListAlumnus(classId = this.classInfo.classId): void {
     this.loading = true;
-    this.alumnusService.getListAlumnus().pipe(takeUntil(this.unsubscribe))
+    this.classService.getAlumnusInClass(classId).pipe(takeUntil(this.unsubscribe))
       .subscribe(
         rs => {
-          this.dataSource.data = rs.filter(item => item.classCode === classCode);
+          this.dataSource.data = rs;
           this.loading = false;
         },
         err => {
@@ -139,6 +142,8 @@ export class DetailClassComponent implements OnInit, OnDestroy {
         rs => {
           this.classInfo = rs;
           this.getListAlumnus();
+          this.teacher = JSON.parse(localStorage.getItem('listLecturer')).find(e => e.id === rs.teacher);
+          this.sale = JSON.parse(localStorage.getItem('listSale')).find(e => e.id === rs.sale);
           this.loading = false;
         },
         err => {

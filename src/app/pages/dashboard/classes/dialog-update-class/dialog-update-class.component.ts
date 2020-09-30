@@ -38,6 +38,7 @@ export class DialogUpdateClassComponent implements OnInit, OnDestroy {
   form: FormGroup;
 
   classInfo: any;
+  classDetail: any;
   lecturers = JSON.parse(localStorage.getItem('listLecturer'));
   sales = JSON.parse(localStorage.getItem('listSale'));
 
@@ -53,8 +54,11 @@ export class DialogUpdateClassComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.updateInfo();
-    this.getClassInfo();
+    if (this.data.classInfo) {
+      this.classInfo = this.data.classInfo;
+      this.updateInfo();
+      this.getClassInfo();
+    }
   }
 
   ngOnDestroy(): void {
@@ -74,12 +78,18 @@ export class DialogUpdateClassComponent implements OnInit, OnDestroy {
     });
   }
 
-  updateForm(): FormGroup {
-    return new FormGroup({
-      
-    })
+  updateForm(item): void {
+    const { pricing, teacher, time, weekday, sale } = item;
+    this.form.patchValue({
+      pricing,
+      teacher,
+      time,
+      weekday,
+      sale
+    });
+    this.form.addControl('id', new FormControl(this.classInfo.id));
   }
-  
+
   createArrayHour(): any {
     let a = [];
     for (let i = 0; i < 24; i++) {
@@ -109,12 +119,12 @@ export class DialogUpdateClassComponent implements OnInit, OnDestroy {
 
   updateInfo(): void {
     // Select time
-    const timeStamp = new Date(+this.data.time);
+    const timeStamp = new Date(+this.classInfo.time);
     this.hourSelected = timeStamp.getHours();
     this.minuteSelected = timeStamp.getMinutes();
 
     // Select day
-    this.expectedWeekday = this.data.weekday.split(',').map(e => +e);
+    this.expectedWeekday = this.classInfo.weekday.split(',').map(e => +e);
     this.expectedWeekday.map(e => {
       this.weekDay[e - 2].checked = true
     });
@@ -122,11 +132,11 @@ export class DialogUpdateClassComponent implements OnInit, OnDestroy {
   }
 
   getClassInfo(): void {
-    this.classService.getClassById(this.data.id).pipe(takeUntil(this.unsubscribe))
+    this.classService.getClassById(this.classInfo.id).pipe(takeUntil(this.unsubscribe))
       .subscribe(
         rs => {
-          this.classInfo = rs;
-          console.log(rs);
+          this.classDetail = rs;
+          this.updateForm(rs);
         },
         err => {
           console.log(err);
@@ -135,9 +145,8 @@ export class DialogUpdateClassComponent implements OnInit, OnDestroy {
   }
 
   submit(): void {
-    // console.log(this.form)
     this.loading = true;
-    this.classService.updateClass(this.form.value).subscribe(rs => {
+    this.classService[`${this.data.type}Class`](this.form.value).subscribe(rs => {
       this.loading = false;
       this.dialogRef.close(rs);
     });
