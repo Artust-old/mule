@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -24,6 +25,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatButtonModule,
     MatDialogModule,
     MatSelectModule,
+    MatProgressSpinnerModule,
   ],
   entryComponents: [DialogUpdateSaleComponent],
 })

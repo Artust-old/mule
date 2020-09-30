@@ -16,6 +16,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRippleModule } from '@angular/material/core';
 import { DialogUpdateAlumnusModule } from '../dialog-update-alumnus/dialog-update-alumnus.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DialogChangeClassTrialModule } from '../../list-trial/dialog-change-class-trial/dialog-change-class-trial.module';
 
 
 
@@ -41,6 +42,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatProgressSpinnerModule,
 
     DialogUpdateAlumnusModule,
+    DialogChangeClassTrialModule,
   ]
 })
 export class DetailClassModule { }

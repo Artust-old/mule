@@ -1,0 +1,725 @@
+// Error
+
+{
+    "code": 101,
+    "message": "Email have already existed"
+}
+
+// Sign in
+
+Method: POST
+Uri: localhost:8080/signin
+
+Request:
+
+{
+        "email": "sale@gmail.com",
+        "password": "123456"
+}
+
+Response:
+
+{
+    "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzYWxlQGdtYWlsLmNvbSIsImlhdCI6MTU5ODcxMzEyMCwiZXhwIjoxNTk4Nzk5NTIwfQ.bwrVYVD-wHBfJbjcBEK_Mput1zU86h2AUJpB0V156lXxac1RLv-_eekQis3j71eqeg1n8mkmoCVQPCN5d-aciQ",
+    "tokenType": "Bearer"
+}
+
+// Get List Student
+
+Method: GET
+Uri: localhost:8080/sale/students?id=2
+Note: id is SaleId, field is not required
+
+Response:
+
+[
+    {
+        "id": 41,
+        "fullName": "student",
+        "level": "A1",
+        "classCode": null,
+        "email": "student2@gmail.com",
+        "status": "WAITING",
+        "sale": "Sale",
+        "joinedDate": "30/08/2020"
+    },
+    {
+        "id": 42,
+        "fullName": "student",
+        "level": "A1",
+        "classCode": null,
+        "email": "student3@gmail.com",
+        "status": "WAITING",
+        "sale": "Sale",
+        "joinedDate": "30/08/2020"
+    }
+]
+
+// Get Student
+
+Method: GET
+Uri: localhost:8080/sale/students/{studentId}
+
+REsponse: 
+
+{
+    "id": 2,
+    "email": "student1updated@gmail.com",
+    "fullName": "student1",
+    "facebookLink": "link",
+    "age": 0,
+    "language": 1,
+    "level": 1,
+    "quantity": 4,
+    "expectedTime": "everyday",
+    "expectedWeekday": "Nah Nah nah updated",
+    "expectedClass": 1,
+	"arrangedClass": 1,
+    "note": "none"
+}
+
+// Add Student
+
+Method: POST
+Uri: localhost:8080/sale/students
+
+Request: 
+
+{
+    "email": "student5@gmail.com",
+    "fullName": "student",
+    "facebookLink": "link",
+    "age": 18,
+    "language": 1,
+    "level": 1,
+    "quantity": 4,
+    "expectedTime": "everyday",
+    "expectedWeekday": "Nah Nah nah",
+    "expectedClass": 1,
+    "note": "none"
+}
+
+Response:
+
+{
+    "id": 6,
+    "studentCode": "HS0006",
+    "age": 18,
+    "saleId": 2,
+    "createdDate": "2020-08-29T17:20:28.813+00:00",
+    "modifiedDate": "2020-08-29T17:20:28.840+00:00",
+    "createdBy": 2
+}
+
+// Update Student
+
+Method: PUT
+Uri: localhost:8080/sale/students/{studentId}
+
+Request:
+
+{
+    "email": "student1updated@gmail.com",
+    "fullName": "student1",
+    "facebookLink": "link",
+    "age": 10,
+    "language": 1,
+    "level": 1,
+    "quantity": 4,
+    "expectedTime": "everyday",
+    "expectedWeekday": "Nah Nah nah updated",
+    "expectedClass": 1,
+    "note": "none"
+}
+
+Response:
+
+{
+    "id": 2,
+    "studentCode": "HS0002",
+    "age": 10,
+    "saleId": 1,
+    "createdDate": "2020-08-29T18:07:25.000+00:00",
+    "modifiedDate": "2020-08-29T18:19:13.102+00:00",
+    "createdBy": 2
+}
+
+// Update student status
+
+Method: PUT
+Uri: localhost:8080/sale/students/{studentId}/status
+
+Request:
+
+{
+    "status": "TRIAL",
+    "note": "balabingbalabung"
+}
+
+Response: 
+
+{
+    "id": 6,
+    "studentCode": "HS0006",
+    "age": 18,
+    "saleId": 2,
+    "createdDate": "2020-08-29T18:07:48.000+00:00",
+    "modifiedDate": "2020-08-29T18:07:48.000+00:00",
+    "createdBy": 2
+}
+
+// Update student class
+
+Method: PUT
+Uri: localhost:8080/sale/students/{studentId}/class
+
+Request:
+
+{
+    "arrangedClass": 1,
+    "note": "balabingbalabung"
+}
+
+Response:
+
+{
+    "id": 6,
+    "studentCode": "HS0006",
+    "age": 18,
+    "saleId": 2,
+    "createdDate": "2020-08-29T18:07:48.000+00:00",
+    "modifiedDate": "2020-08-29T18:07:48.000+00:00",
+    "createdBy": 2
+}
+
+// Get Teacher List
+
+Method: GET
+Uri: localhost:8080/admin/teachers?language={languageId}
+Note: language field is optional, can have or not
+
+Response:
+[
+    {
+        "id": 35,
+        "fullName": "teach",
+        "language": "GERMAN",
+        "level": "A1",
+        "price_level": "NORMAL",
+        "email": "teacher1@gmail.com",
+        "status": "DEACTIVE",
+        "joinedDate": "30/08/2020"
+    },
+    {
+        "id": 36,
+        "fullName": "teach",
+        "language": "GERMAN",
+        "level": "A1",
+        "price_level": "NORMAL",
+        "email": "teacher2@gmail.com",
+        "status": "DEACTIVE",
+        "joinedDate": "30/08/2020"
+    }
+]
+
+// Get Teacher
+
+Method: GET
+Uri: localhost:8080/admin/teachers/{teacherId}
+
+Response:
+
+{
+    "id": 1,
+    "email": "teacher1@gmail.com",
+    "fullName": "teach",
+    "facebookLink": "link",
+    "language": 1,
+    "level": 1,
+    "pricing_level": "NORMAL"
+}
+
+// Add Teacher
+
+Method: POST
+Uri: localhost:8080/admin/teachers
+
+Request:
+
+{
+    "email": "teacher6@gmail.com",
+    "fullName": "teach",
+    "facebookLink": "link",
+    "language": 1,
+    "level": 1,
+    "pricing_level":"NORMAL"
+}
+
+Response
+
+{
+    "id": 7,
+    "teacherCode": "GV0007",
+    "pricing_level": "NORMAL",
+    "status": 0,
+    "job": null,
+    "location": null,
+    "university": null,
+    "major": null,
+    "description": null,
+    "teachingStyle": null,
+    "createdDate": "2020-08-29T17:21:44.684+00:00",
+    "modifiedDate": "2020-08-29T17:21:44.688+00:00",
+    "createdBy": 1
+}
+
+// Update teacher
+
+Method: PUT
+Uri: localhost:8080/admin/teachers/{teacherId}
+
+Request:
+
+{
+    "email": "teacher2updated@gmail.com",
+    "fullName": "teach2",
+    "facebookLink": "link",
+    "language": 1,
+    "level": 1,
+    "pricing_level":"SPECIAL"
+}
+
+Response:
+
+{
+    "id": 2,
+    "teacherCode": "GV0002",
+    "pricing_level": "SPECIAL",
+    "status": 0,
+    "job": null,
+    "location": null,
+    "university": null,
+    "major": null,
+    "description": null,
+    "teachingStyle": null,
+    "createdDate": "2020-08-29T18:06:38.000+00:00",
+    "modifiedDate": "2020-08-29T19:07:15.070+00:00",
+    "createdBy": 1
+}
+
+// List Class
+
+Method: GET
+Uri: localhost:8080/admin/classes?status={status}
+Note: Status is optional, could be TRIAL or OFFICAL
+
+Response:
+
+[
+    {
+        "id": 1,
+        "classCode": "CL0001",
+        "teacherName": "teach",
+        "teacherLink": "link",
+        "language": "GERMAN",
+        "level": "A2, A1",
+        "weekday": null,
+        "time": "Everyday",
+        "quantity": "0/1",
+        "status": null,
+        "sale": "Sale"
+    },
+    {
+        "id": 2,
+        "classCode": "CL0002",
+        "teacherName": "teach2",
+        "teacherLink": "link",
+        "language": "GERMAN",
+        "level": "A2, A1",
+        "weekday": null,
+        "time": "Everyday",
+        "quantity": "0/1",
+        "status": null,
+        "sale": "Sale"
+    }
+]
+
+// Get Class
+
+Method: GET
+Uri: localhost:8080/admin/classes/{classId}
+
+Response:
+{
+    "id": 1,
+    "pricing": 1,
+    "teacher": 1,
+    "time": "Everyday",
+    "weekday": null,
+    "sale": 2,
+	"real_price": 1590
+}
+
+// Get List Student In Class
+
+Method: GET
+Uri: localhost:8080/admin/classes/{classId}/students
+
+Response:
+[
+    {
+        "id": 6,
+        "fullName": "student-updated",
+        "sale": "Sale nek",
+        "status": "TRIAL",
+        "createdBy": "Sale nek",
+        "attendance": 1
+    }
+]
+// Add Class
+
+Method: POST
+Uri: localhost:8080/admin/classes
+
+Request:
+
+{
+    "pricing" : 1,
+    "teacher" : 2,
+    "time": "Everyday",
+    "weekday": "All",
+    "sale": 2
+}
+
+Response:
+
+{
+    "id": 7,
+    "classCode": "CL0007",
+    "real_quantity": 0,
+    "price": 1390,
+    "total": 0,
+    "time": "Everyday",
+    "weekday": null,
+    "duration": null,
+    "trialDate": null,
+    "startDate": null,
+    "note": null,
+    "status": null,
+    "createdDate": "2020-08-29T17:19:06.510+00:00",
+    "modifiedDate": "2020-08-29T17:19:06.529+00:00",
+    "createdBy": 1
+}
+
+// Update Class
+
+Method: PUT
+Uri: localhost:8080/admin/classes/{classId}
+
+Request: 
+
+{
+    "pricing" : 1,
+    "teacher" : 2,
+    "time": "Everyday",
+    "weekDay": "All",
+    "sale": 2,
+	"real_price": 1590
+}
+
+Response:
+
+{
+    "id": 2,
+    "classCode": "CL002",
+    "real_quantity": 0,
+    "price": 1390,
+    "total": 0,
+    "time": "Everyday",
+    "weekday": null,
+    "duration": null,
+    "trialDate": null,
+    "startDate": null,
+    "note": null,
+    "status": null,
+    "createdDate": "2020-08-29T16:08:26.000+00:00",
+    "modifiedDate": "2020-08-29T17:11:40.000+00:00",
+    "createdBy": 1
+}
+
+
+// Get Sale List
+
+Method: GET
+Uri: localhost:8080/admin/sales
+
+Response: 
+
+[
+    {
+        "id": 2,
+        "fullName": "Sale",
+        "email": "sale@gmail.com",
+        "phone": null,
+        "status": "ACTIVE",
+        "joinedDate": "23/08/2020"
+    },
+    {
+        "id": 45,
+        "fullName": "Phuong Dom",
+        "email": "sale2@gmail.com",
+        "phone": "123",
+        "status": "ACTIVE",
+        "joinedDate": "30/08/2020"
+    }
+]
+
+// Get sale
+
+Method: GET
+Uri: localhost:8080/admin/sales/{saleId}
+
+Response:
+
+{
+    "id": 16,
+    "email": null,
+    "fullName": "Sale",
+    "facebookLink": "Fb link",
+    "phone": null
+}
+
+// Add Sale
+
+Method: POST
+Uri: localhost:8080/admin/sales
+
+Request: 
+
+{
+    "email": "sale4@gmail.com",
+    "fullName": "Phuong Dom 4",
+    "facebookLink": "link nek",
+    "phone": "123"
+}
+
+// Update Sale
+
+Method: PUT
+Uri: localhost:8080/admin/sales/{saleId}
+
+Request:
+
+{
+    "email": "sale@gmail.com",
+    "fullName": "Sale nek",
+    "facebookLink": "link nek",
+    "phone": "123"
+}
+
+Response: 
+
+{
+    "id": 2,
+    "email": "sale@gmail.com",
+    "password": "$2a$10$4RhHgjPS4RhUJ/xaI.WFsuKupZbGDvfTCwVuaWFc9KY/8nL3l7Oea",
+    "active": 1,
+    "createdDate": "2020-08-23T13:15:54.000+00:00",
+    "modifiedDate": "2020-08-30T11:08:55.011+00:00",
+    "createdBy": 1
+}
+
+Response:
+
+{
+    "id": 47,
+    "email": "sale4@gmail.com",
+    "password": "$2a$10$ZHcxHvjoNNBHGRbwtzjnQOTE4WanCscIKGzbydf3iP6MfNosE3NiG",
+    "active": 1,
+    "createdDate": "2020-08-29T18:58:41.129+00:00",
+    "modifiedDate": "2020-08-29T18:58:41.129+00:00",
+    "createdBy": 1
+}
+
+// Get Booking List
+
+Method: GET
+Uri: localhost:8080/sale/bookings?id={saleId}
+Note: id field is optional
+
+Response:
+
+[
+    {
+        "id": 1,
+        "fullName": "student1",
+        "email": "student1updated@gmail.com",
+        "language": "GERMAN",
+        "level": "A1",
+        "expectedTime": "everyday",
+        "expectedWeekday": "Nah Nah nah updated",
+        "expectedClass": "CL0001",
+        "sale": null,
+        "note": "none"
+    },
+    {
+        "id": 2,
+        "fullName": "student",
+        "email": "student2@gmail.com",
+        "language": "GERMAN",
+        "level": "A1",
+        "expectedTime": "everyday",
+        "expectedWeekday": "Nah Nah nah",
+        "expectedClass": "CL0002",
+        "sale": "Sale nek",
+        "note": "none"
+    }
+]
+
+// Get Language List
+
+Method: GET
+Uri: localhost:8080/languages
+
+Response: 
+[
+    {
+        "id": 1,
+        "name": "GERMAN"
+    },
+    {
+        "id": 2,
+        "name": "FRENCH"
+    },
+    {
+        "id": 3,
+        "name": "JAPANESE"
+    },
+    {
+        "id": 4,
+        "name": "ENGLISH"
+    },
+    {
+        "id": 5,
+        "name": "CHINESE"
+    }
+]
+
+// Get Pricing List
+
+Method: GET
+Uri: localhost:8080/admin/pricings
+
+Response:
+
+[
+    {
+        "id": 1,
+        "language": "GERMAN",
+        "level": "A2, A1",
+        "market": "VIETNAM",
+        "quantity": 1,
+        "road": "STANDARD",
+        "price": "1390 - 1590",
+        "currency": "VND"
+    },
+    {
+        "id": 3,
+        "language": "GERMAN",
+        "level": "A1, A2",
+        "market": null,
+        "quantity": 1,
+        "road": null,
+        "price": "1090 - 1290",
+        "currency": "EUR"
+    }
+]
+
+// Get Pricing 
+
+Method: GET
+Uri: localhost:8080/admin/pricings/{pricingId}
+
+Response:
+
+{
+    "id": 1,
+    "normal_price": 1390,
+    "special_price": 1590,
+    "currency": 1,
+    "quantity": 1,
+    "language": "GERMAN",
+    "level": "A2, A1",
+    "market": "VIETNAM",
+    "road": "STANDARD"
+}
+
+// Update Pricing
+
+Method: PUT
+Uri: localhost:8080/admin/pricings/{pricingId}
+
+Request:
+
+{
+    "normal_price": 1390,
+    "special_price": 1590,
+    "currency": 1
+}
+
+Response:
+
+{
+    "id": 1,
+    "quantity": 1,
+    "normal_price": 1390,
+    "special_price": 1590,
+    "type": "NEW",
+    "market": null,
+    "road": null,
+    "createdDate": null,
+    "modifiedDate": "2020-09-03T17:18:01.533+00:00",
+    "createdBy": 0
+}
+
+// Get Level List
+
+Method: GET 
+Uri: localhost:8080/levels?id={languageId}
+Note: id field is optional
+
+
+Response:
+
+[
+    {
+        "id": 1,
+        "name": "A1"
+    },
+    {
+        "id": 2,
+        "name": "A2"
+    }
+]
+
+// Get Currency List
+
+Method: GET
+Uri: localhost:8080/currencies
+
+Response:
+
+[
+    {
+        "id": 1,
+        "name": "VND",
+        "rate": 1.0
+    },
+    {
+        "id": 2,
+        "name": "EUR",
+        "rate": 27.3
+    }
+]
+
+

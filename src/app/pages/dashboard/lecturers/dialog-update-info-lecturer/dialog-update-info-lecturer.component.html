@@ -1,25 +1,26 @@
-<h1 mat-dialog-title>{{dataReceive.title}}</h1>
-<div mat-dialog-content>
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content [formGroup]="form">
     <div fxLayout="row">
         <div class="text-field" fxLayout="row" fxLayoutAlign=" center">Họ và tên</div>
         <mat-form-field>
-            <input matInput>
+            <input matInput formControlName="fullName">
         </mat-form-field>
     </div>
 
     <div fxLayout="row" fxLayout="row" fxLayoutAlign=" center">
         <div class="text-field">Email</div>
         <mat-form-field>
-            <input matInput>
+            <input matInput formControlName="email">
         </mat-form-field>
     </div>
 
     <div class="note" fxLayout="row" fxLayout="row" fxLayoutAlign=" center">
         <div class="text-field">Ngôn ngữ</div>
         <mat-form-field appearance="none" class="search filter">
-            <select matNativeControl>
-                <option value="all">Tiếng Đức</option>
-                <option value="volvo">Tiếng Anh</option>
+            <select matNativeControl formControlName="language">
+                <option value="">-----</option>
+                <option value="GERMAN">Tiếng Đức</option>
+                <option value="ENGLISH">Tiếng Anh</option>
             </select>
         </mat-form-field>
     </div>
@@ -27,9 +28,10 @@
     <div class="note" fxLayout="row" fxLayout="row" fxLayoutAlign=" center">
         <div class="text-field">Trình độ cao nhất</div>
         <mat-form-field appearance="none" class="search filter">
-            <select matNativeControl>
-                <option value="all">B1</option>
-                <option value="volvo">A1</option>
+            <select matNativeControl formControlName="level">
+                <option value="">-----</option>
+                <option value="A1">A1</option>
+                <option value="A2">A2</option>
             </select>
         </mat-form-field>
     </div>
@@ -37,9 +39,10 @@
     <div class="note" fxLayout="row" fxLayout="row" fxLayoutAlign=" center">
         <div class="text-field">Mức học phí</div>
         <mat-form-field appearance="none" class="search filter">
-            <select matNativeControl [(ngModel)]="data.lecturer.price_level">
-                <option value="Normal">Normal</option>
-                <option value="Special">Special</option>
+            <select matNativeControl formControlName="priceLevel">
+                <option value="">-----</option>
+                <option value="NORMAL">Normal</option>
+                <option value="SPECIAL">Special</option>
             </select>
         </mat-form-field>
     </div>
@@ -47,16 +50,22 @@
     <div class="note last-field" fxLayout="row" fxLayout="row" fxLayoutAlign=" center">
         <div class="text-field">Link facebook</div>
         <mat-form-field appearance="none" class="search text-input" fxFlex>
-            <input matInput>
+            <input matInput formControlName="facebookLink">
         </mat-form-field>
     </div>
 </div>
 <div mat-dialog-actions fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="12px">
     <button mat-stroked-button color="primary" mat-dialog-close>Huỷ</button>
-    <div *ngIf="dataReceive.feature === 'update'">
-        <button mat-raised-button color="primary" mat-dialog-close>Lưu thay đổi</button>
+    <div *ngIf="data.feature === 'update'">
+        <button mat-raised-button color="primary" mat-dialog-close (click)="submit()" [disabled]="!form.valid">Lưu
+            thay đổi</button>
     </div>
-    <div *ngIf="dataReceive.feature === 'add'">
-        <button mat-raised-button color="primary" mat-dialog-close>Thêm giáo viên</button>
+    <div *ngIf="data.feature === 'add'">
+        <button mat-raised-button color="primary" mat-dialog-close (click)="submit()" [disabled]="!form.valid">Thêm
+            giáo viên</button>
     </div>
+</div>
+
+<div *ngIf="loading" class="loading-dialog">
+    <mat-spinner [diameter]="70"></mat-spinner>
 </div>

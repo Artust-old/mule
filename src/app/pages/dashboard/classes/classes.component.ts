@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 import * as moment from 'moment';
 import { Moment } from 'moment';
@@ -12,6 +12,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogUpdateClassComponent } from './dialog-update-class/dialog-update-class.component';
 import { ClassService } from '@common/services/class.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 export const MY_FORMATS = {
   parse: {
@@ -24,156 +26,6 @@ export const MY_FORMATS = {
     monthYearA11yLabel: 'MMMM YYYY',
   },
 };
-
-const FAKE_DATA = [
-  {
-    code: 'DEA1031',
-    lecturer: {
-      name: 'Harmen Porter',
-      linkFb: 'www.facebook.com/natbestboy',
-    },
-    level: {
-      language: 'Tiếng Đức',
-      certificate: 'A1',
-    },
-    time: {
-      clock: '21h - 23h (DE)',
-      day: 'Thứ 2,3,5',
-    },
-    attendance: 4,
-    popular: 6,
-    local: 'Việt Nam',
-    schedule: 'Ôn thi',
-    status: 'Chờ đủ người',
-    supervisor: 'Nguyễn Vũ Ngọc Diệp',
-  },
-  {
-    code: 'DEA1032',
-    lecturer: {
-      name: 'Harmen Porter',
-      linkFb: 'www.facebook.com/natbestboy',
-    },
-    level: {
-      language: 'Tiếng Đức',
-      certificate: 'A1',
-    },
-    time: {
-      clock: '21h - 23h (DE)',
-      day: 'Thứ 2,3,5',
-    },
-    attendance: 4,
-    popular: 6,
-    local: 'Việt Nam',
-    schedule: 'Tiêu chuẩn',
-    status: 'Chính thức',
-    supervisor: 'Nguyễn Vũ Ngọc Diệp',
-  },
-  {
-    code: 'DEA1033',
-    lecturer: {
-      name: 'Harmen Porter',
-      linkFb: 'www.facebook.com/natbestboy',
-    },
-    level: {
-      language: 'Tiếng Đức',
-      certificate: 'A1',
-    },
-    time: {
-      clock: '21h - 23h (DE)',
-      day: 'Thứ 2,3,5',
-    },
-    attendance: 4,
-    popular: 6,
-    local: 'Việt Nam',
-    schedule: 'Tiêu chuẩn',
-    status: 'Chờ đủ người',
-    supervisor: 'Nguyễn Vũ Ngọc Diệp',
-  },
-  {
-    code: 'DEA1032',
-    lecturer: {
-      name: 'Harmen Porter',
-      linkFb: 'www.facebook.com/natbestboy',
-    },
-    level: {
-      language: 'Tiếng Đức',
-      certificate: 'A1',
-    },
-    time: {
-      clock: '21h - 23h (DE)',
-      day: 'Thứ 2,3,5',
-    },
-    attendance: 6,
-    popular: 6,
-    local: 'Việt Nam',
-    schedule: 'Tiêu chuẩn',
-    status: 'Chờ đủ người',
-    supervisor: 'Nguyễn Vũ Ngọc Diệp',
-  },
-  {
-    code: 'DEA1032',
-    lecturer: {
-      name: 'Harmen Porter',
-      linkFb: 'www.facebook.com/natbestboy',
-    },
-    level: {
-      language: 'Việt Nam',
-      certificate: 'A1',
-    },
-    time: {
-      clock: '21h - 23h (DE)',
-      day: 'Thứ 2,3,5',
-    },
-    attendance: 2,
-    popular: 7,
-    local: 'Việt Nam',
-    schedule: 'Tiêu chuẩn',
-    status: 'Huỷ',
-    supervisor: 'Nguyễn Vũ Ngọc Diệp',
-  },
-  {
-    code: 'DEA1032',
-    lecturer: {
-      name: 'Harmen Porter',
-      linkFb: 'www.facebook.com/natbestboy',
-    },
-    level: {
-      language: 'Tiếng Đức',
-      certificate: 'A1',
-    },
-    time: {
-      clock: '21h - 23h (DE)',
-      day: 'Thứ 2,3,5',
-    },
-    attendance: 4,
-    popular: 6,
-    local: 'Việt Nam',
-    schedule: 'Tiêu chuẩn',
-    status: 'Chờ đủ người',
-    supervisor: 'Nguyễn Vũ Ngọc Diệp',
-  },
-  {
-    code: 'DEA1032',
-    lecturer: {
-      name: 'Harmen Porter',
-      linkFb: 'www.facebook.com/natbestboy',
-    },
-    level: {
-      language: 'Tiếng Nhật',
-      certificate: 'A1',
-    },
-    time: {
-      clock: '21h - 23h (DE)',
-      day: 'Thứ 2,3,5',
-    },
-    attendance: 4,
-    popular: 6,
-    local: 'Việt Nam',
-    schedule: 'Tiêu chuẩn',
-    status: 'Chờ đủ người',
-    supervisor: 'Nguyễn Vũ Ngọc Diệp',
-  },
-];
 
 @Component({
   selector: 'app-classes',
@@ -189,15 +41,43 @@ const FAKE_DATA = [
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ],
 })
-export class ClassesComponent implements OnInit {
+export class ClassesComponent implements OnInit, OnDestroy {
+
+  protected unsubscribe: Subject<void> = new Subject<void>();
 
   date = new FormControl(moment());
 
-  displayedColumns = ['code', 'lecturer', 'level', 'time', 'attendance', 'local', 'schedule', 'status', 'supervisor', 'menu'];
+  displayedColumns = ['code', 'lecturer', 'level', 'time', 'attendance', 'local', 'schedule', 'status', 'sale', 'menu'];
   dataSource = new MatTableDataSource<any>();
   loading = false;
 
-  @ViewChild(MatPaginator, { static: true })
+  statusClass = [
+    {
+      value: 'trial',
+      show: 'Học thử',
+    },
+    {
+      value: 'created',
+      show: 'Chờ đủ người',
+    },
+    {
+      value: 'cancelled',
+      show: 'Huỷ',
+    },
+    {
+      value: 'official',
+      show: 'Chính thức',
+    },
+    {
+      value: 'completed',
+      show: 'Đã xong',
+    }
+  ];
+  languages = JSON.parse(localStorage.getItem('listLang'));
+
+  filterForm: FormGroup;
+
+  @ViewChild(MatPaginator, { static: false })
   set paginator(value: MatPaginator) {
     this.dataSource.paginator = value;
   }
@@ -207,20 +87,66 @@ export class ClassesComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private classService: ClassService,
-  ) { }
+  ) {
+    this.filterForm = new FormGroup({
+      language: new FormControl(''),
+      status: new FormControl(''),
+      keyword: new FormControl(''),
+    })
+  }
 
   ngOnInit(): void {
-    // this.dataSource.paginator = this.paginator;
     this.getListClass();
+    this.filterForm.valueChanges.pipe(takeUntil(this.unsubscribe))
+      .subscribe(_ => {
+        this.dataSource.filter = JSON.stringify(this.filterForm.value);
+      })
+    this.dataSource.filterPredicate = this.customFilterPredicate();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
+  }
+
+  customFilterPredicate(): any {
+    const myFilterPredicate = (data: {}, filter: string): boolean => {
+      let searchTerm = JSON.parse(filter);
+      let globalMatch = Object.entries(data).find(e => e.toString().trim().toLowerCase().indexOf(searchTerm.keyword.toLowerCase().trim()) !== -1);
+      if (!globalMatch) {
+        return;
+      }
+      return data['status'].toString().trim().toLowerCase().indexOf(searchTerm.status.toLowerCase().trim()) !== -1 &&
+        data['language'].toString().trim().toLowerCase().indexOf(searchTerm.language.toLowerCase().trim()) !== -1;
+    }
+    return myFilterPredicate;
   }
 
   // Call API
-  getListClass(): void{
+  getListClass(): void {
     this.loading = true;
-    this.classService.getListClass().subscribe( rs => {
-      this.dataSource.data = rs.filter( item => item);
-      this.loading = false;
-    });
+    this.classService.getListClass().pipe(takeUntil(this.unsubscribe))
+      .subscribe(
+        rs => {
+          this.dataSource.data = rs.filter(item => item)
+            .map(e => {
+              if (e.time === 'Everyday') {
+                e.time = new Date().setMinutes(0, 0, 0).toString();
+                e.weekday = '2,3,4,5,6,7,8'
+              }
+              if (e.time === 'MONDAY/TUESDAY') {
+                e.time = new Date().setMinutes(0, 0, 0).toString();
+                e.weekday = '2,3'
+              }
+              return e;
+            });
+          this.loading = false;
+        },
+        err => {
+          console.log(err);
+          this.loading = false;
+        }
+      );
   }
 
   trackByFn(index: number, item: any): any {
@@ -241,7 +167,7 @@ export class ClassesComponent implements OnInit {
   }
 
   redirectDetail(e): void {
-    this.router.navigate([`${e.classCode}`], { relativeTo: this.route });
+    this.router.navigate([`${e.id}`], { relativeTo: this.route });
   }
 
   openDialogUpdateClass(item): void {
@@ -253,7 +179,9 @@ export class ClassesComponent implements OnInit {
     });
 
     dialogUpdateClassRef.afterClosed().subscribe(result => {
-      this.getListClass();
+      if (result) {
+        this.getListClass();
+      }
     });
   }
 }

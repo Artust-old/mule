@@ -11,60 +11,36 @@ const apiUrl = environment.apiUrl;
 const FAKE_DATA = [
   {
     id: 2,
-    fullName: 'Sale',
+    fullName: 'Sale nek',
     email: 'sale@gmail.com',
-    phone: null,
+    phone: '123',
     status: 'ACTIVE',
-    joinedDate: '23/08/2020',
+    joinedDate: '23/08/2020'
   },
   {
-    id: 2,
-    fullName: 'Sale',
-    email: 'sale@gmail.com',
-    phone: null,
+    id: 1,
+    fullName: 'Phuong Dom',
+    email: 'sale2@gmail.com',
+    phone: '123',
     status: 'ACTIVE',
-    joinedDate: '23/08/2020',
+    joinedDate: '30/08/2020'
   },
   {
-    id: 2,
-    fullName: 'Sale',
-    email: 'sale@gmail.com',
-    phone: null,
+    id: 3,
+    fullName: 'Phuong Dom 2',
+    email: 'sale3@gmail.com',
+    phone: '123',
     status: 'ACTIVE',
-    joinedDate: '23/08/2020',
+    joinedDate: '30/08/2020'
   },
   {
-    id: 2,
-    fullName: 'Sale',
-    email: 'sale@gmail.com',
-    phone: null,
+    id: 4,
+    fullName: 'Phuong Dom 4',
+    email: 'admin@gmail.com',
+    phone: '123',
     status: 'ACTIVE',
-    joinedDate: '23/08/2020',
-  },
-  {
-    id: 2,
-    fullName: 'Sale',
-    email: 'sale@gmail.com',
-    phone: null,
-    status: 'ACTIVE',
-    joinedDate: '23/08/2020',
-  },
-  {
-    id: 2,
-    fullName: 'Sale',
-    email: 'sale@gmail.com',
-    phone: null,
-    status: 'ACTIVE',
-    joinedDate: '23/08/2020',
-  },
-  {
-    id: 2,
-    fullName: 'Sale',
-    email: 'sale@gmail.com',
-    phone: null,
-    status: 'ACTIVE',
-    joinedDate: '23/08/2020',
-  },
+    joinedDate: '30/08/2020'
+  }
 ];
 
 @Injectable({
@@ -74,55 +50,23 @@ export class SaleService {
 
   constructor(
     private http: HttpClient,
-    private logService: LogService,
-  ) { }
+   ) { }
 
-  getListSale(): Observable<SaleList[]> {
-    return this.http.get(`${apiUrl}/admin/sales`).pipe(
-      tap(_ => console.log('Call API get list sale!')),
-      catchError(this.handleError<any>('Error!'))
-    );
-
+  getListSale(): Observable<any> {
+    return this.http.get(`${apiUrl}/admin/sales`);
     // return of(FAKE_DATA);
   }
 
-  getSaleById(id: number): Observable<Sale> {
-    return this.http.get(`${apiUrl}/admin/sales/${id}`).pipe(
-      tap(_ => console.log('Call API get sale by ID!')),
-      catchError(this.handleError<any>('Error!'))
-    );
+  getSaleById(id: number): Observable<any> {
+    return this.http.get(`${apiUrl}/admin/sales/${id}`);
   }
 
-  addSaleById(item: Sale): Observable<SaleCRUDReponse> {
-    return this.http.post(`${apiUrl}/admin/sales`, item).pipe(
-      tap(_ => console.log('Call API get sale by ID!')),
-      catchError(this.handleError<any>('Error!'))
-    );
+  addSale(item): Observable<any> {
+    return this.http.post(`${apiUrl}/admin/sales`, item);
   }
 
-  updateSaleById(item: SaleDetail): Observable<SaleCRUDReponse> {
-    return this.http.put(`${apiUrl}/admin/sales/${item.id}`, item).pipe(
-      tap(_ => console.log('Call API get sale by ID!')),
-      catchError(this.handleError<any>('Error!'))
-    );
-  }
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
-
-  private log(message: string) {
-    this.logService.add(`SaleService: ${message}`);
+  updateSale(item): Observable<any> {
+    return this.http.put(`${apiUrl}/admin/sales/${item.id}`, item);
   }
 
 }

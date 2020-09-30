@@ -7,6 +7,7 @@
     <div class="header">Đăng ký học thử</div>
 
     <div class="tabs" fxLayout="row">
+        <!-- TAB GROUP -->
         <mat-tab-group class="tab-content" fxFlex (focusChange)="displayedColumn($event)">
 
             <!-- TAB FIRST -->
@@ -31,7 +32,7 @@
                             <mat-header-cell *matHeaderCellDef> Học viên </mat-header-cell>
                             <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
                                 <div>{{element?.fullName}}</div>
-                                <div>{{element?.email}}</div>
+                                <div class="long-text">{{element?.email}}</div>
                             </mat-cell>
                         </ng-container>
 
@@ -55,10 +56,10 @@
                             </mat-cell>
                         </ng-container>
 
-                        <!-- Recommend Column -->
-                        <ng-container matColumnDef="recommend">
+                        <!-- Class Column -->
+                        <ng-container matColumnDef="class">
                             <mat-header-cell *matHeaderCellDef> Đề xuất </mat-header-cell>
-                            <mat-cell *matCellDef="let element"> {{element?.recommend}} </mat-cell>
+                            <mat-cell *matCellDef="let element"> {{element?.classCode}} </mat-cell>
                         </ng-container>
 
                         <!-- Sale Column -->
@@ -136,10 +137,10 @@
                             </mat-cell>
                         </ng-container>
 
-                        <!-- Recommend Column -->
-                        <ng-container matColumnDef="recommend">
+                        <!-- Class Column -->
+                        <ng-container matColumnDef="class">
                             <mat-header-cell *matHeaderCellDef> Đề xuất </mat-header-cell>
-                            <mat-cell *matCellDef="let element"> {{element?.recommend}} </mat-cell>
+                            <mat-cell *matCellDef="let element"> {{element?.classCode}} </mat-cell>
                         </ng-container>
 
                         <!-- Note Column -->
@@ -151,7 +152,7 @@
                         <!-- Facebook Column -->
                         <ng-container matColumnDef="facebook">
                             <mat-header-cell *matHeaderCellDef> Facebook </mat-header-cell>
-                            <mat-cell *matCellDef="let element"> {{element?.linkFb}} </mat-cell>
+                            <mat-cell *matCellDef="let element"> {{element?.facebookLink}} </mat-cell>
                         </ng-container>
 
                         <!-- More Column -->
@@ -184,7 +185,7 @@
             <mat-form-field appearance="none" class="search">
                 <div fxLayout="row" fxLayoutGap="6px">
                     <mat-icon>search</mat-icon>
-                    <input matInput type="text" placeholder="Search" [disabled]="loading">
+                    <input matInput (keyup)="applyFilter($event)" type="text" placeholder="Search" [disabled]="loading">
                 </div>
             </mat-form-field>
 
@@ -194,7 +195,7 @@
             </button>
 
             <button mat-stroked-button [disabled]="loading" color="primary">Thêm hàng loạt</button>
-            <!-- END TAB -->
         </div>
+        <!-- END TAB -->
     </div>
 </div>

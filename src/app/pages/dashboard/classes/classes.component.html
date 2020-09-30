@@ -9,24 +9,18 @@
     </div>
 
     <div class="filter-bar" fxLayout="row wrap" fxLayoutAlign="space-between center">
-        <div fxLayout="row wrap" fxLayoutGap="12px" fxLayoutAlign=" center">
+        <div fxLayout="row wrap" fxLayoutGap="12px" fxLayoutAlign=" center" [formGroup]="filterForm">
             <mat-form-field appearance="none" class="search filter">
-                <select matNativeControl>
-                    <option value="all">Tất cả ngôn ngữ</option>
-                    <option value="volvo">Volvo</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
+                <select matNativeControl formControlName="language">
+                    <option value="">Tất cả ngôn ngữ</option>
+                    <option *ngFor="let language of languages" [value]="language.name">{{language.name}}</option>
                 </select>
             </mat-form-field>
 
             <mat-form-field appearance="none" class="search filter">
-                <select matNativeControl>
-                    <option value="all">Tất cả trạng thái</option>
-                    <option value="volvo">Volvo</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
+                <select matNativeControl formControlName="status">
+                    <option value="">Tất cả trạng thái</option>
+                    <option *ngFor="let status of statusClass" [value]="status.value">{{status.show}}</option>
                 </select>
             </mat-form-field>
 
@@ -41,7 +35,7 @@
             <mat-form-field appearance="none" class="search">
                 <div fxLayout="row" fxLayoutGap="6px">
                     <mat-icon>search</mat-icon>
-                    <input matInput type="text" placeholder="Search">
+                    <input matInput formControlName="keyword" type="text" placeholder="Search">
                 </div>
             </mat-form-field>
         </div>
@@ -87,8 +81,8 @@
             <ng-container matColumnDef="time">
                 <mat-header-cell *matHeaderCellDef> Giờ học </mat-header-cell>
                 <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
-                    <div>{{element?.time}}</div>
-                    <div>{{element?.weekday}}</div>
+                    <div>{{element?.time | date:'HH:mm'}}</div>
+                    <div>Thứ {{element?.weekday}}</div>
                     <div></div>
                 </mat-cell>
             </ng-container>
@@ -114,13 +108,19 @@
             <!-- Status Column -->
             <ng-container matColumnDef="status">
                 <mat-header-cell *matHeaderCellDef> Trạng thái </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element?.status}} </mat-cell>
+                <mat-cell *matCellDef="let element" [ngSwitch]="element.status">
+                    <div *ngSwitchCase="'TRIAL'">Học thử</div>
+                    <div *ngSwitchCase="'CREATED'">Chờ đủ người</div>
+                    <div *ngSwitchCase="'OFFICIAL'">Chính thức</div>
+                    <div *ngSwitchCase="'CANCELLED'">Huỷ</div>
+                    <div *ngSwitchCase="'COMPLETED'">Đã xong</div>
+                </mat-cell>
             </ng-container>
 
-            <!-- Supervisor Column -->
-            <ng-container matColumnDef="supervisor">
+            <!-- Sale Column -->
+            <ng-container matColumnDef="sale">
                 <mat-header-cell *matHeaderCellDef> Phụ trách </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element?.supervisor}} </mat-cell>
+                <mat-cell *matCellDef="let element"> {{element?.sale}} </mat-cell>
             </ng-container>
 
             <!-- Menu Column -->

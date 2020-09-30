@@ -1,10 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogUpdateAlumnusComponent } from '../dialog-update-alumnus/dialog-update-alumnus.component';
 import { AlumnusService } from '@common/services/alumnus.service';
+import { Subject } from 'rxjs';
+import { ClassService } from '@common/services/class.service';
+import { takeUntil } from 'rxjs/operators';
+import { DialogChangeClassTrialComponent } from '../../list-trial/dialog-change-class-trial/dialog-change-class-trial.component';
 
 const FAKE_DATA = [
   {
@@ -74,9 +78,12 @@ const FAKE_DATA = [
   templateUrl: './detail-class.component.html',
   styleUrls: ['./detail-class.component.scss']
 })
-export class DetailClassComponent implements OnInit {
+export class DetailClassComponent implements OnInit, OnDestroy {
 
-  paramRoute: string;
+  protected unsubscribe: Subject<void> = new Subject<void>();
+
+  classId: number;
+  classInfo: any;
 
   displayedColumns: string[] = ['numberic', 'user', 'sale', 'status', 'attendance', 'note', 'actions'];
   dataSource = new MatTableDataSource<any>();
@@ -92,24 +99,52 @@ export class DetailClassComponent implements OnInit {
     private dialog: MatDialog,
     private route: ActivatedRoute,
     private alumnusService: AlumnusService,
-  ) { }
+    private classService: ClassService,
+  ) {
+    this.classId = +this.route.snapshot.paramMap.get('code');
+  }
 
   ngOnInit(): void {
     // this.dataSource.paginator = this.paginator;
-    this.paramRoute = this.route.snapshot.paramMap.get('code');
-    this.getListAlumnus();
+    this.getInfoClass();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
   handleBack(): void {
     this.router.navigate([`dashboard/classes`]);
   }
 
-  getListAlumnus(): void {
+  getListAlumnus(classCode = this.classInfo.classCode): void {
     this.loading = true;
-    this.alumnusService.getListAlumnus().subscribe(rs => {
-      this.dataSource.data = rs;
-      this.loading = false;
-    });
+    this.alumnusService.getListAlumnus().pipe(takeUntil(this.unsubscribe))
+      .subscribe(
+        rs => {
+          this.dataSource.data = rs.filter(item => item.classCode === classCode);
+          this.loading = false;
+        },
+        err => {
+          console.log(err);
+          this.loading = false;
+        });
+  }
+
+  getInfoClass(): void {
+    this.loading = true;
+    this.classService.getClassById(this.classId).pipe(takeUntil(this.unsubscribe))
+      .subscribe(
+        rs => {
+          this.classInfo = rs;
+          this.getListAlumnus();
+          this.loading = false;
+        },
+        err => {
+          console.log(err);
+          this.loading = false;
+        });
   }
 
   trackByFn(index: number, item: any): any {
@@ -125,7 +160,20 @@ export class DetailClassComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      this.getListAlumnus();
+    });
+  }
+
+  openDialogChangeClass(alumnus): void {
+    const dialogChangeClassTrialRef = this.dialog.open(DialogChangeClassTrialComponent, {
+      maxWidth: '1000px',
+      autoFocus: false,
+      restoreFocus: false,
+      data: alumnus,
+    });
+
+    dialogChangeClassTrialRef.afterClosed().subscribe(result => {
+      this.getListAlumnus();
     });
   }
 }

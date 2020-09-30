@@ -8,16 +8,21 @@
             </div>
             <div class="status-current" fxFlex="60" fxLayout="row" fxFlexOffset="10" fxLayoutAlign=" center">
                 <div class="text-field">Trạng thái hiện tại</div>
-                <div><strong>{{data?.status}}</strong></div>
+                <div [ngSwitch]="data.status">
+                    <div *ngSwitchCase="'WAITING'"><strong>Chờ học thử</strong></div>
+                    <div *ngSwitchCase="'TRIAL'"><strong>Học thử</strong></div>
+                    <div *ngSwitchCase="'ABORTED'"><strong>Không học</strong></div>
+                    <div *ngSwitchCase="'PAYMENT_PENDING'"><strong>Chờ học phí</strong></div>
+                    <div *ngSwitchCase="'OFFICIAL'"><strong>Học chính thức</strong></div>
+                    <div *ngSwitchCase="'FINISHED'"><strong>Đã học xong</strong></div>
+                </div>
             </div>
 
             <div class="note" fxFlex="60" fxLayout="row" fxFlexOffset="10" fxLayoutAlign=" center">
                 <div class="text-field">Cập nhật trạng thái</div>
                 <mat-form-field appearance="none" class="search filter">
                     <select matNativeControl [formControl]="statusSelected" required>
-                        <option value="Không học">Không học</option>
-                        <option value="Đã học xong">Đã học xong</option>
-                        <option value="Học chính thức">Học chính thức</option>
+                        <option *ngFor="let status of statusList" [value]="status.value">{{status?.text}}</option>
                     </select>
                 </mat-form-field>
             </div>
@@ -28,7 +33,7 @@
         <div class="note" fxLayout="row" fxFlexOffset="10" fxFlex="80" fxLayoutAlign=" center">
             <div class="text-field">Ghi chú</div>
             <mat-form-field fxFlex appearance="outline">
-                <textarea matInput></textarea>
+                <textarea matInput [(ngModel)]="alumnusInfo.note"></textarea>
             </mat-form-field>
         </div>
     </div>
