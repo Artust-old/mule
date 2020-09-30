@@ -116,12 +116,12 @@ export class DetailClassTrialComponent implements OnInit, OnDestroy {
    * @param classCode class code
    */
 
-  getListAlumnus(classCode = this.classInfo.classCode): void {
+  getListAlumnus(classId = this.classId): void {
     this.loading = true;
-    this.alumnusService.getListAlumnus().pipe(takeUntil(this.unsubscribe))
+    this.classService.getAlumnusInClass(classId).pipe(takeUntil(this.unsubscribe))
       .subscribe(
         rs => {
-          this.dataSource.data = rs.filter(item => item.classCode === classCode);
+          this.dataSource.data = rs;
           this.loading = false;
         },
         err => {
@@ -142,7 +142,6 @@ export class DetailClassTrialComponent implements OnInit, OnDestroy {
           this.getListAlumnus();
           this.teacher = JSON.parse(localStorage.getItem('listLecturer')).find(e => e.id === rs.teacher);
           this.sale = JSON.parse(localStorage.getItem('listSale')).find(e => e.id === rs.sale);
-          console.log(this.teacher, this.sale);
           this.loading = false;
         },
         err => {
