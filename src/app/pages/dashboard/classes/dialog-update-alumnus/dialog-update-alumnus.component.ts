@@ -14,7 +14,7 @@ export class DialogUpdateAlumnusComponent implements OnInit, OnDestroy {
 
   protected unsubscribe: Subject<void> = new Subject<void>();
 
-  alumnusInfo: any;
+  alumnusInfo: any = {};
   loading = false;
 
   statusSelected: FormControl = new FormControl('', Validators.required);
@@ -36,6 +36,7 @@ export class DialogUpdateAlumnusComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.getAlumnusById();
   }
 
   ngOnDestroy(): void {
@@ -48,7 +49,6 @@ export class DialogUpdateAlumnusComponent implements OnInit, OnDestroy {
       .subscribe(
         rs => {
           this.alumnusInfo = rs;
-          // this.statusSelected.patchValue(rs.status);
         },
         err => {
           console.log(err);

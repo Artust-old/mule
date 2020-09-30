@@ -13,7 +13,7 @@
     <div fxLayout="row" fxLayoutAlign="space-between center">
         <div>
             <div class="header">Danh sách học viên lớp {{classInfo?.classCode}}</div>
-            <div class="lecturer">Giáo viên: {{classInfo?.teacherName}} - Phụ trách: {{classInfo?.sale}}</div>
+            <div class="lecturer">Giáo viên: {{teacher?.fullName}} - Phụ trách: {{sale?.fullName}}</div>
         </div>
         <button mat-raised-button color="primary">Kết thúc lớp học</button>
     </div>

@@ -18,6 +18,12 @@ export class DialogUpdateInfoLecturerComponent implements OnInit, OnDestroy {
 
   loading = false;
 
+  classes: any;
+  languages: any;
+  levels: any;
+
+  langSelected: any;
+
   constructor(
     public dialogRef: MatDialogRef<DialogUpdateInfoLecturerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -28,6 +34,12 @@ export class DialogUpdateInfoLecturerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.classes = JSON.parse(localStorage.getItem('listClass'));
+    this.languages = JSON.parse(localStorage.getItem('listLang'));
+    this.langSelected = this.languages[0]?.id;
+    this.form.controls.language.setValue(this.languages[0]?.id);
+    this.levels = JSON.parse(localStorage.getItem('listLevel')).filter(e => e.language.id === this.form.controls.language.value)
+    this.form.controls.level.setValue(this.levels[0]?.id);
     if (this.data.lecturer) {
       this.updateForm();
     }
@@ -55,17 +67,17 @@ export class DialogUpdateInfoLecturerComponent implements OnInit, OnDestroy {
   }
 
   updateForm(): void {
-    const { id, fullName, email, language, level, priceLevel, facebookLink } = this.data.lecturer;
+    const { fullName, email, language, level, priceLevel, facebookLink } = this.data.lecturer;
     this.form.patchValue({
       fullName,
       email,
-      language,
-      level,
+      language: this.languages.find(e => e.name === language).id,
+      level: this.levels.find(e => e.name === level).id,
       priceLevel,
       facebookLink,
     });
     this.form.addControl('id', new FormControl(this.data.lecturer.id));
-    this.getLecturerInfo(id);
+    this.getLecturerInfo();
   }
 
   getLecturerInfo(id = this.data.lecturer.id): void {
@@ -81,9 +93,18 @@ export class DialogUpdateInfoLecturerComponent implements OnInit, OnDestroy {
       )
   }
 
+  changeLanguage(e): void {
+    this.langSelected = e.value;
+    this.levels = JSON.parse(localStorage.getItem('listLevel')).filter(e => e.language.id === this.langSelected);
+    this.f.level.setValue(this.levels[0]?.id);
+  }
+
   submit(): void {
     this.loading = true;
-    this.lecturerService[`${this.data.feature}Lecturer`](this.form.value).pipe(takeUntil(this.unsubscribe))
+    let dataUpdate = this.form.value;
+    dataUpdate.price_level = dataUpdate.priceLevel;
+    delete dataUpdate.priceLevel;
+    this.lecturerService[`${this.data.feature}Lecturer`](dataUpdate).pipe(takeUntil(this.unsubscribe))
       .subscribe(
         rs => {
           this.loading = false;
@@ -91,7 +112,6 @@ export class DialogUpdateInfoLecturerComponent implements OnInit, OnDestroy {
         },
         err => {
           this.loading = false;
-          console.log('This info lecturer: ', this.form.value);
           console.log('This error: ', err);
         }
       );

@@ -15,8 +15,9 @@ export class DialogChangeClassTrialComponent implements OnInit, OnDestroy {
   protected unsubscribe: Subject<void> = new Subject<void>();
 
   loading = false;
+  currentClass: any;
   classSelected: FormControl;
-  listClass = localStorage.getItem('listClass');
+  listClass = JSON.parse(localStorage.getItem('listClass'));
 
   alumnusInfo: any;
 
@@ -31,6 +32,7 @@ export class DialogChangeClassTrialComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.getAlumnusById();
   }
 
   ngOnDestroy(): void {
@@ -43,7 +45,8 @@ export class DialogChangeClassTrialComponent implements OnInit, OnDestroy {
       .subscribe(
         rs => {
           this.alumnusInfo = rs;
-          this.classSelected.patchValue(rs.arrangedClass);
+          this.currentClass = this.listClass.find(e => e.id === rs.arrangedClass);
+          this.classSelected.patchValue(this.currentClass.id);
         },
         err => {
           console.log(err);

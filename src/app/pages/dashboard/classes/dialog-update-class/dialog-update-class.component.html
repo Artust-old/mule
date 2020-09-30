@@ -1,24 +1,24 @@
-<h1 mat-dialog-title>CHỈNH SỬA THÔNG TIN LỚP HỌC {{data?.classCode}}</h1>
+<h1 mat-dialog-title>{{data.title}}</h1>
 <div mat-dialog-content>
     <div fxLayout="row wrap" [formGroup]="form">
         <div class="status-current" fxLayout="row wrap" fxFlex="100">
             <div fxFlex="25" fxLayout="row" fxFlexOffset="10" fxLayoutAlign=" center">
-                Ngôn ngữ : {{data?.language}}
+                Ngôn ngữ : {{classInfo?.language}}
             </div>
             <div fxFlex="25" fxLayout="row" fxLayoutAlign=" center">
-                Trình độ : {{data?.level}}
+                Trình độ : {{classInfo?.level}}
             </div>
             <div fxFlex="25" fxLayout="row" fxLayoutAlign=" center">
-                Thị trường : {{data?.local}}
+                Thị trường : {{classInfo?.local}}
             </div>
         </div>
 
         <div class="status-current" fxLayout="row wrap" fxFlex="100">
             <div fxFlex="25" fxLayout="row" fxFlexOffset="10" fxLayoutAlign=" center">
-                Số lượng học viên : {{data?.quantity}}
+                Số lượng học viên : {{classInfo?.quantity}}
             </div>
             <div fxFlex="25" fxLayout="row" fxLayoutAlign=" center">
-                Lộ trình : {{data?.schedule}}
+                Lộ trình : {{classInfo?.schedule}}
             </div>
         </div>
 

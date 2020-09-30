@@ -40,7 +40,7 @@
             </mat-form-field>
         </div>
 
-        <button mat-raised-button color="primary">
+        <button mat-raised-button color="primary" disabled>
             <mat-icon>add</mat-icon>
             Thêm lớp học
         </button>
@@ -131,7 +131,7 @@
                         <mat-icon>more_horiz</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="openDialogUpdateClass(element)">Chỉnh sửa</button>
+                        <button mat-menu-item (click)="openDialogUpdateClass(element, 'update')">Chỉnh sửa</button>
                         <button mat-menu-item (click)="redirectDetail(element)">Danh sách</button>
                         <button mat-menu-item>Activity log</button>
                     </mat-menu>
