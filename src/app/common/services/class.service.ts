@@ -8,103 +8,115 @@ import { ClassDetail, Class, ClassCRUDReponse, ClassList } from '@common/models/
 
 const apiUrl = environment.apiUrl;
 
-const FAKE_DATA: ClassList[] = [
+const FAKE_DATA = [
   {
     id: 1,
-    classCode: 'DEA1031',
-    teacherName: 'Harmen Porter',
-    teacherLink: 'www.facebook.com/amoniac',
+    classCode: 'CL0001',
+    teacherName: 'teach',
+    teacherLink: 'link',
     language: 'GERMAN',
-    level: 'A1',
-    weekday: '2,3,5',
-    time: '1600623000000',
-    quantity: '5/6',
-    status: 'OFFICIAL',
-    sale: 'Sale',
-  }, {
+    level: 'A2, A1',
+    weekday: null,
+    time: 'Everyday',
+    quantity: '0/1',
+    status: 'TRIAL',
+    sale: 'Sale'
+  },
+  {
     id: 2,
-    classCode: 'DEA1032',
-    teacherName: 'Harmen Porter',
-    teacherLink: 'www.facebook.com/amoniac',
+    classCode: 'CL0002',
+    teacherName: 'teach2',
+    teacherLink: 'link',
     language: 'GERMAN',
     level: 'A1',
-    weekday: '2,3,5',
-    time: '1600623000000',
-    quantity: '5/6',
-    status: 'TRIAL',
-    sale: 'Sale',
-  }, {
-    id: 3,
-    classCode: 'DEA1033',
-    teacherName: 'Harmen Porter',
-    teacherLink: 'www.facebook.com/amoniac',
-    language: 'GERMAN',
-    level: 'A1',
-    weekday: '2,3,5',
-    time: '1600623000000',
-    quantity: '5/6',
-    status: 'CANCELLED',
-    sale: 'Sale',
-  }, {
-    id: 4,
-    classCode: 'DEA1034',
-    teacherName: 'Harmen Porter',
-    teacherLink: 'www.facebook.com/amoniac',
-    language: 'GERMAN',
-    level: 'A1',
-    weekday: '2,3,5',
-    time: '1600623000000',
-    quantity: '5/6',
-    status: 'COMPLETED',
-    sale: 'Sale',
-  }, {
-    id: 5,
-    classCode: 'DEA1034',
-    teacherName: 'Harmen Porter',
-    teacherLink: 'www.facebook.com/amoniac',
-    language: 'GERMAN',
-    level: 'A1',
-    weekday: '2,3,5',
-    time: '1600623000000',
-    quantity: '5/6',
-    status: 'TRIAL',
-    sale: 'Sales',
-  }, {
-    id: 6,
-    classCode: 'DEA1034',
-    teacherName: 'Harmen Porter',
-    teacherLink: 'www.facebook.com/amoniac',
-    language: 'GERMAN',
-    level: 'A1',
-    weekday: '2,3,5',
-    time: '1600623000000',
-    quantity: '5/6',
+    weekday: null,
+    time: 'Everyday',
+    quantity: '0/1',
     status: 'OFFICIAL',
-    sale: 'Sale',
-  }, {
-    id: 7,
-    classCode: 'DEA1034',
-    teacherName: 'Harmen Porter',
-    teacherLink: 'www.facebook.com/amoniac',
+    sale: 'Sale'
+  },
+  {
+    id: 3,
+    classCode: 'CL0003',
+    teacherName: 'teach2',
+    teacherLink: 'link',
     language: 'GERMAN',
     level: 'A1',
-    weekday: '2,3,5',
-    time: '1600623000000',
-    quantity: '5/6',
-    status: 'CREATED',
-    sale: 'Sale',
+    weekday: '2,4',
+    time: 'Everyday',
+    quantity: '0/1',
+    status: 'OFFICIAL',
+    sale: 'Sale'
+  },
+  {
+    id: 4,
+    classCode: 'CL0002',
+    teacherName: 'teach2',
+    teacherLink: 'link',
+    language: 'GERMAN',
+    level: 'A1',
+    weekday: '5,6',
+    time: 'Everyday',
+    quantity: '0/1',
+    status: 'OFFICIAL',
+    sale: 'Sale'
+  },
+  {
+    id: 5,
+    classCode: 'CL0005',
+    teacherName: 'teach2',
+    teacherLink: 'link',
+    language: 'GERMAN',
+    level: 'A1',
+    weekday: null,
+    time: 'Everyday',
+    quantity: '0/1',
+    status: 'OFFICIAL',
+    sale: 'Sale'
+  },
+  {
+    id: 6,
+    classCode: 'CL0006',
+    teacherName: 'teach2',
+    teacherLink: 'link',
+    language: 'GERMAN',
+    level: 'A1',
+    weekday: null,
+    time: 'Everyday',
+    quantity: '0/1',
+    status: 'OFFICIAL',
+    sale: 'Sale'
   },
 ];
 
-const FAKE_DETAIL = {
+const FAKE_CLASS = {
   id: 1,
-  pricing: 1000,
-  teacherName: 'TheTechies',
-  time: '1600623000000',
-  weekday: '2,3,5',
-  sale: 'Phan Hồng Ánh',
-  classCode: 'DEA1034',
-};
+  pricing: 1,
+  teacher: 1,
+  time: 'Everyday',
+  weekday: null,
+  sale: 2,
+  real_price: 1590
+} 
+
+const FAKE_ALUMNUS = [
+  {
+    id: 1,
+    fullName: 'student',
+    sale: 'Sale nek',
+    status: 'OFFICIAL',
+    createdBy: 'Sale nek',
+    attendance: 0
+  },
+  {
+    id: 6,
+    fullName: 'student-updated',
+    sale: 'Sale nek',
+    status: 'TRIAL',
+    createdBy: 'Sale nek',
+    attendance: 1
+  }
+];
 
 @Injectable({
   providedIn: 'root'
@@ -122,7 +134,12 @@ export class ClassService {
 
   getClassById(id: number): Observable<any> {
     return this.http.get(`${apiUrl}/admin/classes/${id}`);
-    // return of(FAKE_DETAIL);
+    // return of(FAKE_CLASS);
+  }
+
+  getAlumnusInClass(classId: number): Observable<any> {
+    return this.http.get(`${apiUrl}/admin/classes/${classId}/students`);
+    // return of(FAKE_ALUMNUS);
   }
 
   addClass(item): Observable<any> {

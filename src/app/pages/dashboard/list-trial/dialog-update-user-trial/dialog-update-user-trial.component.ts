@@ -14,7 +14,10 @@ export class DialogUpdateUserTrialComponent implements OnInit, OnDestroy {
   protected unsubscribe: Subject<void> = new Subject<void>();
   
   loading = false;
-  alumnusInfo: any;
+  alumnusInfo = {
+    status: '',
+    note: '',
+  };
   
   statusSelected: FormControl = new FormControl('', Validators.required);
   statusList = [
@@ -46,14 +49,19 @@ export class DialogUpdateUserTrialComponent implements OnInit, OnDestroy {
   }
 
   getAlumnusById(id = this.data.id): void {
+    this.loading = true;
     this.alumnusService.getAlumnusById(id).pipe(takeUntil(this.unsubscribe))
       .subscribe(
         rs => {
+          console.log('Result: ', rs)
           this.alumnusInfo = rs;
+          console.log('Alumnus info: ', this.alumnusInfo)
+          this.loading = false;
           // this.statusSelected.patchValue(rs.status);
         },
         err => {
           console.log(err);
+          this.loading = false;
         })
   }
 

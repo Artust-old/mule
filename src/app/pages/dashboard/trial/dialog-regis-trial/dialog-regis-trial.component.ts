@@ -49,7 +49,7 @@ export class DialogRegisTrialComponent implements OnInit {
     this.classes = JSON.parse(localStorage.getItem('listClass'));
     this.languages = JSON.parse(localStorage.getItem('listLang'));
     this.langSelected = this.languages[0]?.id;
-    this.levels = JSON.parse(localStorage.getItem('listLevel')).filter(e => e.language.id === this.langSelected);
+    this.levels = JSON.parse(localStorage.getItem('listLevel')).filter(e => e.id === this.langSelected);
     if (this.data.data) {
       this.detail = this.data.data;
       this.form.addControl('id', new FormControl(this.detail.id));

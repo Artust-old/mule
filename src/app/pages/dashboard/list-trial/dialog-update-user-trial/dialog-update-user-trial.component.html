@@ -22,6 +22,7 @@
                 <div class="text-field">Cập nhật trạng thái</div>
                 <mat-form-field appearance="none" class="search filter">
                     <select matNativeControl [formControl]="statusSelected" required>
+                        <option value="">-----</option>
                         <option *ngFor="let status of statusList" [value]="status.value">{{status?.text}}</option>
                     </select>
                 </mat-form-field>

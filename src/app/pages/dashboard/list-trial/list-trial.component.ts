@@ -59,18 +59,18 @@ export class ListTrialComponent implements OnInit, OnDestroy {
       value: 'created',
       show: 'Chờ đủ người',
     },
-    {
-      value: 'cancelled',
-      show: 'Huỷ',
-    },
-    {
-      value: 'official',
-      show: 'Chính thức',
-    },
-    {
-      value: 'completed',
-      show: 'Đã xong',
-    }
+    // {
+    //   value: 'cancelled',
+    //   show: 'Huỷ',
+    // },
+    // {
+    //   value: 'official',
+    //   show: 'Chính thức',
+    // },
+    // {
+    //   value: 'completed',
+    //   show: 'Đã xong',
+    // }
   ];
   languages = JSON.parse(localStorage.getItem('listLang'));
 

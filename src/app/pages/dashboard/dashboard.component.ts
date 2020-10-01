@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ClassService } from '@common/services/class.service';
+import { CurrencyService } from '@common/services/currency.service';
 import { LanguageService } from '@common/services/language.service';
 import { LecturerService } from '@common/services/lecturer.service';
 import { LevelService } from '@common/services/level.service';
@@ -24,9 +25,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
     { route: 'alumnus', name: 'Học viên', checked: false },
     { route: 'lecturers', name: 'Giáo viên', checked: false },
     { route: 'sales', name: 'Sale', checked: false },
+    { route: 'pricing', name: 'Giá và điều kiện giá', checked: false },
   ];
   selectedItem = this.menuItem[0];
   currentRoute: string;
+
+  loading = true;
 
   constructor(
     private router: Router,
@@ -35,6 +39,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private saleService: SaleService,
     private levelService: LevelService,
     private langService: LanguageService,
+    private currencyService: CurrencyService,
   ) {
     this.router.events.pipe(filter(e => e instanceof NavigationEnd))
       .subscribe((rs: NavigationEnd) => {
@@ -51,6 +56,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.getSaleList();
     this.getLangList();
     this.getLevelList();
+    this.getCurrencyList();
   }
 
   ngOnDestroy(): void {
@@ -99,9 +105,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   getSaleList(): void {
+    // this.loading = false;
     this.saleService.getListSale().pipe(takeUntil(this.unsubscribe))
       .subscribe(
         rs => {
+          this.loading = false;
           const temp = rs.map(item => Object.assign({}, { id: item.id, fullName: item.fullName, email: item.email }));
           localStorage.setItem('listSale', JSON.stringify(temp));
         },
@@ -129,6 +137,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .subscribe(
         rs => {
           localStorage.setItem('listLang', JSON.stringify(rs));
+        },
+        err => {
+          console.log(err);
+        }
+      )
+  }
+
+  getCurrencyList(): void {
+    this.currencyService.getListCurrency().pipe(takeUntil(this.unsubscribe))
+      .subscribe(
+        rs => {
+          localStorage.setItem('listCurrency', JSON.stringify(rs));
         },
         err => {
           console.log(err);
