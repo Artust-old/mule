@@ -140,6 +140,7 @@ export class DetailClassTrialComponent implements OnInit, OnDestroy {
         rs => {
           this.classInfo = rs;
           this.getListAlumnus();
+          console.log(localStorage.getItem('listLecturer'));
           this.teacher = JSON.parse(localStorage.getItem('listLecturer')).find(e => e.id === rs.teacher);
           this.sale = JSON.parse(localStorage.getItem('listSale')).find(e => e.id === rs.sale);
           this.loading = false;
@@ -170,7 +171,8 @@ export class DetailClassTrialComponent implements OnInit, OnDestroy {
     });
 
     dialogUpdateUserTrialRef.afterClosed().subscribe(result => {
-      this.getListAlumnus();
+      if (result)
+        this.getListAlumnus();
     });
   }
 
@@ -183,7 +185,8 @@ export class DetailClassTrialComponent implements OnInit, OnDestroy {
     });
 
     dialogChangeClassTrialRef.afterClosed().subscribe(result => {
-      this.getListAlumnus();
+      if (result)
+        this.getListAlumnus();
     });
   }
 

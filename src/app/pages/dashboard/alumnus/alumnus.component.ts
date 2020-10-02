@@ -67,6 +67,8 @@ export class AlumnusComponent implements OnInit, OnDestroy {
     private authenticateService: AuthenticateService,
   ) {
     this.currentUser = this.authenticateService.currentUserValue;
+    console.log('This is current user: ', this.currentUser);
+    console.log('List sale: ', localStorage.getItem('listSale'));
     this.saleId = +JSON.parse(localStorage.getItem('listSale')).find(e => e.email === this.currentUser.email)?.id;
     this.displayedColumns = ['id', 'user', 'level', 'class', 'email', 'status', 'sale', 'dateJoin', 'manage'];
     this.filterForm = new FormGroup({
@@ -98,7 +100,7 @@ export class AlumnusComponent implements OnInit, OnDestroy {
         return;
       }
       return data['status'].toString().trim().toLowerCase().indexOf(searchTerm.status.toLowerCase().trim()) !== -1;
-        // && data['language'].toString().trim().toLowerCase().indexOf(searchTerm.language.toLowerCase().trim()) !== -1;
+      // && data['language'].toString().trim().toLowerCase().indexOf(searchTerm.language.toLowerCase().trim()) !== -1;
     }
     return myFilterPredicate;
   }

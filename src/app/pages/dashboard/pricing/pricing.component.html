@@ -1,0 +1,99 @@
+<div class="pricing" fxLayout="column">
+    <div class="user" fxLayout="row" fxLayoutAlign="end center">
+        {{email}}
+        <img src="assets/avatar/Morgan Freeman.jpg" class="ava chat">
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div class="header">Các lớp học thử</div>
+        <div fxLayout="row" fxLayoutGap="12px" fxLayoutAlign=" center" [formGroup]="filterForm">
+            <mat-form-field appearance="none" class="search filter">
+                <mat-select matNativeControl formControlName="language" required>
+                    <mat-option value="">Tất cả ngôn ngữ</mat-option>
+                    <mat-option *ngFor="let language of languages" [value]="language">{{language}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="none" class="search filter">
+                <mat-select matNativeControl formControlName="market" required>
+                    <mat-option value="">Tất cả thị trường</mat-option>
+                    <mat-option *ngFor="let market of markets" [value]="market">{{market}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="none" class="search filter">
+                <mat-select matNativeControl formControlName="quantity" required>
+                    <mat-option value="">Tất cả số lượng</mat-option>
+                    <mat-option *ngFor="let quantity of quantities" [value]="quantity">{{quantity}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div *ngIf="loading" class="loading">
+        <mat-spinner [diameter]="70"></mat-spinner>
+    </div>
+
+    <div *ngIf="!loading" class="data-table">
+        <mat-table [dataSource]="dataSource" [trackBy]="trackByFn">
+
+            <!-- Language Column -->
+            <ng-container matColumnDef="language">
+                <mat-header-cell *matHeaderCellDef> Ngôn ngữ </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element?.language}} </mat-cell>
+            </ng-container>
+
+            <!-- Level Column -->
+            <ng-container matColumnDef="level">
+                <mat-header-cell *matHeaderCellDef> Trình độ </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element?.level}} </mat-cell>
+            </ng-container>
+
+            <!-- Market Column -->
+            <ng-container matColumnDef="market">
+                <mat-header-cell *matHeaderCellDef> Thị trường </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element?.market}} </mat-cell>
+            </ng-container>
+
+            <!-- Quantity Column -->
+            <ng-container matColumnDef="quantity">
+                <mat-header-cell *matHeaderCellDef> Số lượng học viên </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element?.quantity}} </mat-cell>
+            </ng-container>
+
+            <!-- Road Column -->
+            <ng-container matColumnDef="road">
+                <mat-header-cell *matHeaderCellDef> Lộ trình </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element?.road}} </mat-cell>
+            </ng-container>
+
+            <!-- Price Column -->
+            <ng-container matColumnDef="price">
+                <mat-header-cell *matHeaderCellDef> Giá/học viên </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element?.price}} </mat-cell>
+            </ng-container>
+
+            <!-- Currency Column -->
+            <ng-container matColumnDef="currency">
+                <mat-header-cell *matHeaderCellDef> Đơn vị </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element?.currency}} </mat-cell>
+            </ng-container>
+
+            <!-- Action Column -->
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element" fxLayout="row" fxLayoutGap="10px">
+                    <button mat-raised-button color="primary">Tạo lớp</button>
+                    <button mat-stroked-button color="primary">Đổi giá</button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+        <button mat-raised-button color="primary">Tạo lớp</button>
+    </div>
+</div>

@@ -22,6 +22,9 @@ import { AlumnusModule } from './alumnus/alumnus.module';
 import { LecturersModule } from './lecturers/lecturers.module';
 import { SalesComponent } from './sales/sales.component';
 import { SalesModule } from './sales/sales.module';
+import { PricingComponent } from './pricing/pricing.component';
+import { PricingModule } from './pricing/pricing.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const routes: Routes = [
   {
@@ -69,6 +72,11 @@ const routes: Routes = [
       {
         path: 'sales',
         component: SalesComponent,
+      },
+      // Pricing
+      {
+        path: 'pricing',
+        component: PricingComponent,
       }
     ]
   }
@@ -83,7 +91,7 @@ const routes: Routes = [
     FlexLayoutModule,
     MatButtonToggleModule,
     MatRippleModule,
-
+    MatProgressSpinnerModule,
 
     TrialModule,
     ListTrialModule,
@@ -93,6 +101,7 @@ const routes: Routes = [
     AlumnusModule,
     LecturersModule,
     SalesModule,
+    PricingModule,
   ],
   exports: [DashboardComponent],
 })
