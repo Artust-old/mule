@@ -53,9 +53,7 @@ export class DialogUpdateUserTrialComponent implements OnInit, OnDestroy {
     this.alumnusService.getAlumnusById(id).pipe(takeUntil(this.unsubscribe))
       .subscribe(
         rs => {
-          console.log('Result: ', rs)
           this.alumnusInfo = rs;
-          console.log('Alumnus info: ', this.alumnusInfo)
           this.loading = false;
           // this.statusSelected.patchValue(rs.status);
         },
@@ -68,7 +66,6 @@ export class DialogUpdateUserTrialComponent implements OnInit, OnDestroy {
   updateStatus(): void {
     this.loading = true;
     this.alumnusInfo.status = this.statusSelected.value;
-    console.log(this.alumnusInfo);
     this.alumnusService.updateAlumnus(this.alumnusInfo).pipe(takeUntil(this.unsubscribe))
       .subscribe(
         rs => {

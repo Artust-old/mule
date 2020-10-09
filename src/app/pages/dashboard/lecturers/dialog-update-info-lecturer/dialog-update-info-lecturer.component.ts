@@ -30,7 +30,6 @@ export class DialogUpdateInfoLecturerComponent implements OnInit, OnDestroy {
     private lecturerService: LecturerService,
   ) {
     this.form = this.createForm();
-    console.log(this.data);
   }
 
   ngOnInit(): void {

@@ -79,7 +79,6 @@ export class DialogUpdateSaleComponent implements OnInit, OnDestroy {
         },
         err => {
           this.loading = false;
-          console.log('This info sale: ', this.form.value);
           console.log('This error: ', err);
         }
       );

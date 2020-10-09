@@ -43,8 +43,6 @@ export class TrialComponent implements OnInit, OnDestroy {
   
   ngOnInit(): void {
     this.currentUser = this.authenticateService.currentUserValue;
-    console.log('This is current user: ', this.currentUser);
-    console.log('List sale: ', localStorage.getItem('listSale'));
     this.saleId = +JSON.parse(localStorage.getItem('listSale')).find(e => e.email === this.currentUser.email)?.id;
     this.getListAlumnusTrial();
   }

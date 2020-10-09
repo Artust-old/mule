@@ -88,7 +88,6 @@ export class PricingComponent implements OnInit, OnDestroy {
       .subscribe(
         rs => {
           this.dataSource.data = rs;
-          console.log('Result API: ', rs);
           this.markets = rs.map(e => e?.market).filter((value, index, self) => {
             return self.indexOf(value) === index && value;
           });

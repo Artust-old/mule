@@ -50,7 +50,6 @@ export class LecturersComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getListLecturer();
-    console.log(!!this.filterForm.controls['keyword'].value)
     this.filterForm.valueChanges.pipe(takeUntil(this.unsubscribe))
       .subscribe(_ => {
         this.dataSource.filter = JSON.stringify(this.filterForm.value);
@@ -70,12 +69,10 @@ export class LecturersComponent implements OnInit, OnDestroy {
       if (!globalMatch) {
         return;
       }
-      console.log(!!searchTerm.status, data['status'].toString().trim().toLowerCase(), searchTerm.status.toLowerCase().trim())
       if (searchTerm.status) {
         return data['status'].toString().trim().toLowerCase() === searchTerm.status.toLowerCase().trim()
           && data['language'].toString().trim().toLowerCase().indexOf(searchTerm.language.toLowerCase().trim()) !== -1;
       } else {
-        console.log(data['language'].toString().trim().toLowerCase().indexOf(searchTerm.language.toLowerCase().trim()) !== -1)
         return data['language'].toString().trim().toLowerCase().indexOf(searchTerm.language.toLowerCase().trim()) !== -1;
       }
     }

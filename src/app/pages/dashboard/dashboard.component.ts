@@ -27,8 +27,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     { route: 'sales', name: 'Sale', checked: false },
     { route: 'pricing', name: 'Giá và điều kiện giá', checked: false },
   ];
-  selectedItem = this.menuItem[0];
   currentRoute: string;
+  selectedItem: any;
 
   loading = true;
 
@@ -41,12 +41,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private langService: LanguageService,
     private currencyService: CurrencyService,
   ) {
+    this.selectedItem = this.menuItem[0];
     this.router.events.pipe(filter(e => e instanceof NavigationEnd))
       .subscribe((rs: NavigationEnd) => {
         this.selectedItem.checked = false;
         this.currentRoute = rs.urlAfterRedirects.split('/')[2];
         this.selectedItem = this.menuItem.find(item => item.route === this.currentRoute);
-        this.selectedItem.checked = true;
+        this.selectedItem ? this.selectedItem.checked = true : null
       })
   }
 
